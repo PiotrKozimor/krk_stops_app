@@ -1,0 +1,1 @@
+protoc -I ../krk-stops-backend-golang/krkstops-grpc/ krk-stops.proto --dart_out=grpc:lib/grpc
