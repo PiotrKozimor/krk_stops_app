@@ -8,7 +8,9 @@ import '../departures.dart';
 class StopsList extends StatelessWidget {
   final KrkStopsClient stub;
   final Completer<List<Stop>> _stops;
-  StopsList(this._stops, this.stub);
+  final List<Stop> savedStops;
+  final void Function(List<Stop>) stopsEditedCallback;
+  StopsList(this._stops, this.stub, this.savedStops, this.stopsEditedCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class StopsList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DeparturesPage(stop, stub)));
+                        builder: (context) => DeparturesPage(stop, stub, savedStops, stopsEditedCallback)));
               },
             ));
           }

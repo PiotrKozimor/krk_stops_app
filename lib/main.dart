@@ -53,7 +53,6 @@ class MyHomePage extends StatefulWidget {
 
   @override
   MyHomePageState createState() => MyHomePageState();
-
 }
 
 class MyHomePageState extends State<MyHomePage> {
@@ -63,6 +62,7 @@ class MyHomePageState extends State<MyHomePage> {
   List<Stop> savedStops = [];
   SharedPreferences prefs;
   List<Container> stopContainers;
+
   final _stops = new Completer<List<Stop>>();
   final channel = ClientChannel('krk-stops.pl',
       port: 8080,
@@ -73,6 +73,13 @@ class MyHomePageState extends State<MyHomePage> {
       this.savedStops = stopsReord;
     });
     saveStops();
+  }
+
+  void savedStopsEditedCallback(List<Stop> stopsReordered) {
+    setState(() {
+      this.savedStops = stopsReordered;
+    });
+    this.saveStops();
   }
 
   @override
@@ -168,10 +175,6 @@ class MyHomePageState extends State<MyHomePage> {
                 onPressed: fetchAirly),
           ],
         ));
-    var stopCount = 1;
-    if (this.savedStops != null) {
-      stopCount = this.savedStops.length + 1;
-    }
     var scaf = Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -182,13 +185,17 @@ class MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.search),
                 onPressed: () async {
                   var stopSearched = await showSearch<Stop>(
-                      context: context, delegate: SearchStops(this.stub));
+                      context: context, delegate: SearchStops(this.stub, savedStops, savedStopsEditedCallback));
                   if (stopSearched != null) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                DeparturesPage(stopSearched, this.stub)));
+                                DeparturesPage(
+                                  stopSearched, 
+                                  this.stub,
+                                  this.savedStops,
+                                  this.savedStopsEditedCallback)));
                   }
                 }),
           ],
@@ -200,20 +207,18 @@ class MyHomePageState extends State<MyHomePage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        EditStopsPage(this.stub, this.savedStops, (stopsReordered) {
-                          setState(() {
-                            this.savedStops = stopsReordered;
-                          });
-                          this.saveStops();
-                        })));
+                    builder: (context) => EditStopsPage(
+                          this.stub,
+                          this.savedStops,
+                          this.savedStopsEditedCallback
+                        )));
           },
         ),
         body: Container(
           child: Column(
             children: [
               airlyContainer,
-              Expanded(child: StopsList(_stops, stub))
+              Expanded(child: StopsList(_stops, stub, savedStops, savedStopsEditedCallback))
             ],
           ),
         ));

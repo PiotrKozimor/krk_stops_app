@@ -8,7 +8,9 @@ import 'grpc/krk-stops.pbgrpc.dart';
 class SearchStops extends SearchDelegate<Stop> {
   final KrkStopsClient stub;
   List<Stop> stops = [];
-  SearchStops(this.stub);
+  final List<Stop> savedStops;
+  final void Function(List<Stop>) stopsEditedCallback;
+  SearchStops(this.stub, this.savedStops, this.stopsEditedCallback);
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -48,7 +50,7 @@ class SearchStops extends SearchDelegate<Stop> {
       }, onError: (error) {
         _stops.complete(stops);
       });
-      return StopsList(_stops, stub);
+      return StopsList(_stops, stub, savedStops, stopsEditedCallback);
     }
     return Column();
   }

@@ -8,29 +8,36 @@ import 'grpc/krk-stops.pbgrpc.dart';
 class DeparturesPage extends StatefulWidget {
   final Stop stop;
   final KrkStopsClient stub;
-  DeparturesPage(this.stop, this.stub);
+  final List<Stop> savedStops;
+  final void Function(List<Stop>) stopsEditedCallback;
+  DeparturesPage(
+      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
   @override
-  _DeparturesPageState createState() =>
-      _DeparturesPageState(this.stop, this.stub);
+  _DeparturesPageState createState() => _DeparturesPageState(
+      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
 }
 
 class _DeparturesPageState extends State<DeparturesPage> {
   KrkStopsClient stub;
   Stop stop;
+  List<Stop> savedStops;
   int departuresIndex = 0;
+  bool isSaved;
   Completer fetchedDepartures = new Completer();
+  final void Function(List<Stop>) stopsEditedCallback;
 
-  _DeparturesPageState(this.stop, this.stub);
+  _DeparturesPageState(
+      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
   List<Departure> departures = [];
   @override
   void initState() {
     super.initState();
     this.fetchDepartures();
+    isSaved = this.stopSavedIndex() != -1;
   }
 
   void fetchDepartures() {
     this.departuresIndex = 0;
-    setState(() {});
     this.stub.getDepartures(this.stop).listen((stop) {
       if (departuresIndex >= this.departures.length) {
         setState(() {
@@ -56,7 +63,31 @@ class _DeparturesPageState extends State<DeparturesPage> {
   }
 
   void completeFetchedDepartures() {
-    var _ = Timer(Duration(seconds: 1), () => this.fetchedDepartures.complete());
+    var _ =
+        Timer(Duration(milliseconds: 500), () => this.fetchedDepartures.complete());
+  }
+
+  void removeFromSaved() {
+    var toRemove = stopSavedIndex();
+    this.savedStops.removeAt(toRemove);
+    this.stopsEditedCallback(this.savedStops);
+    setState(() {
+      this.isSaved = false;
+    });
+  }
+
+  void addToSaved(){
+    this.savedStops.add(this.stop);
+    this.stopsEditedCallback(this.savedStops);
+    setState(() {
+      this.isSaved = true;
+    });
+  }
+
+  int stopSavedIndex() {
+    return this.savedStops.lastIndexWhere((element) {
+      return element.shortName == this.stop.shortName;
+    });
   }
 
   @override
@@ -65,19 +96,29 @@ class _DeparturesPageState extends State<DeparturesPage> {
         appBar: AppBar(
           title: Text(this.stop.name),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.favorite), tooltip: 'Remove from saved'),
+            Visibility(
+              child: IconButton(
+                  icon: Icon(Icons.favorite), tooltip: 'Remove from saved',
+                  onPressed: removeFromSaved,),
+              visible: isSaved,
+            ),
+            Visibility(
+              child: IconButton(
+                  icon: Icon(Icons.favorite_outline), tooltip: 'Add to saved',
+                  onPressed: addToSaved,),
+              visible: !isSaved,
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
-        tooltip: 'Edit',
-        // onPressed: () {
-        //   Navigator.push(
-        //       context,
-        //       MaterialPageRoute(
-        //           builder: (context) => EditDeparturesPage(this.stub)));
-        // },
+          child: Icon(Icons.edit),
+          tooltip: 'Edit',
+          // onPressed: () {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (context) => EditDeparturesPage(this.stub)));
+          // },
         ),
         body: RefreshIndicator(
           onRefresh: () {

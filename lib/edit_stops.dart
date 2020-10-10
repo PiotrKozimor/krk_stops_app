@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:krk_stops_frontend_flutter/main.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
 
 class EditStopsPage extends StatefulWidget {
   final KrkStopsClient stub;
   final List<Stop> stops;
-  final void Function(List<Stop>) stopsReorderedCallback;
-  EditStopsPage(this.stub, this.stops, this.stopsReorderedCallback);
+  final void Function(List<Stop>) stopsEditedCallback;
+  EditStopsPage(this.stub, this.stops, this.stopsEditedCallback);
   @override
-  _EditStopsState createState() => _EditStopsState(stub, stops, stopsReorderedCallback);
+  _EditStopsState createState() => _EditStopsState(stub, stops, stopsEditedCallback);
 }
 
 class _EditStopsState extends State<EditStopsPage> {
   KrkStopsClient stub;
   List<Stop> stops;
-  final Function(List<Stop>) stopsReorderedCallback;
-  _EditStopsState(this.stub, this.stops, this.stopsReorderedCallback);
+  final Function(List<Stop>) stopsEditedCallback;
+  _EditStopsState(this.stub, this.stops, this.stopsEditedCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class _EditStopsState extends State<EditStopsPage> {
                 final Stop removed = stops.removeAt(oldIndex);
                 stops.insert(newIndex, removed);
               });
-              this.stopsReorderedCallback(stops);
+              this.stopsEditedCallback(stops);
             }));
     return scaf;
   }
