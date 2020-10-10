@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:grpc/grpc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:krk_stops_frontend_flutter/departures.dart';
 import 'package:krk_stops_frontend_flutter/edit_stops.dart';
+import 'package:krk_stops_frontend_flutter/model.dart';
 import 'package:krk_stops_frontend_flutter/search_stops.dart';
 import 'package:krk_stops_frontend_flutter/src/stops_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
@@ -52,84 +50,32 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  MyHomePageState createState() => MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class MyHomePageState extends State<MyHomePage> {
-  Airly airly = new Airly();
-  String stops = 'stops';
-  KrkStopsClient stub;
-  List<Stop> savedStops = [];
-  SharedPreferences prefs;
+class _MyHomePageState extends State<MyHomePage> {
+  final model = AppModel();
   List<Container> stopContainers;
+  final getIt = GetIt.instance;
 
-  final _stops = new Completer<List<Stop>>();
-  final channel = ClientChannel('krk-stops.pl',
-      port: 8080,
-      options:
-          const ChannelOptions(credentials: ChannelCredentials.insecure()));
-  set stopsReordered(List<Stop> stopsReord) {
-    setState(() {
-      this.savedStops = stopsReord;
-    });
-    saveStops();
-  }
-
-  void savedStopsEditedCallback(List<Stop> stopsReordered) {
-    setState(() {
-      this.savedStops = stopsReordered;
-    });
-    this.saveStops();
+  _MyHomePageState() {
+    getIt.registerSingleton<AppModel>(model);
+    model.stopsUpdatedCallback = () {
+      setState(() {});
+    };
   }
 
   @override
   void initState() {
     super.initState();
-    this.airly.color = "#AAAAAA";
-    this.stub = KrkStopsClient(this.channel,
-        options: CallOptions(timeout: Duration(seconds: 30)));
-    SharedPreferences.getInstance().then((value) {
-      this.prefs = value;
-      loadStops();
-    });
     fetchAirly();
   }
 
-  void loadStops() {
-    // this.prefs.remove(this.stops);
-    var stopsRaw = this.prefs.getStringList(this.stops);
-    if (stopsRaw == null) {
-      this.savedStops = [
-        Stop()
-          ..name = 'Rondo Mogilskie'
-          ..shortName = '125',
-        Stop()
-          ..name = 'Rondo Matecznego'
-          ..shortName = '610'
-      ];
-      saveStops();
-    } else {
-      for (final stopRaw in stopsRaw) {
-        this.savedStops.add(Stop.fromJson(stopRaw));
-      }
-    }
-    this._stops.complete(this.savedStops);
-  }
-
-  void saveStops() {
-    List<String> rawStops = [];
-    for (final stop in savedStops) {
-      rawStops.add(stop.writeToJson());
-    }
-    this.prefs.setStringList(this.stops, rawStops);
-  }
-
-  void fetchAirly() {
-    final installation = Installation()..id = 9914;
-    final airly = stub.getAirly(installation);
-    airly.then((airly) {
-      this.airly = airly;
-      setState(() {});
+  fetchAirly() {
+    model.fetchAirly().then((airly) {
+      setState(() {
+        this.model.airly = airly;
+      });
     });
   }
 
@@ -149,24 +95,25 @@ class MyHomePageState extends State<MyHomePage> {
               padding: EdgeInsets.all(8),
               child: Icon(
                 Icons.brightness_1,
-                color: Color(
-                    int.parse(this.airly.color.substring(1, 7), radix: 16) +
-                        0xFF000000),
+                color: Color(int.parse(this.model.airly.color.substring(1, 7),
+                        radix: 16) +
+                    0xFF000000),
                 // color: Color(0xFF999999),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(8),
-              child: Text("CAQI: ${this.airly.caqi}"),
+              child: Text("CAQI: ${this.model.airly.caqi}"),
             ),
             Padding(
               padding: EdgeInsets.all(8),
-              child: Text('${this.airly.humidity}%'),
+              child: Text('${this.model.airly.humidity}%'),
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(8),
-                child: Text('${this.airly.temperature.toStringAsFixed(1)}°C'),
+                child: Text(
+                    '${this.model.airly.temperature.toStringAsFixed(1)}°C'),
               ),
             ),
             IconButton(
@@ -185,17 +132,14 @@ class MyHomePageState extends State<MyHomePage> {
                 icon: Icon(Icons.search),
                 onPressed: () async {
                   var stopSearched = await showSearch<Stop>(
-                      context: context, delegate: SearchStops(this.stub, savedStops, savedStopsEditedCallback));
+                      context: context, delegate: SearchStops());
                   if (stopSearched != null) {
+                    this.model.departures = [];
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                DeparturesPage(
-                                  stopSearched, 
-                                  this.stub,
-                                  this.savedStops,
-                                  this.savedStopsEditedCallback)));
+                                DeparturesPage(stopSearched)));
                   }
                 }),
           ],
@@ -204,21 +148,15 @@ class MyHomePageState extends State<MyHomePage> {
           child: Icon(Icons.edit),
           tooltip: 'Edit',
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => EditStopsPage(
-                          this.stub,
-                          this.savedStops,
-                          this.savedStopsEditedCallback
-                        )));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => EditStopsPage()));
           },
         ),
         body: Container(
           child: Column(
             children: [
               airlyContainer,
-              Expanded(child: StopsList(_stops, stub, savedStops, savedStopsEditedCallback))
+              Expanded(child: StopsList(model.stopsCompleter))
             ],
           ),
         ));

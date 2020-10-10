@@ -1,34 +1,35 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
+import 'edit_departures.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
+import 'model.dart';
 
 class DeparturesPage extends StatefulWidget {
+  final getIt = GetIt.instance;
+  AppModel model;
   final Stop stop;
-  final KrkStopsClient stub;
-  final List<Stop> savedStops;
-  final void Function(List<Stop>) stopsEditedCallback;
-  DeparturesPage(
-      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
+  DeparturesPage(this.stop);
   @override
-  _DeparturesPageState createState() => _DeparturesPageState(
-      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
+  _DeparturesPageState createState() => _DeparturesPageState(this.stop);
 }
 
 class _DeparturesPageState extends State<DeparturesPage> {
-  KrkStopsClient stub;
+  final getIt = GetIt.instance;
+  AppModel model;
   Stop stop;
-  List<Stop> savedStops;
   int departuresIndex = 0;
   bool isSaved;
   Completer fetchedDepartures = new Completer();
-  final void Function(List<Stop>) stopsEditedCallback;
-
-  _DeparturesPageState(
-      this.stop, this.stub, this.savedStops, this.stopsEditedCallback);
-  List<Departure> departures = [];
+  _DeparturesPageState(this.stop) {
+    model = getIt.get<AppModel>();
+    model.departuresUpdatedCallback = () {
+      setState(() {});
+    };
+  }
   @override
   void initState() {
     super.initState();
@@ -38,14 +39,14 @@ class _DeparturesPageState extends State<DeparturesPage> {
 
   void fetchDepartures() {
     this.departuresIndex = 0;
-    this.stub.getDepartures(this.stop).listen((stop) {
-      if (departuresIndex >= this.departures.length) {
+    this.model.stub.getDepartures(this.stop).listen((stop) {
+      if (departuresIndex >= this.model.departures.length) {
         setState(() {
-          this.departures.add(stop);
+          this.model.departures.add(stop);
         });
       } else {
         setState(() {
-          this.departures[departuresIndex] = stop;
+          this.model.departures[departuresIndex] = stop;
         });
       }
       setState(() {});
@@ -53,9 +54,12 @@ class _DeparturesPageState extends State<DeparturesPage> {
     }, onError: (error) {
       this.completeFetchedDepartures();
     }, onDone: () {
-      if (this.departures.length > departuresIndex) {
+      if (this.model.departures.length > departuresIndex) {
         setState(() {
-          this.departures.removeRange(departuresIndex, this.departures.length);
+          this
+              .model
+              .departures
+              .removeRange(departuresIndex, this.model.departures.length);
         });
       }
       this.completeFetchedDepartures();
@@ -63,29 +67,29 @@ class _DeparturesPageState extends State<DeparturesPage> {
   }
 
   void completeFetchedDepartures() {
-    var _ =
-        Timer(Duration(milliseconds: 500), () => this.fetchedDepartures.complete());
+    var _ = Timer(
+        Duration(milliseconds: 500), () => this.fetchedDepartures.complete());
   }
 
   void removeFromSaved() {
     var toRemove = stopSavedIndex();
-    this.savedStops.removeAt(toRemove);
-    this.stopsEditedCallback(this.savedStops);
+    this.model.savedStops.removeAt(toRemove);
+    this.model.saveStops(this.model.savedStops);
     setState(() {
       this.isSaved = false;
     });
   }
 
-  void addToSaved(){
-    this.savedStops.add(this.stop);
-    this.stopsEditedCallback(this.savedStops);
+  void addToSaved() {
+    this.model.savedStops.add(this.stop);
+    this.model.saveStops(this.model.savedStops);
     setState(() {
       this.isSaved = true;
     });
   }
 
   int stopSavedIndex() {
-    return this.savedStops.lastIndexWhere((element) {
+    return this.model.savedStops.lastIndexWhere((element) {
       return element.shortName == this.stop.shortName;
     });
   }
@@ -98,14 +102,18 @@ class _DeparturesPageState extends State<DeparturesPage> {
           actions: <Widget>[
             Visibility(
               child: IconButton(
-                  icon: Icon(Icons.favorite), tooltip: 'Remove from saved',
-                  onPressed: removeFromSaved,),
+                icon: Icon(Icons.favorite),
+                tooltip: 'Remove from saved',
+                onPressed: removeFromSaved,
+              ),
               visible: isSaved,
             ),
             Visibility(
               child: IconButton(
-                  icon: Icon(Icons.favorite_outline), tooltip: 'Add to saved',
-                  onPressed: addToSaved,),
+                icon: Icon(Icons.favorite_outline),
+                tooltip: 'Add to saved',
+                onPressed: addToSaved,
+              ),
               visible: !isSaved,
             )
           ],
@@ -113,12 +121,12 @@ class _DeparturesPageState extends State<DeparturesPage> {
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.edit),
           tooltip: 'Edit',
-          // onPressed: () {
-          //   Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => EditDeparturesPage(this.stub)));
-          // },
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditDeparturesPage(this.stop)));
+          },
         ),
         body: RefreshIndicator(
           onRefresh: () {
@@ -127,9 +135,9 @@ class _DeparturesPageState extends State<DeparturesPage> {
             return this.fetchedDepartures.future;
           },
           child: ListView.builder(
-            itemCount: this.departures.length,
+            itemCount: this.model.departures.length,
             itemBuilder: (context, index) {
-              Departure departure = this.departures[index];
+              Departure departure = this.model.departures[index];
               String relativeTime;
               if (departure.relativeTime == 0) {
                 relativeTime = "";
@@ -140,7 +148,8 @@ class _DeparturesPageState extends State<DeparturesPage> {
                 relativeTime = "${minutes}m";
               }
               return Container(
-                height: 36,
+                color: model.findDepartureColor(departure),
+                height: 40,
                 child: Row(
                   children: <Widget>[
                     Padding(

@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:krk_stops_frontend_flutter/grpc/krk-stops.pbgrpc.dart';
 
 import '../departures.dart';
+import '../model.dart';
 
 class StopsList extends StatelessWidget {
-  final KrkStopsClient stub;
+  final getIt = GetIt.instance;
+  AppModel model;
   final Completer<List<Stop>> _stops;
-  final List<Stop> savedStops;
-  final void Function(List<Stop>) stopsEditedCallback;
-  StopsList(this._stops, this.stub, this.savedStops, this.stopsEditedCallback);
+  StopsList(this._stops) {
+    model = getIt.get<AppModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +31,11 @@ class StopsList extends StatelessWidget {
                     alignment: AlignmentDirectional.centerStart,
                   )),
               onTap: () {
+                this.model.departures = [];
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => DeparturesPage(stop, stub, savedStops, stopsEditedCallback)));
+                        builder: (context) => DeparturesPage(stop)));
               },
             ));
           }

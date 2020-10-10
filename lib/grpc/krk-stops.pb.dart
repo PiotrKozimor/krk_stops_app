@@ -148,7 +148,7 @@ class Departure extends $pb.GeneratedMessage {
     ..aOS(2, 'plannedTime', protoName: 'plannedTime')
     ..aOS(3, 'direction')
     ..aOS(4, 'patternText', protoName: 'patternText')
-    ..aOS(5, 'color')
+    ..a<$core.int>(5, 'color', $pb.PbFieldType.OU3)
     ..aOS(6, 'relativeTimeParsed', protoName: 'relativeTimeParsed')
     ..hasRequiredFields = false
   ;
@@ -205,9 +205,9 @@ class Departure extends $pb.GeneratedMessage {
   void clearPatternText() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get color => $_getSZ(4);
+  $core.int get color => $_getIZ(4);
   @$pb.TagNumber(5)
-  set color($core.String v) { $_setString(4, v); }
+  set color($core.int v) { $_setUnsignedInt32(4, v); }
   @$pb.TagNumber(5)
   $core.bool hasColor() => $_has(4);
   @$pb.TagNumber(5)

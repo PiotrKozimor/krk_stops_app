@@ -1,16 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:krk_stops_frontend_flutter/src/stops_list.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
+import 'model.dart';
 
 class SearchStops extends SearchDelegate<Stop> {
-  final KrkStopsClient stub;
-  List<Stop> stops = [];
-  final List<Stop> savedStops;
-  final void Function(List<Stop>) stopsEditedCallback;
-  SearchStops(this.stub, this.savedStops, this.stopsEditedCallback);
+  final getIt = GetIt.instance;
+  AppModel model;
+  SearchStops() {
+    model = getIt.get<AppModel>();
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -40,8 +42,8 @@ class SearchStops extends SearchDelegate<Stop> {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (this.query.length > 2) {
-      stops=[];
-      var request = this.stub.searchStops(StopSearch()..query = this.query);
+      List<Stop> stops=[];
+      var request = this.model.stub.searchStops(StopSearch()..query = this.query);
       var _stops = new Completer<List<Stop>>();
       request.listen((value) {
         stops.add(value);
@@ -50,7 +52,7 @@ class SearchStops extends SearchDelegate<Stop> {
       }, onError: (error) {
         _stops.complete(stops);
       });
-      return StopsList(_stops, stub, savedStops, stopsEditedCallback);
+      return StopsList(_stops);
     }
     return Column();
   }

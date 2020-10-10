@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
+import 'model.dart';
 
 class EditStopsPage extends StatefulWidget {
-  final KrkStopsClient stub;
-  final List<Stop> stops;
-  final void Function(List<Stop>) stopsEditedCallback;
-  EditStopsPage(this.stub, this.stops, this.stopsEditedCallback);
+  EditStopsPage();
   @override
-  _EditStopsState createState() => _EditStopsState(stub, stops, stopsEditedCallback);
+  _EditStopsState createState() => _EditStopsState();
 }
 
 class _EditStopsState extends State<EditStopsPage> {
-  KrkStopsClient stub;
-  List<Stop> stops;
-  final Function(List<Stop>) stopsEditedCallback;
-  _EditStopsState(this.stub, this.stops, this.stopsEditedCallback);
+  final getIt = GetIt.instance;
+  AppModel model;
+  _EditStopsState() {
+    model = getIt.get<AppModel>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _EditStopsState extends State<EditStopsPage> {
           title: Text("KrkStops"),
         ),
         body: ReorderableListView(
-            children: stops
+            children: model.savedStops
                 .map((e) => ListTile(
                       key: Key("${e.shortName}"),
                       title: Text("${e.name}"),
@@ -38,10 +38,11 @@ class _EditStopsState extends State<EditStopsPage> {
                 newIndex -= 1;
               }
               setState(() {
-                final Stop removed = stops.removeAt(oldIndex);
-                stops.insert(newIndex, removed);
+                final Stop removed = model.savedStops.removeAt(oldIndex);
+                model.savedStops.insert(newIndex, removed);
               });
-              this.stopsEditedCallback(stops);
+              model.saveStops(this.model.savedStops);
+              model.stopsUpdatedCallback();
             }));
     return scaf;
   }
