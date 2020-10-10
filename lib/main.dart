@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 import 'package:krk_stops_frontend_flutter/departures.dart';
 import 'package:krk_stops_frontend_flutter/edit_stops.dart';
+import 'package:krk_stops_frontend_flutter/search_stops.dart';
+import 'package:krk_stops_frontend_flutter/src/stops_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
@@ -48,21 +52,28 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
+
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   Airly airly = new Airly();
   String stops = 'stops';
   KrkStopsClient stub;
-  List<Stop> savedStops;
+  List<Stop> savedStops = [];
   SharedPreferences prefs;
   List<Container> stopContainers;
-
+  final _stops = new Completer<List<Stop>>();
   final channel = ClientChannel('krk-stops.pl',
       port: 8080,
       options:
           const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  set stopsReordered(List<Stop> stopsReord) {
+    setState(() {
+      this.savedStops = stopsReord;
+    });
+    saveStops();
+  }
 
   @override
   void initState() {
@@ -78,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadStops() {
-    this.prefs.remove(this.stops);
+    // this.prefs.remove(this.stops);
     var stopsRaw = this.prefs.getStringList(this.stops);
     if (stopsRaw == null) {
       this.savedStops = [
@@ -95,13 +106,13 @@ class _MyHomePageState extends State<MyHomePage> {
         this.savedStops.add(Stop.fromJson(stopRaw));
       }
     }
-    setState(() {});
+    this._stops.complete(this.savedStops);
   }
 
   void saveStops() {
-    List<String> rawStops;
-    for (final stop in rawStops){
-      rawStops.add(stop.toString());
+    List<String> rawStops = [];
+    for (final stop in savedStops) {
+      rawStops.add(stop.writeToJson());
     }
     this.prefs.setStringList(this.stops, rawStops);
   }
@@ -162,44 +173,51 @@ class _MyHomePageState extends State<MyHomePage> {
       stopCount = this.savedStops.length + 1;
     }
     var scaf = Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.edit),
-            tooltip: 'Edit',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => EditStopsPage(this.stub)));
-            },
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () async {
+                  var stopSearched = await showSearch<Stop>(
+                      context: context, delegate: SearchStops(this.stub));
+                  if (stopSearched != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                DeparturesPage(stopSearched, this.stub)));
+                  }
+                }),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.edit),
+          tooltip: 'Edit',
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        EditStopsPage(this.stub, this.savedStops, (stopsReordered) {
+                          setState(() {
+                            this.savedStops = stopsReordered;
+                          });
+                          this.saveStops();
+                        })));
+          },
+        ),
+        body: Container(
+          child: Column(
+            children: [
+              airlyContainer,
+              Expanded(child: StopsList(_stops, stub))
+            ],
           ),
-          IconButton(icon: Icon(Icons.search), tooltip: 'Search stops'),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: stopCount,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return airlyContainer;
-          } else {
-            Stop stop = this.savedStops[index - 1];
-            return InkWell(
-              child: Container(
-                  height: 50,
-                  child: Align(
-                    child: Text(stop.name),
-                    alignment: AlignmentDirectional.centerStart,
-                  )),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => DeparturesPage(stop, stub)));
-              },
-            );
-          }
-        },
-        padding: const EdgeInsets.all(8),
-      ),
-    );
+        ));
+
     return scaf;
   }
 }

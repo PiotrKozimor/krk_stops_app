@@ -6,7 +6,6 @@ import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
 class DeparturesPage extends StatefulWidget {
-  static const routeName = '/departures';
   final Stop stop;
   final KrkStopsClient stub;
   DeparturesPage(this.stop, this.stub);
@@ -34,27 +33,30 @@ class _DeparturesPageState extends State<DeparturesPage> {
     setState(() {});
     this.stub.getDepartures(this.stop).listen((stop) {
       if (departuresIndex >= this.departures.length) {
-        this.departures.add(stop);
+        setState(() {
+          this.departures.add(stop);
+        });
       } else {
-        this.departures[departuresIndex] = stop;
+        setState(() {
+          this.departures[departuresIndex] = stop;
+        });
       }
       setState(() {});
       departuresIndex++;
     }, onError: (error) {
-
       this.completeFetchedDepartures();
-      setState(() {});
     }, onDone: () {
       if (this.departures.length > departuresIndex) {
-        this.departures.removeRange(departuresIndex, this.departures.length);
+        setState(() {
+          this.departures.removeRange(departuresIndex, this.departures.length);
+        });
       }
       this.completeFetchedDepartures();
-      setState(() {});
     });
   }
 
   void completeFetchedDepartures() {
-    var timer = Timer(Duration(seconds: 1), () => this.fetchedDepartures.complete());
+    var _ = Timer(Duration(seconds: 1), () => this.fetchedDepartures.complete());
   }
 
   @override
@@ -64,12 +66,18 @@ class _DeparturesPageState extends State<DeparturesPage> {
           title: Text(this.stop.name),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.edit),
-              tooltip: 'Edit',
-            ),
-            IconButton(
                 icon: Icon(Icons.favorite), tooltip: 'Remove from saved'),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit),
+        tooltip: 'Edit',
+        // onPressed: () {
+        //   Navigator.push(
+        //       context,
+        //       MaterialPageRoute(
+        //           builder: (context) => EditDeparturesPage(this.stub)));
+        // },
         ),
         body: RefreshIndicator(
           onRefresh: () {
