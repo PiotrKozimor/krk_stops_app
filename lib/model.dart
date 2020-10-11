@@ -36,6 +36,7 @@ class AppModel {
       this.prefs = value;
       loadStops();
       loadAirly();
+      loadDepartures();
     });
     this.airly.color = "#AAAAAA";
     this.stub = KrkStopsClient(this.channel,
