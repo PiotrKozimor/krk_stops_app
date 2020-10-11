@@ -23,6 +23,7 @@ class _DeparturesPageState extends State<DeparturesPage> {
   Stop stop;
   int departuresIndex = 0;
   bool isSaved;
+  List<Departure> departuresTemp = [];
   Completer fetchedDepartures = new Completer();
   _DeparturesPageState(this.stop) {
     model = getIt.get<AppModel>();
@@ -39,30 +40,16 @@ class _DeparturesPageState extends State<DeparturesPage> {
 
   void fetchDepartures() {
     this.departuresIndex = 0;
+    this.departuresTemp = [];
     this.model.stub.getDepartures(this.stop).listen((stop) {
-      if (departuresIndex >= this.model.departures.length) {
-        setState(() {
-          this.model.departures.add(stop);
-        });
-      } else {
-        setState(() {
-          this.model.departures[departuresIndex] = stop;
-        });
-      }
-      setState(() {});
-      departuresIndex++;
+      this.departuresTemp.add(stop);
     }, onError: (error) {
       this.completeFetchedDepartures();
     }, onDone: () {
-      if (this.model.departures.length > departuresIndex) {
         setState(() {
-          this
-              .model
-              .departures
-              .removeRange(departuresIndex, this.model.departures.length);
+          this.model.departures = this.departuresTemp;
         });
-      }
-      this.completeFetchedDepartures();
+        this.completeFetchedDepartures();
     });
   }
 
