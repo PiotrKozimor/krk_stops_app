@@ -13,7 +13,8 @@ class AppModel {
   final getIt = GetIt.instance;
   KrkStopsClient stub;
   final departuresKey = "departures";
-  String stopsKey = 'stops';
+  final stopsKey = 'stops';
+  final airlyKey = 'airly';
   Stop selectedStop;
   List<Stop> savedStops = [];
   List<Departure> departures = [];
@@ -21,8 +22,10 @@ class AppModel {
   SharedPreferences prefs;
   Function stopsUpdatedCallback;
   Function departuresUpdatedCallback;
+  Function airlyUpdatedCallback;
   final stopsCompleter = new Completer<List<Stop>>();
-  Airly airly = new Airly();
+  var airly = new Airly();
+  var installation = new Installation();
   final channel = ClientChannel('krk-stops.pl',
       port: 8080,
       options:
@@ -32,10 +35,25 @@ class AppModel {
     SharedPreferences.getInstance().then((value) {
       this.prefs = value;
       loadStops();
+      loadAirly();
     });
     this.airly.color = "#AAAAAA";
     this.stub = KrkStopsClient(this.channel,
         options: CallOptions(timeout: Duration(seconds: 30)));
+  }
+
+  void loadAirly() {
+    var installationId = this.prefs.getInt(airlyKey);
+    if (installationId == null) {
+      installation.id = 9914;
+      saveInstallation();
+    } else {
+      installation.id = installationId;
+    }
+  }
+
+  void saveInstallation() {
+    this.prefs.setInt(airlyKey, installation.id);
   }
 
   void loadStops() {
@@ -101,8 +119,7 @@ class AppModel {
     }
   }
 
-  ResponseFuture<Airly> fetchAirly() {
-    final installation = Installation()..id = 9914;
+  ResponseFuture<Airly> fetchAirly(Installation installation) {
     final airly = stub.getAirly(installation);
     return airly;
   }

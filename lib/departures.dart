@@ -78,6 +78,7 @@ class _DeparturesPageState extends State<DeparturesPage> {
     setState(() {
       this.isSaved = false;
     });
+    this.model.stopsUpdatedCallback();
   }
 
   void addToSaved() {
@@ -86,6 +87,7 @@ class _DeparturesPageState extends State<DeparturesPage> {
     setState(() {
       this.isSaved = true;
     });
+    this.model.stopsUpdatedCallback();
   }
 
   int stopSavedIndex() {

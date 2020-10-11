@@ -25,9 +25,11 @@ class StopsList extends StatelessWidget {
           for (final stop in snapshot.data) {
             stopsWidgets.add(InkWell(
               child: Container(
-                  height: 50,
+                  // height: 40,
+                  padding: EdgeInsets.all(12),
                   child: Align(
-                    child: Text(stop.name),
+                    child: Text(stop.name,
+                      style: Theme.of(context).textTheme.bodyText1,),
                     alignment: AlignmentDirectional.centerStart,
                   )),
               onTap: () {

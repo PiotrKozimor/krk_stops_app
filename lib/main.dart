@@ -19,17 +19,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'KrkStops',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.grey,
-      ),
+          // This is the theme of your application.
+          //
+          // Try running your application with "flutter run". You'll see the
+          // application has a blue toolbar. Then, without quitting the app, try
+          // changing the primarySwatch below to Colors.green and then invoke
+          // "hot reload" (press "r" in the console where you ran "flutter run",
+          // or simply save your changes to "hot reload" in a Flutter IDE).
+          // Notice that the counter didn't reset back to zero; the application
+          // is not restarted.
+          primarySwatch: Colors.grey,
+          typography: Typography.material2018()),
       home: MyHomePage(title: 'KrkStops'),
     );
   }
@@ -63,6 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
     model.stopsUpdatedCallback = () {
       setState(() {});
     };
+    model.airlyUpdatedCallback = () {
+      setState(() {
+        
+      });
+    };
   }
 
   @override
@@ -72,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   fetchAirly() {
-    model.fetchAirly().then((airly) {
+    model.fetchAirly(this.model.installation).then((airly) {
       setState(() {
         this.model.airly = airly;
       });
@@ -88,40 +93,51 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     var airlyContainer = Container(
-        height: 50,
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Icon(
-                Icons.brightness_1,
-                color: Color(int.parse(this.model.airly.color.substring(1, 7),
-                        radix: 16) +
-                    0xFF000000),
-                // color: Color(0xFF999999),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text("CAQI: ${this.model.airly.caqi}"),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('${this.model.airly.humidity}%'),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(8),
-                child: Text(
-                    '${this.model.airly.temperature.toStringAsFixed(1)}°C'),
-              ),
-            ),
-            IconButton(
-                icon: Icon(Icons.refresh),
-                tooltip: 'Search stops',
-                onPressed: fetchAirly),
-          ],
-        ));
+        height: 52,
+        child: Card(
+            elevation: 2,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.brightness_1,
+                    color: Color(int.parse(
+                            this.model.airly.color.substring(1, 7),
+                            radix: 16) +
+                        0xFF000000),
+                    // color: Color(0xFF999999),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    "CAQI: ${this.model.airly.caqi}",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    '${this.model.airly.humidity}%',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      '${this.model.airly.temperature.toStringAsFixed(1)}°C',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ),
+                ),
+                IconButton(
+                    icon: Icon(Icons.refresh),
+                    tooltip: 'Search stops',
+                    onPressed: fetchAirly),
+              ],
+            )));
     var scaf = Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -153,10 +169,13 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
         body: Container(
+          padding: EdgeInsets.all(4),
           child: Column(
             children: [
               airlyContainer,
-              Expanded(child: StopsList(model.stopsCompleter))
+              Expanded(
+                  child: Card(
+                      elevation: 2, child: StopsList(model.stopsCompleter)))
             ],
           ),
         ));
