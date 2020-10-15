@@ -46,10 +46,10 @@ class _DeparturesPageState extends State<DeparturesPage> {
     }, onError: (error) {
       this.completeFetchedDepartures();
     }, onDone: () {
-        setState(() {
-          this.model.departures = this.departuresTemp;
-        });
-        this.completeFetchedDepartures();
+      setState(() {
+        this.model.departures = this.departuresTemp;
+      });
+      this.completeFetchedDepartures();
     });
   }
 
@@ -136,34 +136,38 @@ class _DeparturesPageState extends State<DeparturesPage> {
                 var minutes = departure.relativeTime ~/ 60;
                 relativeTime = "${minutes}m";
               }
-              return Container(
-                color: model.findDepartureColor(departure),
-                height: 40,
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(8),
-                        child: ConstrainedBox(
-                          child: Text(departure.patternText),
-                          constraints: BoxConstraints(minWidth: 24),
-                        )),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(departure.direction),
-                      ),
+              return ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: 40,
+                  ),
+                  child: Container(
+                    color: model.findDepartureColor(departure),
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(8),
+                            child: ConstrainedBox(
+                              child: Text(departure.patternText),
+                              constraints: BoxConstraints(minWidth: 24),
+                            )),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(departure.direction),
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(relativeTime)),
+                        Padding(
+                            padding: EdgeInsets.all(8),
+                            child: ConstrainedBox(
+                              child: Text(departure.plannedTime),
+                              constraints: BoxConstraints(minWidth: 24),
+                            )),
+                      ],
                     ),
-                    Padding(
-                        padding: EdgeInsets.all(8), child: Text(relativeTime)),
-                    Padding(
-                        padding: EdgeInsets.all(8),
-                        child: ConstrainedBox(
-                          child: Text(departure.plannedTime),
-                          constraints: BoxConstraints(minWidth: 24),
-                        )),
-                  ],
-                ),
-              );
+                  ));
             },
           ),
         ));
