@@ -1,5 +1,6 @@
 from cairosvg import svg2png
 
+# Indigo theme color
 sizes = {
     48: "mdpi",
     72: "hdpi",

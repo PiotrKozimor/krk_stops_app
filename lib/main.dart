@@ -28,7 +28,12 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.grey,
+          primarySwatch: Colors.indigo,
+          primaryColor: Colors.indigo[200],
+          primaryColorBrightness: Brightness.light,
+          // accentColor: Colors.amber[500],
+          // accentColorBrightness: Brightness.light,
+          brightness: Brightness.light,
           typography: Typography.material2018()),
       home: MyHomePage(title: 'KrkStops'),
     );
