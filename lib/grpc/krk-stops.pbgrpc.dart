@@ -18,10 +18,15 @@ class KrkStopsClient extends $grpc.Client {
       '/KrkStops/GetAirly',
       ($0.Installation value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Airly.fromBuffer(value));
-  static final _$getAirlyInstallation =
+  static final _$findNearestAirlyInstallation =
       $grpc.ClientMethod<$0.InstallationLocation, $0.Installation>(
-          '/KrkStops/GetAirlyInstallation',
+          '/KrkStops/FindNearestAirlyInstallation',
           ($0.InstallationLocation value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Installation.fromBuffer(value));
+  static final _$getAirlyInstallation =
+      $grpc.ClientMethod<$0.Installation, $0.Installation>(
+          '/KrkStops/GetAirlyInstallation',
+          ($0.Installation value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Installation.fromBuffer(value));
   static final _$getDepartures = $grpc.ClientMethod<$0.Stop, $0.Departure>(
       '/KrkStops/GetDepartures',
@@ -42,8 +47,17 @@ class KrkStopsClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<$0.Installation> getAirlyInstallation(
+  $grpc.ResponseFuture<$0.Installation> findNearestAirlyInstallation(
       $0.InstallationLocation request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$findNearestAirlyInstallation, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.Installation> getAirlyInstallation(
+      $0.Installation request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAirlyInstallation, $async.Stream.fromIterable([request]),
@@ -80,12 +94,19 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) => $0.Installation.fromBuffer(value),
         ($0.Airly value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.InstallationLocation, $0.Installation>(
-        'GetAirlyInstallation',
-        getAirlyInstallation_Pre,
+        'FindNearestAirlyInstallation',
+        findNearestAirlyInstallation_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
             $0.InstallationLocation.fromBuffer(value),
+        ($0.Installation value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Installation, $0.Installation>(
+        'GetAirlyInstallation',
+        getAirlyInstallation_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.Installation.fromBuffer(value),
         ($0.Installation value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.Stop, $0.Departure>(
         'GetDepartures',
@@ -108,9 +129,14 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
     return getAirly(call, await request);
   }
 
-  $async.Future<$0.Installation> getAirlyInstallation_Pre(
+  $async.Future<$0.Installation> findNearestAirlyInstallation_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.InstallationLocation> request) async {
+    return findNearestAirlyInstallation(call, await request);
+  }
+
+  $async.Future<$0.Installation> getAirlyInstallation_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Installation> request) async {
     return getAirlyInstallation(call, await request);
   }
 
@@ -126,8 +152,10 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
 
   $async.Future<$0.Airly> getAirly(
       $grpc.ServiceCall call, $0.Installation request);
-  $async.Future<$0.Installation> getAirlyInstallation(
+  $async.Future<$0.Installation> findNearestAirlyInstallation(
       $grpc.ServiceCall call, $0.InstallationLocation request);
+  $async.Future<$0.Installation> getAirlyInstallation(
+      $grpc.ServiceCall call, $0.Installation request);
   $async.Stream<$0.Departure> getDepartures(
       $grpc.ServiceCall call, $0.Stop request);
   $async.Stream<$0.Stop> searchStops(

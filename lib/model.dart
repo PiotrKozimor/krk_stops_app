@@ -52,6 +52,8 @@ class AppModel {
     var installationId = this.prefs.getInt(airlyKey);
     if (installationId == null) {
       installation.id = 8077;
+      installation.latitude = 50.062006;
+      installation.longitude = 19.940984;
       saveInstallation();
     } else {
       installation.id = installationId;

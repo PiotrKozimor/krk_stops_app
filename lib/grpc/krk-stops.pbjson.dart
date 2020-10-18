@@ -9,6 +9,8 @@ const Installation$json = const {
   '1': 'Installation',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'latitude', '3': 2, '4': 1, '5': 2, '10': 'latitude'},
+    const {'1': 'longitude', '3': 3, '4': 1, '5': 2, '10': 'longitude'},
   ],
 };
 

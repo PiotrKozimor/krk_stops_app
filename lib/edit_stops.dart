@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
 import 'model.dart';
@@ -42,34 +43,12 @@ class _EditStopsState extends State<EditStopsPage> {
                 actions: [
                   OutlineButton(
                       onPressed: () {
-                        requestPermission().then((permisions) {
-                          getCurrentPosition(
-                                  desiredAccuracy: LocationAccuracy.medium)
-                              .then((location) {
-                            this
-                                .model
-                                .stub
-                                .getAirlyInstallation(InstallationLocation()
-                                  ..latitude = location.latitude
-                                  ..longitude = location.longitude)
-                                .then((installation) {
-                              updateInstallation(installation);
-                              this.model.saveInstallation();
-                              Navigator.of(context).pop();
-                            });
-                          });
-                        });
-                      },
-                      child: Text("FIND NEAREST")),
-                  OutlineButton(
-                      onPressed: () {
                         final installation = Installation()
                           ..id = int.tryParse(_airlyIdController.value.text);
-                        this.model.fetchAirly(installation).then((airly) {
-                          updateInstallation(installation);
-                          this.model.airly = airly;
+                        this.model.stub.getAirlyInstallation(installation).then(
+                            (fullInstallation) {
+                          updateInstallation(fullInstallation);
                           this.model.saveInstallation();
-                          this.model.airlyUpdatedCallback();
                           Navigator.of(context).pop();
                         }, onError: (error) {
                           setState(() {
@@ -116,10 +95,43 @@ class _EditStopsState extends State<EditStopsPage> {
                       ),
                     ),
                     IconButton(
+                        icon: Icon(Icons.launch),
+                        tooltip: 'See on Airly map',
+                        onPressed: () async {
+                          var url = "https://airly.eu/map/pl/#${model.installation.latitude},${model.installation.longitude},i${model.installation.id}";
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          }
+                        }),
+                    IconButton(
+                      icon: Icon(Icons.location_searching),
+                      tooltip: 'Find nearest installation',
+                      onPressed: () {
+                        requestPermission().then((permisions) {
+                          getCurrentPosition(
+                                  desiredAccuracy: LocationAccuracy.medium)
+                              .then((location) {
+                            this
+                                .model
+                                .stub
+                                .findNearestAirlyInstallation(
+                                    InstallationLocation()
+                                      ..latitude = location.latitude
+                                      ..longitude = location.longitude)
+                                .then((installation) {
+                              updateInstallation(installation);
+                              this.model.saveInstallation();
+                            });
+                          });
+                        });
+                      },
+                    ),
+                    IconButton(
                         icon: Icon(Icons.edit),
                         tooltip: 'Edit installation',
                         onPressed: showAirlyDialog(context)),
-                  ])), // Expanded()
+                  ])),
+              // Expanded()
               Expanded(
                   child: Card(
                       elevation: 2,

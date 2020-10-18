@@ -12,6 +12,8 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class Installation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Installation', createEmptyInstance: create)
     ..a<$core.int>(1, 'id', $pb.PbFieldType.O3)
+    ..a<$core.double>(2, 'latitude', $pb.PbFieldType.OF)
+    ..a<$core.double>(3, 'longitude', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
@@ -38,6 +40,24 @@ class Installation extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get latitude => $_getN(1);
+  @$pb.TagNumber(2)
+  set latitude($core.double v) { $_setFloat(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasLatitude() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearLatitude() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get longitude => $_getN(2);
+  @$pb.TagNumber(3)
+  set longitude($core.double v) { $_setFloat(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasLongitude() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLongitude() => clearField(3);
 }
 
 class Airly extends $pb.GeneratedMessage {
