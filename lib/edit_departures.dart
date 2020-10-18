@@ -15,11 +15,11 @@ class EditDeparturesPage extends StatefulWidget {
 class _EditDeparturesState extends State<EditDeparturesPage> {
   final getIt = GetIt.instance;
   final possibleColors = [
-    Colors.indigo[50],
+    Colors.red[50],
+    Colors.deepPurple[50],
     Colors.lightBlue[50],
-    Colors.orange[50],
-    Colors.lime[50],
-    Colors.purple[50],
+    Colors.green[50],
+    Colors.yellow[50],
     Colors.white,
   ];
   AppModel model;
