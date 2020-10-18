@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:krk_stops_frontend_flutter/src/departures_list.dart';
 
 import 'edit_departures.dart';
 import 'grpc/krk-stops.pb.dart';
@@ -41,15 +42,20 @@ class _DeparturesPageState extends State<DeparturesPage> {
   void fetchDepartures() {
     this.departuresIndex = 0;
     this.departuresTemp = [];
+    this.model.departuresCompleter = Completer<List<Departure>>();
     this.model.stub.getDepartures(this.stop).listen((stop) {
       this.departuresTemp.add(stop);
     }, onError: (error) {
       this.completeFetchedDepartures();
+      this.model.departuresCompleter.completeError("Could not fetch departures: ${error.message}");
     }, onDone: () {
       setState(() {
         this.model.departures = this.departuresTemp;
+        if (!model.departuresCompleter.isCompleted) {
+          this.model.departuresCompleter.complete(this.model.departures);
+          this.completeFetchedDepartures();
+        }
       });
-      this.completeFetchedDepartures();
     });
   }
 
@@ -123,53 +129,7 @@ class _DeparturesPageState extends State<DeparturesPage> {
             this.fetchDepartures();
             return this.fetchedDepartures.future;
           },
-          child: ListView.builder(
-            itemCount: this.model.departures.length,
-            itemBuilder: (context, index) {
-              Departure departure = this.model.departures[index];
-              String relativeTime;
-              if (departure.relativeTime == 0) {
-                relativeTime = "";
-              } else if (departure.relativeTime ~/ 60 < 1) {
-                relativeTime = "${departure.relativeTime}s";
-              } else {
-                var minutes = departure.relativeTime ~/ 60;
-                relativeTime = "${minutes}m";
-              }
-              return ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: 40,
-                  ),
-                  child: Container(
-                    color: model.findDepartureColor(departure),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.all(8),
-                            child: ConstrainedBox(
-                              child: Text(departure.patternText),
-                              constraints: BoxConstraints(minWidth: 24),
-                            )),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(departure.direction),
-                          ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(relativeTime)),
-                        Padding(
-                            padding: EdgeInsets.all(8),
-                            child: ConstrainedBox(
-                              child: Text(departure.plannedTime),
-                              constraints: BoxConstraints(minWidth: 24),
-                            )),
-                      ],
-                    ),
-                  ));
-            },
-          ),
+          child: DeparturesList(this.model.departuresCompleter)
         ));
 
     return scaf;

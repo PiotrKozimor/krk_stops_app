@@ -48,9 +48,11 @@ class SearchStops extends SearchDelegate<Stop> {
       request.listen((value) {
         stops.add(value);
       }, onDone: () {
-        _stops.complete(stops);
+        if (!_stops.isCompleted) {
+          _stops.complete(stops);
+        }
       }, onError: (error) {
-        _stops.complete(stops);
+        _stops.completeError("Could not find stops: ${error.message}");
       });
       return StopsList(_stops);
     }

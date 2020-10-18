@@ -31,8 +31,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.indigo,
           primaryColor: Colors.indigo[200],
           primaryColorBrightness: Brightness.light,
-          // accentColor: Colors.amber[500],
-          // accentColorBrightness: Brightness.light,
           brightness: Brightness.light,
           typography: Typography.material2018()),
       home: MyHomePage(title: 'KrkStops'),

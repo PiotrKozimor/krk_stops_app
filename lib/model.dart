@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:krk_stops_frontend_flutter/grpc/krk-stops.pb.dart';
+import 'package:krk_stops_frontend_flutter/src/departures_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
@@ -24,12 +25,16 @@ class AppModel {
   Function departuresUpdatedCallback;
   Function airlyUpdatedCallback;
   final stopsCompleter = new Completer<List<Stop>>();
+  Completer<List<Departure>> departuresCompleter;
   var airly = new Airly();
   var installation = new Installation();
   final channel = ClientChannel('krk-stops.pl',
       port: 8080,
+      // port: 10475,
       options:
-          const ChannelOptions(credentials: ChannelCredentials.insecure()));
+          const ChannelOptions(
+            credentials: ChannelCredentials.insecure(),
+            connectionTimeout: Duration(seconds: 2)));
 
   AppModel() {
     SharedPreferences.getInstance().then((value) {
@@ -40,13 +45,13 @@ class AppModel {
     });
     this.airly.color = "#AAAAAA";
     this.stub = KrkStopsClient(this.channel,
-        options: CallOptions(timeout: Duration(seconds: 30)));
+        options: CallOptions(timeout: Duration(seconds: 2)));
   }
 
   void loadAirly() {
     var installationId = this.prefs.getInt(airlyKey);
     if (installationId == null) {
-      installation.id = 9914;
+      installation.id = 8077;
       saveInstallation();
     } else {
       installation.id = installationId;

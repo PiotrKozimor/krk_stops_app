@@ -20,34 +20,58 @@ class StopsList extends StatelessWidget {
     return FutureBuilder(
       future: _stops.future,
       builder: (BuildContext context, AsyncSnapshot<List<Stop>> snapshot) {
+        List<Widget> stopsWidgets = [];
         if (snapshot.hasData) {
-          List<Widget> stopsWidgets = [];
-          for (final stop in snapshot.data) {
-            stopsWidgets.add(InkWell(
-              child: Container(
-                  // height: 40,
-                  padding: EdgeInsets.all(12),
-                  child: Align(
-                    child: Text(stop.name,
-                      style: Theme.of(context).textTheme.bodyText1,),
-                    alignment: AlignmentDirectional.centerStart,
-                  )),
-              onTap: () {
-                this.model.departures = [];
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DeparturesPage(stop)));
-              },
-            ));
+          if (snapshot.data.length > 0) {
+            for (final stop in snapshot.data) {
+              stopsWidgets.add(InkWell(
+                child: Container(
+                    padding: EdgeInsets.all(12),
+                    child: Align(
+                      child: Text(
+                        stop.name,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      alignment: AlignmentDirectional.centerStart,
+                    )),
+                onTap: () {
+                  this.model.departures = [];
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DeparturesPage(stop)));
+                },
+              ));
+            }
+          } else {
+            stopsWidgets.add(Container(
+                padding: EdgeInsets.all(12),
+                child: Align(
+                  child: Text(
+                    "No stops found",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  alignment: AlignmentDirectional.centerStart,
+                )));
           }
-          return ListView(
-            children: stopsWidgets,
-            padding: const EdgeInsets.all(8),
-          );
-        } else {
-          return Column();
+        } else if (snapshot.hasError) {
+          stopsWidgets.add(Container(
+              padding: EdgeInsets.all(12),
+              child: Align(
+                child: Text(
+                  snapshot.error,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .apply(color: Colors.red),
+                ),
+                alignment: AlignmentDirectional.centerStart,
+              )));
         }
+        return ListView(
+          children: stopsWidgets,
+          padding: const EdgeInsets.all(8),
+        );
       },
     );
   }
