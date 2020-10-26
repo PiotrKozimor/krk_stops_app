@@ -41,6 +41,7 @@ const Departure$json = const {
     const {'1': 'patternText', '3': 4, '4': 1, '5': 9, '10': 'patternText'},
     const {'1': 'color', '3': 5, '4': 1, '5': 13, '10': 'color'},
     const {'1': 'relativeTimeParsed', '3': 6, '4': 1, '5': 9, '10': 'relativeTimeParsed'},
+    const {'1': 'predicted', '3': 7, '4': 1, '5': 8, '10': 'predicted'},
   ],
 };
 

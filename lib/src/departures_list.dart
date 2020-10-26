@@ -25,7 +25,7 @@ class DeparturesList extends StatelessWidget {
           if (snapshot.data.length > 0) {
             for (final departure in snapshot.data) {
               String relativeTime;
-              if (departure.relativeTime == 0) {
+              if (!departure.predicted) {
                 relativeTime = "";
               } else if (departure.relativeTime ~/ 60 < 1) {
                 relativeTime = "${departure.relativeTime}s";

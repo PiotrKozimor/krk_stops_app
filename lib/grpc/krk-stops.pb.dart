@@ -170,6 +170,7 @@ class Departure extends $pb.GeneratedMessage {
     ..aOS(4, 'patternText', protoName: 'patternText')
     ..a<$core.int>(5, 'color', $pb.PbFieldType.OU3)
     ..aOS(6, 'relativeTimeParsed', protoName: 'relativeTimeParsed')
+    ..aOB(7, 'predicted')
     ..hasRequiredFields = false
   ;
 
@@ -241,6 +242,15 @@ class Departure extends $pb.GeneratedMessage {
   $core.bool hasRelativeTimeParsed() => $_has(5);
   @$pb.TagNumber(6)
   void clearRelativeTimeParsed() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.bool get predicted => $_getBF(6);
+  @$pb.TagNumber(7)
+  set predicted($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasPredicted() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearPredicted() => clearField(7);
 }
 
 class Stop extends $pb.GeneratedMessage {
