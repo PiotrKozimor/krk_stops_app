@@ -46,7 +46,6 @@ class _EditStopsState extends State<EditStopsPage> {
                 model.savedStops.insert(newIndex, removed);
               });
               model.saveStops(this.model.savedStops);
-              model.stopsUpdatedCallback();
             }));
     return scaf;
   }

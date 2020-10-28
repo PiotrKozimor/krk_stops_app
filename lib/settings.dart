@@ -264,7 +264,10 @@ class _SettingsState extends State<SettingsPage> {
                 }
               },
             ),
-            Divider(),
+            Divider(
+              height: 7,
+              thickness: 1,
+            ),
             Container(
                 padding: EdgeInsets.all(12),
                 child: Text(

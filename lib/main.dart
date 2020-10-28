@@ -79,15 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    fetchAirly();
-  }
-
-  fetchAirly() {
-    model.fetchAirly(this.model.installation).then((airly) {
-      setState(() {
-        this.model.airly = airly;
-      });
-    });
   }
 
   @override
@@ -130,7 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
         IconButton(
             icon: Icon(Icons.refresh),
             tooltip: 'Search stops',
-            onPressed: fetchAirly),
+            onPressed: () {
+              model.fetchAirly(model.installation);
+            }),
       ],
     );
     // ));

@@ -74,7 +74,6 @@ class AppModel {
       var data = snapshot.data();
       prefs.setInt(airlyKey, data[airlyKey]);
       installation.id = data[airlyKey];
-      airlyUpdatedCallback();
       List<String> stops = [];
       for (final stop in data[stopsKey]) {
         stops.add(stop);
@@ -84,7 +83,6 @@ class AppModel {
         savedStops.add(Stop.fromJson(stopRaw));
       }
       saveStops(savedStops);
-      stopsUpdatedCallback();
       List<String> departures = [];
       for (final departure in data[departuresKey]) {
         departures.add(departure);
@@ -118,6 +116,7 @@ class AppModel {
     } else {
       installation.id = installationId;
     }
+    fetchAirly(installation);
   }
 
   void saveInstallation() {
@@ -141,8 +140,10 @@ class AppModel {
       for (final stopRaw in stopsRaw) {
         this.savedStops.add(Stop.fromJson(stopRaw));
       }
+      stopsCompleter = new Completer<List<Stop>>();
+      stopsUpdatedCallback();
+      stopsCompleter.complete(savedStops);
     }
-    this.stopsCompleter.complete(this.savedStops);
   }
 
   void saveStops(List<Stop> stops) {
@@ -152,6 +153,7 @@ class AppModel {
       rawStops.add(stop.writeToJson());
     }
     this.prefs.setStringList(this.stopsKey, rawStops);
+    stopsUpdatedCallback();
     stopsCompleter.complete(stops);
   }
 
@@ -160,8 +162,16 @@ class AppModel {
     if (rawSavedDepartures != null) {
       for (final rawSavedDeparture in rawSavedDepartures) {
         savedDepartures.add(Departure.fromJson(rawSavedDeparture));
+      } 
+    }else {
+        savedDepartures = [
+          Departure()
+          ..color=4292998654
+          ..direction="Czerwone Maki P+R"
+          ..patternText="52"
+        ];
+        saveDepartures();
       }
-    }
   }
 
   void saveDepartures() {
@@ -189,8 +199,10 @@ class AppModel {
     }
   }
 
-  ResponseFuture<Airly> fetchAirly(Installation installation) {
-    final airly = stub.getAirly(installation);
-    return airly;
+  void fetchAirly(Installation installation) {
+    stub.getAirly(installation).then((airlyFetched) {
+      airly = airlyFetched;
+      airlyUpdatedCallback();
+    });
   }
 }
