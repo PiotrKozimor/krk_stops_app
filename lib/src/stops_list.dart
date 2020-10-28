@@ -68,9 +68,9 @@ class StopsList extends StatelessWidget {
                 alignment: AlignmentDirectional.centerStart,
               )));
         }
-        return ListView(
+        return Column(
           children: stopsWidgets,
-          padding: const EdgeInsets.all(8),
+          // padding: const EdgeInsets.all(8),
         );
       },
     );

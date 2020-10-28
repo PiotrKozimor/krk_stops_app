@@ -29,7 +29,9 @@ class _DeparturesPageState extends State<DeparturesPage> {
   _DeparturesPageState(this.stop) {
     model = getIt.get<AppModel>();
     model.departuresUpdatedCallback = () {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     };
   }
   @override

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "763828584294",
+    "firebase_url": "https://krkstops.firebaseio.com",
+    "project_id": "krkstops",
+    "storage_bucket": "krkstops.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763828584294:android:acae783b7f717f83e692a7",
+        "android_client_info": {
+          "package_name": "krkstops.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763828584294-0ua7nub3inumqshctm1nlu0v4ne8jjoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "krkstops.app",
+            "certificate_hash": "bb24666ca79c526741f1be08670c7db4cfe79127"
+          }
+        },
+        {
+          "client_id": "763828584294-pgbfilb2n73145ii9uaq2lcogngckppk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqICB0ZeL84fZozPbgI66pz3kjmyPAdbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763828584294-pgbfilb2n73145ii9uaq2lcogngckppk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
