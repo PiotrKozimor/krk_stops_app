@@ -1,4 +1,4 @@
-package com.example.krk_stops_frontend_flutter
+package com.example.krk_stops_app
 
 import io.flutter.embedding.android.FlutterActivity
 

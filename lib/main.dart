@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:krk_stops_frontend_flutter/departures.dart';
-import 'package:krk_stops_frontend_flutter/edit_stops.dart';
-import 'package:krk_stops_frontend_flutter/model.dart';
-import 'package:krk_stops_frontend_flutter/search_stops.dart';
-import 'package:krk_stops_frontend_flutter/settings.dart';
-import 'package:krk_stops_frontend_flutter/src/stops_list.dart';
+import 'package:krk_stops_app/departures.dart';
+import 'package:krk_stops_app/edit_stops.dart';
+import 'package:krk_stops_app/model.dart';
+import 'package:krk_stops_app/search_stops.dart';
+import 'package:krk_stops_app/settings.dart';
+import 'package:krk_stops_app/src/stops_list.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 

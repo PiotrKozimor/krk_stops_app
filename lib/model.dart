@@ -7,8 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
-import 'package:krk_stops_frontend_flutter/grpc/krk-stops.pb.dart';
-import 'package:krk_stops_frontend_flutter/src/departures_list.dart';
+import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
+import 'package:krk_stops_app/src/departures_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';

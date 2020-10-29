@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:krk_stops_frontend_flutter/src/departures_list.dart';
+import 'package:krk_stops_app/src/departures_list.dart';
 
 import 'edit_departures.dart';
 import 'grpc/krk-stops.pb.dart';
