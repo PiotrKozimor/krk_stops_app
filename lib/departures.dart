@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:krk_stops_frontend_flutter/src/departures_list.dart';
+import 'package:krk_stops_app/src/departures_list.dart';
 
 import 'edit_departures.dart';
 import 'grpc/krk-stops.pb.dart';
@@ -29,7 +29,9 @@ class _DeparturesPageState extends State<DeparturesPage> {
   _DeparturesPageState(this.stop) {
     model = getIt.get<AppModel>();
     model.departuresUpdatedCallback = () {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     };
   }
   @override
@@ -71,7 +73,6 @@ class _DeparturesPageState extends State<DeparturesPage> {
     setState(() {
       this.isSaved = false;
     });
-    this.model.stopsUpdatedCallback();
   }
 
   void addToSaved() {
@@ -80,7 +81,6 @@ class _DeparturesPageState extends State<DeparturesPage> {
     setState(() {
       this.isSaved = true;
     });
-    this.model.stopsUpdatedCallback();
   }
 
   int stopSavedIndex() {

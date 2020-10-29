@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:krk_stops_frontend_flutter/departures.dart';
-import 'package:krk_stops_frontend_flutter/edit_stops.dart';
-import 'package:krk_stops_frontend_flutter/model.dart';
-import 'package:krk_stops_frontend_flutter/search_stops.dart';
-import 'package:krk_stops_frontend_flutter/src/stops_list.dart';
+import 'package:krk_stops_app/departures.dart';
+import 'package:krk_stops_app/edit_stops.dart';
+import 'package:krk_stops_app/model.dart';
+import 'package:krk_stops_app/search_stops.dart';
+import 'package:krk_stops_app/settings.dart';
+import 'package:krk_stops_app/src/stops_list.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
@@ -64,83 +65,68 @@ class _MyHomePageState extends State<MyHomePage> {
   _MyHomePageState() {
     getIt.registerSingleton<AppModel>(model);
     model.stopsUpdatedCallback = () {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     };
     model.airlyUpdatedCallback = () {
-      setState(() {
-        
-      });
+      if (mounted) {
+        setState(() {});
+      }
     };
   }
 
   @override
   void initState() {
     super.initState();
-    fetchAirly();
-  }
-
-  fetchAirly() {
-    model.fetchAirly(this.model.installation).then((airly) {
-      setState(() {
-        this.model.airly = airly;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    var airlyContainer = Container(
-        height: 52,
-        child: Card(
-            elevation: 2,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Icon(
-                    Icons.brightness_1,
-                    color: Color(int.parse(
-                            this.model.airly.color.substring(1, 7),
-                            radix: 16) +
-                        0xFF000000),
-                    // color: Color(0xFF999999),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "CAQI: ${this.model.airly.caqi}",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    '${this.model.airly.humidity}%',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      '${this.model.airly.temperature.toStringAsFixed(1)}°C',
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ),
-                ),
-                IconButton(
-                    icon: Icon(Icons.refresh),
-                    tooltip: 'Search stops',
-                    onPressed: fetchAirly),
-              ],
-            )));
+    var airly = Row(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(
+            Icons.brightness_1,
+            color: Color(
+                int.parse(this.model.airly.color.substring(1, 7), radix: 16) +
+                    0xFF000000),
+            // color: Color(0xFF999999),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            "CAQI: ${this.model.airly.caqi}",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            '${this.model.airly.humidity}%',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              '${this.model.airly.temperature.toStringAsFixed(1)}°C',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
+        ),
+        IconButton(
+            icon: Icon(Icons.refresh),
+            tooltip: 'Search stops',
+            onPressed: () {
+              model.fetchAirly(model.installation);
+            }),
+      ],
+    );
+    // ));
     var scaf = Scaffold(
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
@@ -161,6 +147,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 DeparturesPage(stopSearched)));
                   }
                 }),
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()));
+              },
+            )
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -171,16 +164,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(builder: (context) => EditStopsPage()));
           },
         ),
-        body: Container(
-          padding: EdgeInsets.all(4),
-          child: Column(
-            children: [
-              airlyContainer,
-              Expanded(
-                  child: Card(
-                      elevation: 2, child: StopsList(model.stopsCompleter)))
-            ],
-          ),
+        body: ListView(
+          children: [
+            airly,
+            Divider(
+              height: 7,
+              thickness: 1,
+            ),
+            StopsList(model.stopsCompleter)
+          ],
         ));
 
     return scaf;

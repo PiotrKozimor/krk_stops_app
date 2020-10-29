@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:krk_stops_frontend_flutter/grpc/krk-stops.pbgrpc.dart';
+import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 
 import '../departures.dart';
 import '../model.dart';
@@ -68,9 +68,9 @@ class StopsList extends StatelessWidget {
                 alignment: AlignmentDirectional.centerStart,
               )));
         }
-        return ListView(
+        return Column(
           children: stopsWidgets,
-          padding: const EdgeInsets.all(8),
+          // padding: const EdgeInsets.all(8),
         );
       },
     );
