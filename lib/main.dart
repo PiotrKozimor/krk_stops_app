@@ -104,17 +104,9 @@ class HomePage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Row(
-              children: [
-                BlocBuilder<AirlyCubit, Airly>(
-                    builder: (context, airly) => AirlyView(airly),
-                    cubit: context.bloc<AirlyCubit>()),
-                IconButton(
-                    icon: Icon(Icons.refresh),
-                    tooltip: 'Search stops',
-                    onPressed: () => context.bloc<AirlyCubit>().fetchAirly()),
-              ],
-            ),
+            BlocBuilder<AirlyCubit, Airly>(
+                builder: (context, airly) => AirlyView(airly),
+                cubit: context.bloc<AirlyCubit>()),
             Divider(
               height: 7,
               thickness: 1,
@@ -124,7 +116,6 @@ class HomePage extends StatelessWidget {
                 cubit: context.bloc<StopsCubit>())
           ],
         ));
-
     return scaf;
   }
 }
