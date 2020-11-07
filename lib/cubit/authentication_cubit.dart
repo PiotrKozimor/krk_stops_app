@@ -55,7 +55,10 @@ class AuthenticationCubit extends Cubit<User> {
 
   Future<Backup> restoreSettings() {
     var backup = Completer<void>();
-    firebaseRepository.users.doc(firebaseRepository.auth.currentUser.uid).get().then((snapshot) {
+    firebaseRepository.users
+        .doc(firebaseRepository.auth.currentUser.uid)
+        .get()
+        .then((snapshot) {
       var data = snapshot.data();
       List<String> stops = [];
       for (final stop in data[StopsCubit.key]) {
@@ -66,9 +69,9 @@ class AuthenticationCubit extends Cubit<User> {
         departures.add(departure);
       }
       backup.complete(Backup()
-        ..airly=data[AirlyCubit.key]
-        ..stops=stops
-        ..departures=departures);
+        ..airly = data[AirlyCubit.key]
+        ..stops = stops
+        ..departures = departures);
     }).catchError((Object error) {
       backup.completeError(error);
     });
@@ -76,7 +79,7 @@ class AuthenticationCubit extends Cubit<User> {
   }
 }
 
-class Backup{
+class Backup {
   String airly;
   List<String> stops, departures;
 }

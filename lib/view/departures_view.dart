@@ -15,7 +15,6 @@ class DeparturesView extends StatelessWidget {
           ),
           child: Container(
             padding: EdgeInsets.all(8),
-            // alignment: Alignment.topCenter,
             child: Text("No departures in 20 minutes."),
             // )
             // ],

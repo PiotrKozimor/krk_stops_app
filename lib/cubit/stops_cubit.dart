@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';

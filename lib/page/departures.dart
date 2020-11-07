@@ -5,8 +5,8 @@ import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
 
 import 'edit_departures.dart';
-import 'grpc/krk-stops.pb.dart';
-import 'grpc/krk-stops.pbgrpc.dart';
+import '../grpc/krk-stops.pb.dart';
+import '../grpc/krk-stops.pbgrpc.dart';
 
 class DeparturesPage extends StatelessWidget {
   final Stop stop;

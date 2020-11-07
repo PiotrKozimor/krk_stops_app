@@ -5,7 +5,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
-import 'package:krk_stops_app/src/departures_list.dart';
 
 class DeparturesCubit extends Cubit<List<Departure>> {
   final KrkStopsRepository krkStopsRepository;
@@ -88,13 +87,13 @@ class DeparturesCubit extends Cubit<List<Departure>> {
     });
   }
 
-  List<Departure> applyColor (List<Departure> toColor) {
-    for (var i=0; i < toColor.length; i++) {
+  List<Departure> applyColor(List<Departure> toColor) {
+    for (var i = 0; i < toColor.length; i++) {
       var index = find(toColor[i]);
       if (index == -1) {
-        toColor[i].color=0;
+        toColor[i].color = 0;
       } else {
-        toColor[i].color=coloredDepartures[index].color;
+        toColor[i].color = coloredDepartures[index].color;
       }
     }
     return List<Departure>.from(toColor);

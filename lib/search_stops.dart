@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
-import 'package:krk_stops_app/src/stops_list.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
