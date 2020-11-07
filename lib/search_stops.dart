@@ -1,19 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/cubit/stops_cubit.dart';
+import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/src/stops_list.dart';
+import 'package:krk_stops_app/view/stops_view.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
-import 'model.dart';
 
 class SearchStops extends SearchDelegate<Stop> {
-  final getIt = GetIt.instance;
-  AppModel model;
-  SearchStops() {
-    model = getIt.get<AppModel>();
-  }
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
@@ -42,21 +38,45 @@ class SearchStops extends SearchDelegate<Stop> {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (this.query.length > 2) {
-      List<Stop> stops=[];
-      var request = this.model.stub.searchStops(StopSearch()..query = this.query);
+      List<Stop> stops = [];
       var _stops = new Completer<List<Stop>>();
-      request.listen((value) {
-        stops.add(value);
+      RepositoryProvider.of<KrkStopsRepository>(context)
+          .stub
+          .searchStops(StopSearch()..query = this.query)
+          .listen((value) => stops.add(value), onError: (Object error) {
+        final snackBar =
+            SnackBar(content: Text('Could not find stops: $error'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }, onDone: () {
-        if (!_stops.isCompleted) {
-          _stops.complete(stops);
-        }
-      }, onError: (error) {
-        _stops.completeError("Could not find stops: ${error.message}");
+        _stops.complete(stops);
       });
-      return StopsList(_stops);
+      return ListView(
+        children: [
+          FutureBuilder<List<Stop>>(
+              future: _stops.future,
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Stop>> snapshot) {
+                if (!snapshot.hasData) {
+                  return Column();
+                } else if (snapshot.data.length == 0) {
+                  return Container(
+                      padding: EdgeInsets.all(12),
+                      child: Align(
+                        child: Text(
+                          "No stops found",
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        alignment: AlignmentDirectional.centerStart,
+                      ));
+                } else {
+                  return Column(
+                    children: [StopsView(snapshot.data)],
+                  );
+                }
+              })
+        ],
+      );
     }
     return Column();
   }
 }
-

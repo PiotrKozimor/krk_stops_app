@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
+import 'package:krk_stops_app/cubit/authentication_cubit.dart';
+import 'package:krk_stops_app/cubit/departures_cubit.dart';
+import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/departures.dart';
 import 'package:krk_stops_app/edit_stops.dart';
-import 'package:krk_stops_app/model.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/search_stops.dart';
 import 'package:krk_stops_app/settings.dart';
-import 'package:krk_stops_app/src/stops_list.dart';
 import 'package:krk_stops_app/view/airly_view.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
-import 'observer.dart';
 
 void main() {
-  Bloc.observer = Observer();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(KrkStopsApp(
     krkStopsRepository: KrkStopsRepository(),
@@ -40,25 +38,33 @@ class KrkStopsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: KrkStopsRepository,
-      child: MultiBlocProvider(
+        value: krkStopsRepository,
+        child: MultiBlocProvider(
           providers: [
             BlocProvider<AirlyCubit>(
                 create: (_) => AirlyCubit(krkStopsRepository)),
             BlocProvider<StopsCubit>(
                 create: (_) => StopsCubit(krkStopsRepository)),
+            BlocProvider(create: (_) => InstallationCubit(krkStopsRepository)),
+            BlocProvider(create: (_) => DeparturesCubit(krkStopsRepository)),
+            BlocProvider(
+                create: (_) => AuthenticationCubit(firebaseRepository)),
           ],
-          child: MaterialApp(
-            title: 'KrkStops',
-            theme: ThemeData(
-                primarySwatch: Colors.indigo,
-                primaryColor: Colors.indigo[200],
-                primaryColorBrightness: Brightness.light,
-                brightness: Brightness.light,
-                typography: Typography.material2018()),
-            home: HomePage(title: 'KrkStops'),
-          )),
-    );
+          child: BlocListener<InstallationCubit, Installation>(
+              listener: (context, state) {
+                context.bloc<AirlyCubit>().fetchAirly(state);
+              },
+              child: MaterialApp(
+                title: 'KrkStops',
+                theme: ThemeData(
+                    primarySwatch: Colors.indigo,
+                    primaryColor: Colors.indigo[200],
+                    primaryColorBrightness: Brightness.light,
+                    brightness: Brightness.light,
+                    typography: Typography.material2018()),
+                home: HomePage(title: 'KrkStops'),
+              )),
+        ));
   }
 }
 
@@ -78,7 +84,6 @@ class HomePage extends StatelessWidget {
                   var stopSearched = await showSearch<Stop>(
                       context: context, delegate: SearchStops());
                   if (stopSearched != null) {
-                    // this.model.departures = [];
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -105,15 +110,13 @@ class HomePage extends StatelessWidget {
         body: ListView(
           children: [
             BlocBuilder<AirlyCubit, Airly>(
-                builder: (context, airly) => AirlyView(airly),
-                cubit: context.bloc<AirlyCubit>()),
+                builder: (context, airly) => AirlyView(airly)),
             Divider(
               height: 7,
               thickness: 1,
             ),
             BlocBuilder<StopsCubit, List<Stop>>(
-                builder: (context, stops) => StopsView(stops),
-                cubit: context.bloc<StopsCubit>())
+                builder: (context, stops) => StopsView(stops))
           ],
         ));
     return scaf;

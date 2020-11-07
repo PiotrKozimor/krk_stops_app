@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
+import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AirlyView extends StatelessWidget {
   final Airly _airly;
-  AirlyView(this._airly) {}
+  AirlyView(this._airly);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,9 @@ class AirlyView extends StatelessWidget {
         IconButton(
             icon: Icon(Icons.refresh),
             tooltip: 'Search stops',
-            onPressed: () => context.bloc<AirlyCubit>().fetchAirly()),
+            onPressed: () => context.bloc<AirlyCubit>().fetchAirly(
+              context.bloc<InstallationCubit>().state
+            )),
       ],
     );
   }

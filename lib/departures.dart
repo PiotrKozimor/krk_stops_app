@@ -1,116 +1,43 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:krk_stops_app/src/departures_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/cubit/departures_cubit.dart';
+import 'package:krk_stops_app/cubit/stops_cubit.dart';
+import 'package:krk_stops_app/view/departures_view.dart';
 
 import 'edit_departures.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
-import 'model.dart';
 
-class DeparturesPage extends StatefulWidget {
-  final getIt = GetIt.instance;
-  AppModel model;
+class DeparturesPage extends StatelessWidget {
   final Stop stop;
   DeparturesPage(this.stop);
-  @override
-  _DeparturesPageState createState() => _DeparturesPageState(this.stop);
-}
-
-class _DeparturesPageState extends State<DeparturesPage> {
-  final getIt = GetIt.instance;
-  AppModel model;
-  Stop stop;
-  int departuresIndex = 0;
-  bool isSaved;
-  List<Departure> departuresTemp = [];
-  Completer fetchedDepartures = new Completer();
-  _DeparturesPageState(this.stop) {
-    model = getIt.get<AppModel>();
-    model.departuresUpdatedCallback = () {
-      if (mounted) {
-        setState(() {});
-      }
-    };
-  }
-  @override
-  void initState() {
-    super.initState();
-    this.fetchDepartures();
-    isSaved = this.stopSavedIndex() != -1;
-  }
-
-  void fetchDepartures() {
-    this.departuresIndex = 0;
-    this.departuresTemp = [];
-    this.model.departuresCompleter = Completer<List<Departure>>();
-    this.model.stub.getDepartures(this.stop).listen((stop) {
-      this.departuresTemp.add(stop);
-    }, onError: (error) {
-      this.completeFetchedDepartures();
-      this.model.departuresCompleter.completeError("Could not fetch departures: ${error.message}");
-    }, onDone: () {
-      setState(() {
-        this.model.departures = this.departuresTemp;
-        if (!model.departuresCompleter.isCompleted) {
-          this.model.departuresCompleter.complete(this.model.departures);
-          this.completeFetchedDepartures();
-        }
-      });
-    });
-  }
-
-  void completeFetchedDepartures() {
-    var _ = Timer(
-        Duration(milliseconds: 500), () => this.fetchedDepartures.complete());
-  }
-
-  void removeFromSaved() {
-    var toRemove = stopSavedIndex();
-    this.model.savedStops.removeAt(toRemove);
-    this.model.saveStops(this.model.savedStops);
-    setState(() {
-      this.isSaved = false;
-    });
-  }
-
-  void addToSaved() {
-    this.model.savedStops.add(this.stop);
-    this.model.saveStops(this.model.savedStops);
-    setState(() {
-      this.isSaved = true;
-    });
-  }
-
-  int stopSavedIndex() {
-    return this.model.savedStops.lastIndexWhere((element) {
-      return element.shortName == this.stop.shortName;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     var scaf = Scaffold(
         appBar: AppBar(
-          title: Text(this.stop.name),
+          title: Text(stop.name),
           actions: <Widget>[
-            Visibility(
-              child: IconButton(
-                icon: Icon(Icons.favorite),
-                tooltip: 'Remove from saved',
-                onPressed: removeFromSaved,
-              ),
-              visible: isSaved,
-            ),
-            Visibility(
-              child: IconButton(
-                icon: Icon(Icons.favorite_outline),
-                tooltip: 'Add to saved',
-                onPressed: addToSaved,
-              ),
-              visible: !isSaved,
-            )
+            BlocBuilder<StopsCubit, List<Stop>>(builder: (context, state) {
+              var bloc = context.bloc<StopsCubit>();
+              if (bloc.findIndex(stop) > -1) {
+                return IconButton(
+                  icon: Icon(Icons.favorite),
+                  tooltip: 'Remove from saved',
+                  onPressed: () {
+                    bloc.remove(stop);
+                  },
+                );
+              } else {
+                return IconButton(
+                  icon: Icon(Icons.favorite_outline),
+                  tooltip: 'Add to saved',
+                  onPressed: () {
+                    bloc.add(stop);
+                  },
+                );
+              }
+            })
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -124,14 +51,11 @@ class _DeparturesPageState extends State<DeparturesPage> {
           },
         ),
         body: RefreshIndicator(
-          onRefresh: () {
-            this.fetchedDepartures = new Completer();
-            this.fetchDepartures();
-            return this.fetchedDepartures.future;
-          },
-          child: DeparturesList(this.model.departuresCompleter)
-        ));
-
+            onRefresh: () {
+              return context.bloc<DeparturesCubit>().fetch(stop);
+            },
+            child: BlocBuilder<DeparturesCubit, List<Departure>>(
+                builder: (context, state) => DeparturesView(state))));
     return scaf;
   }
 }

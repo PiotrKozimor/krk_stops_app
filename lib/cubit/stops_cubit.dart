@@ -6,19 +6,17 @@ import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 
 class StopsCubit extends Cubit<List<Stop>> {
   final KrkStopsRepository krkStopsRepository;
-  final stopsKey = 'stops';
+  static final key = 'stops';
   Installation installation = Installation();
   StopsCubit(this.krkStopsRepository) : super(List<Stop>()) {
     krkStopsRepository.preferencesLoaded.future.then((value) {
-      loadStops();
+      load();
     });
   }
 
-  // void update(Airly airly) => emit(airly);
-
-  void loadStops() {
-    var stopsRaw = krkStopsRepository.preferences.getStringList(stopsKey);
-    if (stopsRaw == null) {
+  void load() {
+    var encoded = krkStopsRepository.preferences.getStringList(key);
+    if (encoded == null) {
       var stops = [
         Stop()
           ..name = 'Rondo Mogilskie'
@@ -27,41 +25,65 @@ class StopsCubit extends Cubit<List<Stop>> {
           ..name = 'Rondo Matecznego'
           ..shortName = '610'
       ];
-      // emit(stops);
-      saveStops(stops);
+      save(stops);
     } else {
-      var stops = List<Stop>();
-      for (final stopRaw in stopsRaw) {
-        stops.add(Stop.fromJson(stopRaw));
-      }
+      var stops = decode(encoded);
       emit(stops);
     }
-    // var tim = Timer.periodic(Duration(seconds: 1), (t) {
-    //   var stops = List<Stop>.from(state);
-    //   stops[0].name += "a";
-    //   print(stops == state);
-    //   emit(stops);
-    // });
   }
 
-  void reorderStops(int oldIndex, int newIndex) {
+  static List<Stop> decode(List<String> encoded) {
+    var stops = List<Stop>();
+    for (final stopRaw in encoded) {
+      stops.add(Stop.fromJson(stopRaw));
+    }
+    return stops;
+  }
+
+  static List<String> encode(List<Stop> stops) {
+    List<String> encoded = [];
+    for (final stop in stops) {
+      encoded.add(stop.writeToJson());
+    }
+    return encoded;
+  }
+
+  void reorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
     }
     var stops = List<Stop>.from(state);
     final Stop removed = stops.removeAt(oldIndex);
     stops.insert(newIndex, removed);
-    saveStops(stops);
-    // print(state == stops);
-    // emit(stops);
+    save(stops);
   }
 
-  saveStops(List<Stop> stops) {
-    List<String> rawStops = [];
-    for (final stop in stops) {
-      rawStops.add(stop.writeToJson());
-    }
-    this.krkStopsRepository.preferences.setStringList(this.stopsKey, rawStops);
+  save(List<Stop> stops) {
+    var encodedStops = encode(stops);
+    this.krkStopsRepository.preferences.setStringList(key, encodedStops);
     emit(stops);
+  }
+
+  restore(List<String> encoded) {
+    emit(decode(encoded));
+  }
+
+  void remove(Stop stop) {
+    var toRemove = findIndex(stop);
+    var newState = List<Stop>.from(state);
+    newState.removeAt(toRemove);
+    save(newState);
+  }
+
+  void add(Stop stop) {
+    var newState = List<Stop>.from(state);
+    newState.add(stop);
+    save(newState);
+  }
+
+  int findIndex(Stop stop) {
+    return this.state.lastIndexWhere((element) {
+      return element.shortName == stop.shortName;
+    });
   }
 }

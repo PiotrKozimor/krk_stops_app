@@ -67,17 +67,7 @@ class DeparturesList extends StatelessWidget {
                   )));
             }
           } else {
-            departuresWidgets.add(ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: 40,
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(8),
-                  // alignment: Alignment.topCenter,
-                  child: Text("No departures in 20 minutes."),
-                  // )
-                  // ],
-                )));
+            
           }
         } else if (snapshot.hasError) {
           departuresWidgets.add(ConstrainedBox(
