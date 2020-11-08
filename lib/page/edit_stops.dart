@@ -11,7 +11,7 @@ class EditStopsPage extends StatelessWidget {
           title: Text("KrkStops"),
         ),
         body: BlocBuilder<StopsCubit, List<Stop>>(
-            cubit: context.bloc<StopsCubit>(),
+            cubit: context.read<StopsCubit>(),
             builder: (context, state) {
               return ReorderableListView(
                   children: state
@@ -22,7 +22,7 @@ class EditStopsPage extends StatelessWidget {
                           ))
                       .toList(),
                   onReorder: (int oldIndex, int newIndex) {
-                    context.bloc<StopsCubit>().reorder(oldIndex, newIndex);
+                    context.read<StopsCubit>().reorder(oldIndex, newIndex);
                   });
             }));
   }

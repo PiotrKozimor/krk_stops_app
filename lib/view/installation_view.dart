@@ -14,7 +14,7 @@ class InstallationView extends StatelessWidget {
       showDialog(
           context: context,
           builder: (context) {
-            var bloc = BlocProvider.of<InstallationCubit>(context);
+            var bloc = context.read<InstallationCubit>();
             _airlyIdController.value =
                 TextEditingValue(text: "${bloc.state.id}");
             airlyError = null;
@@ -51,7 +51,7 @@ class InstallationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = BlocProvider.of<InstallationCubit>(context);
+    var bloc = context.read<InstallationCubit>();
     return Column(
       children: [
         Container(
@@ -90,8 +90,8 @@ class InstallationView extends StatelessWidget {
             icon: Icon(Icons.location_searching),
             tooltip: 'Find nearest installation',
             onPressed: () {
-              requestPermission().then((permisions) {
-                getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
+              Geolocator.requestPermission().then((permisions) {
+                Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
                     .then((location) {
                   bloc.findNearest(location).then((value) {
                     final snackBar =

@@ -52,7 +52,7 @@ class KrkStopsApp extends StatelessWidget {
           ],
           child: BlocListener<InstallationCubit, Installation>(
               listener: (context, state) {
-                context.bloc<AirlyCubit>().fetchAirly(state);
+                context.read<AirlyCubit>().fetchAirly(state);
               },
               child: MaterialApp(
                 title: 'KrkStops',

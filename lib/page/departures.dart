@@ -19,7 +19,7 @@ class DeparturesPage extends StatelessWidget {
           title: Text(stop.name),
           actions: <Widget>[
             BlocBuilder<StopsCubit, List<Stop>>(builder: (context, state) {
-              var bloc = context.bloc<StopsCubit>();
+              var bloc = context.read<StopsCubit>();
               if (bloc.findIndex(stop) > -1) {
                 return IconButton(
                   icon: Icon(Icons.favorite),
@@ -52,7 +52,7 @@ class DeparturesPage extends StatelessWidget {
         ),
         body: RefreshIndicator(
             onRefresh: () {
-              return context.bloc<DeparturesCubit>().fetch(stop);
+              return context.read<DeparturesCubit>().fetch(stop);
             },
             child: BlocBuilder<DeparturesCubit, List<Departure>>(
                 builder: (context, state) => DeparturesView(state))));

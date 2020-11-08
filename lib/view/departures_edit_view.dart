@@ -32,7 +32,8 @@ class DeparturesEditView extends StatelessWidget {
                             circleSize: 32,
                             color: e,
                             onColorChoose: () {
-                              BlocProvider.of<DeparturesCubit>(context)
+                              context
+                                  .read<DeparturesCubit>()
                                   .setColor(departure, e);
                               Navigator.pop(context);
                             },
@@ -44,7 +45,7 @@ class DeparturesEditView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = BlocProvider.of<DeparturesCubit>(context);
+    var bloc = context.read<DeparturesCubit>();
     return ListView.builder(
       itemCount: bloc.state.length,
       itemBuilder: (context, index) {

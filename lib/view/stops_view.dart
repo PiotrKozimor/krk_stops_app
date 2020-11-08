@@ -24,8 +24,8 @@ class StopsView extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                     )),
                 onTap: () {
-                  BlocProvider.of<DeparturesCubit>(context).clean();
-                  BlocProvider.of<DeparturesCubit>(context).fetch(e);
+                  context.read<DeparturesCubit>().clean();
+                  context.read<DeparturesCubit>().fetch(e);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
