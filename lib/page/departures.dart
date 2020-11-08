@@ -19,7 +19,7 @@ class DeparturesPage extends StatelessWidget {
           title: Text(stop.name),
           actions: <Widget>[
             BlocBuilder<StopsCubit, List<Stop>>(builder: (context, state) {
-              var bloc = context.read<StopsCubit>();
+              var bloc = context.watch<StopsCubit>();
               if (bloc.findIndex(stop) > -1) {
                 return IconButton(
                   icon: Icon(Icons.favorite),

@@ -9,7 +9,7 @@ import 'package:krk_stops_app/cubit/stops_cubit.dart';
 class BackupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<AuthenticationCubit>();
+    var bloc = context.watch<AuthenticationCubit>();
     return Column(
       children: [
         Container(
@@ -41,9 +41,9 @@ class BackupView extends StatelessWidget {
                   )),
             ]);
           }
-          var installationC = context.read<InstallationCubit>();
-          var stopsC = context.read<StopsCubit>();
-          var departuresC = context.read<DeparturesCubit>();
+          var installationC = context.watch<InstallationCubit>();
+          var stopsC = context.watch<StopsCubit>();
+          var departuresC = context.watch<DeparturesCubit>();
           return Column(
             children: [
               Container(
@@ -72,8 +72,8 @@ class BackupView extends StatelessWidget {
                           ..airly =
                               InstallationCubit.encode(installationC.state)
                           ..stops = StopsCubit.encode(stopsC.state)
-                          ..departures =
-                              DeparturesCubit.encode(departuresC.coloredDepartures);
+                          ..departures = DeparturesCubit.encode(
+                              departuresC.coloredDepartures);
                         var backed = bloc.backupSettings(backup);
                         backed.then((value) {
                           final snackBar = SnackBar(

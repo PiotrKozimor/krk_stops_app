@@ -45,7 +45,7 @@ class DeparturesEditView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<DeparturesCubit>();
+    var bloc = context.watch<DeparturesCubit>();
     return ListView.builder(
       itemCount: bloc.state.length,
       itemBuilder: (context, index) {

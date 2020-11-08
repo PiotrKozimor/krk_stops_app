@@ -14,7 +14,7 @@ class InstallationView extends StatelessWidget {
       showDialog(
           context: context,
           builder: (context) {
-            var bloc = context.read<InstallationCubit>();
+            var bloc = context.watch<InstallationCubit>();
             _airlyIdController.value =
                 TextEditingValue(text: "${bloc.state.id}");
             airlyError = null;
@@ -51,7 +51,7 @@ class InstallationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.read<InstallationCubit>();
+    var bloc = context.watch<InstallationCubit>();
     return Column(
       children: [
         Container(
