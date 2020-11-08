@@ -54,7 +54,7 @@ class AuthenticationCubit extends Cubit<User> {
   }
 
   Future<Backup> restoreSettings() {
-    var backup = Completer<void>();
+    var backup = Completer<Backup>();
     firebaseRepository.users
         .doc(firebaseRepository.auth.currentUser.uid)
         .get()
