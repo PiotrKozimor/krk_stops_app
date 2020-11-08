@@ -6,9 +6,7 @@ import 'package:krk_stops_app/page/departures.dart';
 
 class StopsView extends StatelessWidget {
   final List<Stop> stops;
-  StopsView(this.stops) {
-    print("StopsView");
-  }
+  StopsView(this.stops);
   @override
   Widget build(BuildContext context) {
     return Column(
