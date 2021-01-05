@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
+import 'package:krk_stops_app/cubit/last_stops_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/page/departures.dart';
 
@@ -22,6 +23,7 @@ class StopsView extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                     )),
                 onTap: () {
+                  context.read<LastStopsCubit>().add(e);
                   context.read<DeparturesCubit>().clean();
                   context.read<DeparturesCubit>().fetch(e);
                   Navigator.push(

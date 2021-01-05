@@ -13,6 +13,7 @@ import 'package:krk_stops_app/search_stops.dart';
 import 'package:krk_stops_app/page/settings.dart';
 import 'package:krk_stops_app/view/airly_view.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
+import 'cubit/last_stops_cubit.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
@@ -46,6 +47,7 @@ class KrkStopsApp extends StatelessWidget {
             BlocProvider<StopsCubit>(
                 create: (_) => StopsCubit(krkStopsRepository)),
             BlocProvider(create: (_) => InstallationCubit(krkStopsRepository)),
+            BlocProvider(create: (_) => LastStopsCubit(krkStopsRepository)),
             BlocProvider(create: (_) => DeparturesCubit(krkStopsRepository)),
             BlocProvider(
                 create: (_) => AuthenticationCubit(firebaseRepository)),
@@ -81,8 +83,10 @@ class HomePage extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () async {
+                  context.read<LastStopsCubit>().enterSearch();
                   var stopSearched = await showSearch<Stop>(
                       context: context, delegate: SearchStops());
+                  context.read<LastStopsCubit>().exitSearch()();
                   if (stopSearched != null) {
                     Navigator.push(
                         context,
