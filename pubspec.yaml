@@ -23,18 +23,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  protobuf: ^1.1.0
-  grpc: ^2.7.0
-  shared_preferences: ^0.5.12
-  flutter_material_color_picker: ^1.0.5
-  geolocator: ^6.1.5
-  url_launcher: ^5.7.10
-  google_sign_in: "^4.5.1"
-  firebase_core: "0.5.2"
-  firebase_auth: "^0.18.3"
-  cloud_firestore: "^0.14.3"
-  bloc: ^6.0.0
-  flutter_bloc: ^6.1.0
+  protobuf: 1.1.0
+  grpc: 2.8.0
+  shared_preferences: 0.5.12+4
+  flutter_material_color_picker: 1.0.5
+  geolocator: 6.1.13
+  url_launcher: 5.7.10
+  google_sign_in: 4.5.6
+  firebase_core: 0.5.3
+  firebase_auth: 0.18.4+1
+  cloud_firestore: 0.14.4
+  bloc: 6.1.1
+  flutter_bloc: 6.1.1
 
   
   # The following adds the Cupertino Icons font to your application.
