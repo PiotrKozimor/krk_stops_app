@@ -23,18 +23,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  protobuf: 1.1.0
-  grpc: 2.8.0
-  shared_preferences: 0.5.12+4
-  flutter_material_color_picker: 1.0.5
-  geolocator: 6.1.14
-  url_launcher: 5.7.10
-  google_sign_in: 4.5.9
-  firebase_core: 0.7.0
-  firebase_auth: 0.20.0+1
-  cloud_firestore: 0.16.0
-  bloc: 6.1.1
-  flutter_bloc: 6.1.1
+  protobuf: ^1.1.0
+  grpc: ^2.8.0
+  shared_preferences: ^0.5.12+4
+  flutter_material_color_picker: ^1.0.5
+  geolocator: ^6.1.14
+  url_launcher: ^5.7.10
+  google_sign_in: ^4.5.9
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0+1
+  cloud_firestore: ^0.16.0
+  bloc: ^6.1.1
+  flutter_bloc: ^6.1.1
+  firebase_crashlytics: ^0.4.0+1
+
 
 dev_dependencies:
   flutter_test:
