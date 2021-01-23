@@ -77,7 +77,7 @@ class DeparturesCubit extends Cubit<List<Departure>> {
   }
 
   restore(List<String> encoded) {
-    coloredDepartures = decode(encoded);
+    save(decode(encoded));
   }
 
   int find(Departure dep) {

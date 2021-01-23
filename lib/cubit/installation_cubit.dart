@@ -63,6 +63,6 @@ class InstallationCubit extends Cubit<Installation> {
   }
 
   restore(String encoded) {
-    emit(decode(encoded));
+    save(decode(encoded));
   }
 }

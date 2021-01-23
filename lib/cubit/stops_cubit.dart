@@ -63,7 +63,7 @@ class StopsCubit extends Cubit<List<Stop>> {
   }
 
   restore(List<String> encoded) {
-    emit(decode(encoded));
+    save(decode(encoded));
   }
 
   void remove(Stop stop) {
