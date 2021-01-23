@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "763828584294-0ua7nub3inumqshctm1nlu0v4ne8jjoj.apps.googleusercontent.com",
+          "client_id": "763828584294-tsc8gd33rahfn4h2l5g139ic9gtbp1nc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "krkstops.app",
-            "certificate_hash": "bb24666ca79c526741f1be08670c7db4cfe79127"
+            "certificate_hash": "357e782d3e0af5ec65069ce91d92c22497b57085"
           }
         },
         {
