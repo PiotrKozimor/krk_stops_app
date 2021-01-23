@@ -46,7 +46,7 @@ class SearchStops extends SearchDelegate<Stop> {
           .listen((value) => stops.add(value), onError: (Object error) {
         final snackBar =
             SnackBar(content: Text('Could not find stops: $error'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Scaffold.of(context).showSnackBar(snackBar);
       }, onDone: () {
         _stops.complete(stops);
       });

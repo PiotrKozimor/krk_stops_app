@@ -78,11 +78,11 @@ class BackupView extends StatelessWidget {
                         backed.then((value) {
                           final snackBar = SnackBar(
                               content: Text('Backup finished successfully'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Scaffold.of(context).showSnackBar(snackBar);
                         }).catchError((Object error) {
                           final snackBar = SnackBar(
                               content: Text('Error occured during backup'));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Scaffold.of(context).showSnackBar(snackBar);
                         });
                       })),
               Container(
@@ -100,12 +100,12 @@ class BackupView extends StatelessWidget {
                             .restore(backup.departures);
                         final snackBar = SnackBar(
                             content: Text('Restored settings successfully'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Scaffold.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
                             content:
                                 Text('Error occured when restoring backup'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   )),
@@ -119,12 +119,12 @@ class BackupView extends StatelessWidget {
                       bloc.removeBackup().then((value) {
                         final snackBar = SnackBar(
                             content: Text('Backup removed successfully'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Scaffold.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
                             content:
                                 Text('Error occured when removing backup'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Scaffold.of(context).showSnackBar(snackBar);
                       });
                     },
                   )),

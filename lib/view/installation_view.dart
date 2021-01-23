@@ -68,13 +68,12 @@ class InstallationView extends StatelessWidget {
             child: Container(
                 padding: EdgeInsets.all(12),
                 child: BlocBuilder<InstallationCubit, Installation>(
-                  builder: (context, state) {
-                    return Text(
-                      "Installation: ${state.id}",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    );
-                  }
-                )),
+                    builder: (context, state) {
+                  return Text(
+                    "Installation: ${state.id}",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  );
+                })),
           ),
           IconButton(
               icon: Icon(Icons.launch),
@@ -91,17 +90,18 @@ class InstallationView extends StatelessWidget {
             tooltip: 'Find nearest installation',
             onPressed: () {
               Geolocator.requestPermission().then((permisions) {
-                Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.medium)
+                Geolocator.getCurrentPosition(
+                        desiredAccuracy: LocationAccuracy.medium)
                     .then((location) {
                   bloc.findNearest(location).then((value) {
                     final snackBar =
                         SnackBar(content: Text('Found nearest installation'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Scaffold.of(context).showSnackBar(snackBar);
                   }, onError: (Object error) {
                     final snackBar = SnackBar(
                         content: Text(
                             'Error occured when finding nearest installation'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Scaffold.of(context).showSnackBar(snackBar);
                   });
                 });
               });
