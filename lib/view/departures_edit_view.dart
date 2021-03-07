@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
@@ -7,12 +8,12 @@ import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 class DeparturesEditView extends StatelessWidget {
   final Stop stop;
   DeparturesEditView(this.stop);
-  final possibleColors = [
-    Colors.red[50],
-    Colors.deepPurple[50],
-    Colors.lightBlue[50],
-    Colors.green[50],
-    Colors.yellow[50],
+  final List<Color> possibleColors = [
+    Colors.red.shade50,
+    Colors.deepPurple.shade50,
+    Colors.lightBlue.shade50,
+    Colors.green.shade50,
+    Colors.yellow.shade50,
     Colors.white,
   ];
   Widget Function(BuildContext) showColorDialogBuilder(Departure departure) {

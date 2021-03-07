@@ -56,21 +56,22 @@ class SearchStops extends SearchDelegate<Stop> {
               future: _stops.future,
               builder:
                   (BuildContext context, AsyncSnapshot<List<Stop>> snapshot) {
-                if (!snapshot.hasData) {
-                  return Column();
-                } else if (snapshot.data.length == 0) {
-                  return Container(
-                      padding: EdgeInsets.all(12),
-                      child: Align(
-                        child: Text(
-                          "No stops found",
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        alignment: AlignmentDirectional.centerStart,
-                      ));
-                } else {
-                  return StopsView(snapshot.data);
+                if (snapshot.data != null) {
+                  if (snapshot.data!.length == 0) {
+                    return Container(
+                        padding: EdgeInsets.all(12),
+                        child: Align(
+                          child: Text(
+                            "No stops found",
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          alignment: AlignmentDirectional.centerStart,
+                        ));
+                  } else {
+                    return StopsView(snapshot.data!);
+                  }
                 }
+                return Column();
               })
         ],
       );

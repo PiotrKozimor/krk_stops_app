@@ -19,7 +19,7 @@ class BackupView extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .subtitle2
-                  .apply(color: Theme.of(context).primaryColorDark),
+                  ?.apply(color: Theme.of(context).primaryColorDark),
             )),
         BlocBuilder<AuthenticationCubit, User>(builder: (context, state) {
           if (state == null) {

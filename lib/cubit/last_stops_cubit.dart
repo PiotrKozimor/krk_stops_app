@@ -7,7 +7,7 @@ class LastStopsCubit extends Cubit<List<Stop>> {
   static final key = 'last_stops';
   Installation installation = Installation();
   bool searching = false;
-  LastStopsCubit(this.krkStopsRepository) : super(List<Stop>()) {
+  LastStopsCubit(this.krkStopsRepository) : super(List<Stop>.empty()) {
     krkStopsRepository.preferencesLoaded.future.then((value) {
       load();
     });
@@ -23,10 +23,8 @@ class LastStopsCubit extends Cubit<List<Stop>> {
   }
 
   static List<Stop> decode(List<String> encoded) {
-    var stops = List<Stop>();
-    for (final stopRaw in encoded) {
-      stops.add(Stop.fromJson(stopRaw));
-    }
+    var stops = List<Stop>.generate(
+        encoded.length, (index) => Stop.fromJson(encoded[index]));
     return stops;
   }
 

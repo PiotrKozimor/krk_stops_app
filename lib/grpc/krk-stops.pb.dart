@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: krk-stops.proto
 //
-// @dart = 2.3
+// @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -18,7 +18,23 @@ class Installation extends $pb.GeneratedMessage {
   ;
 
   Installation._() : super();
-  factory Installation() => create();
+  factory Installation({
+    $core.int? id,
+    $core.double? latitude,
+    $core.double? longitude,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    if (latitude != null) {
+      _result.latitude = latitude;
+    }
+    if (longitude != null) {
+      _result.longitude = longitude;
+    }
+    return _result;
+  }
   factory Installation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Installation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -30,7 +46,7 @@ class Installation extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Installation copyWith(void Function(Installation) updates) => super.copyWith((message) => updates(message as Installation)); // ignore: deprecated_member_use
+  Installation copyWith(void Function(Installation) updates) => super.copyWith((message) => updates(message as Installation)) as Installation; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Installation create() => Installation._();
@@ -38,7 +54,7 @@ class Installation extends $pb.GeneratedMessage {
   static $pb.PbList<Installation> createRepeated() => $pb.PbList<Installation>();
   @$core.pragma('dart2js:noInline')
   static Installation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Installation>(create);
-  static Installation _defaultInstance;
+  static Installation? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get id => $_getIZ(0);
@@ -78,7 +94,27 @@ class Airly extends $pb.GeneratedMessage {
   ;
 
   Airly._() : super();
-  factory Airly() => create();
+  factory Airly({
+    $core.int? caqi,
+    $core.String? color,
+    $core.int? humidity,
+    $core.double? temperature,
+  }) {
+    final _result = create();
+    if (caqi != null) {
+      _result.caqi = caqi;
+    }
+    if (color != null) {
+      _result.color = color;
+    }
+    if (humidity != null) {
+      _result.humidity = humidity;
+    }
+    if (temperature != null) {
+      _result.temperature = temperature;
+    }
+    return _result;
+  }
   factory Airly.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Airly.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -90,7 +126,7 @@ class Airly extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Airly copyWith(void Function(Airly) updates) => super.copyWith((message) => updates(message as Airly)); // ignore: deprecated_member_use
+  Airly copyWith(void Function(Airly) updates) => super.copyWith((message) => updates(message as Airly)) as Airly; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Airly create() => Airly._();
@@ -98,7 +134,7 @@ class Airly extends $pb.GeneratedMessage {
   static $pb.PbList<Airly> createRepeated() => $pb.PbList<Airly>();
   @$core.pragma('dart2js:noInline')
   static Airly getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Airly>(create);
-  static Airly _defaultInstance;
+  static Airly? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get caqi => $_getIZ(0);
@@ -145,7 +181,19 @@ class InstallationLocation extends $pb.GeneratedMessage {
   ;
 
   InstallationLocation._() : super();
-  factory InstallationLocation() => create();
+  factory InstallationLocation({
+    $core.double? latitude,
+    $core.double? longitude,
+  }) {
+    final _result = create();
+    if (latitude != null) {
+      _result.latitude = latitude;
+    }
+    if (longitude != null) {
+      _result.longitude = longitude;
+    }
+    return _result;
+  }
   factory InstallationLocation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory InstallationLocation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -157,7 +205,7 @@ class InstallationLocation extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  InstallationLocation copyWith(void Function(InstallationLocation) updates) => super.copyWith((message) => updates(message as InstallationLocation)); // ignore: deprecated_member_use
+  InstallationLocation copyWith(void Function(InstallationLocation) updates) => super.copyWith((message) => updates(message as InstallationLocation)) as InstallationLocation; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static InstallationLocation create() => InstallationLocation._();
@@ -165,7 +213,7 @@ class InstallationLocation extends $pb.GeneratedMessage {
   static $pb.PbList<InstallationLocation> createRepeated() => $pb.PbList<InstallationLocation>();
   @$core.pragma('dart2js:noInline')
   static InstallationLocation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InstallationLocation>(create);
-  static InstallationLocation _defaultInstance;
+  static InstallationLocation? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.double get latitude => $_getN(0);
@@ -199,7 +247,39 @@ class Departure extends $pb.GeneratedMessage {
   ;
 
   Departure._() : super();
-  factory Departure() => create();
+  factory Departure({
+    $core.int? relativeTime,
+    $core.String? plannedTime,
+    $core.String? direction,
+    $core.String? patternText,
+    $core.int? color,
+    $core.String? relativeTimeParsed,
+    $core.bool? predicted,
+  }) {
+    final _result = create();
+    if (relativeTime != null) {
+      _result.relativeTime = relativeTime;
+    }
+    if (plannedTime != null) {
+      _result.plannedTime = plannedTime;
+    }
+    if (direction != null) {
+      _result.direction = direction;
+    }
+    if (patternText != null) {
+      _result.patternText = patternText;
+    }
+    if (color != null) {
+      _result.color = color;
+    }
+    if (relativeTimeParsed != null) {
+      _result.relativeTimeParsed = relativeTimeParsed;
+    }
+    if (predicted != null) {
+      _result.predicted = predicted;
+    }
+    return _result;
+  }
   factory Departure.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Departure.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -211,7 +291,7 @@ class Departure extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Departure copyWith(void Function(Departure) updates) => super.copyWith((message) => updates(message as Departure)); // ignore: deprecated_member_use
+  Departure copyWith(void Function(Departure) updates) => super.copyWith((message) => updates(message as Departure)) as Departure; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Departure create() => Departure._();
@@ -219,7 +299,7 @@ class Departure extends $pb.GeneratedMessage {
   static $pb.PbList<Departure> createRepeated() => $pb.PbList<Departure>();
   @$core.pragma('dart2js:noInline')
   static Departure getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Departure>(create);
-  static Departure _defaultInstance;
+  static Departure? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get relativeTime => $_getIZ(0);
@@ -293,7 +373,19 @@ class Stop extends $pb.GeneratedMessage {
   ;
 
   Stop._() : super();
-  factory Stop() => create();
+  factory Stop({
+    $core.String? shortName,
+    $core.String? name,
+  }) {
+    final _result = create();
+    if (shortName != null) {
+      _result.shortName = shortName;
+    }
+    if (name != null) {
+      _result.name = name;
+    }
+    return _result;
+  }
   factory Stop.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Stop.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -305,7 +397,7 @@ class Stop extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Stop copyWith(void Function(Stop) updates) => super.copyWith((message) => updates(message as Stop)); // ignore: deprecated_member_use
+  Stop copyWith(void Function(Stop) updates) => super.copyWith((message) => updates(message as Stop)) as Stop; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Stop create() => Stop._();
@@ -313,7 +405,7 @@ class Stop extends $pb.GeneratedMessage {
   static $pb.PbList<Stop> createRepeated() => $pb.PbList<Stop>();
   @$core.pragma('dart2js:noInline')
   static Stop getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Stop>(create);
-  static Stop _defaultInstance;
+  static Stop? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get shortName => $_getSZ(0);
@@ -341,7 +433,15 @@ class StopSearch extends $pb.GeneratedMessage {
   ;
 
   StopSearch._() : super();
-  factory StopSearch() => create();
+  factory StopSearch({
+    $core.String? query,
+  }) {
+    final _result = create();
+    if (query != null) {
+      _result.query = query;
+    }
+    return _result;
+  }
   factory StopSearch.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory StopSearch.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -353,7 +453,7 @@ class StopSearch extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  StopSearch copyWith(void Function(StopSearch) updates) => super.copyWith((message) => updates(message as StopSearch)); // ignore: deprecated_member_use
+  StopSearch copyWith(void Function(StopSearch) updates) => super.copyWith((message) => updates(message as StopSearch)) as StopSearch; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static StopSearch create() => StopSearch._();
@@ -361,7 +461,7 @@ class StopSearch extends $pb.GeneratedMessage {
   static $pb.PbList<StopSearch> createRepeated() => $pb.PbList<StopSearch>();
   @$core.pragma('dart2js:noInline')
   static StopSearch getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StopSearch>(create);
-  static StopSearch _defaultInstance;
+  static StopSearch? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get query => $_getSZ(0);

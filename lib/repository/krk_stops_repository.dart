@@ -5,8 +5,8 @@ import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class KrkStopsRepository {
-  SharedPreferences preferences;
-  KrkStopsClient stub;
+  late SharedPreferences preferences;
+  late KrkStopsClient stub;
   final preferencesLoaded = Completer<void>();
   final channel = ClientChannel('krk-stops.pl',
       port: 8080,

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: krk-stops.proto
 //
-// @dart = 2.3
+// @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:async' as $async;
@@ -37,48 +37,41 @@ class KrkStopsClient extends $grpc.Client {
       ($0.StopSearch value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Stop.fromBuffer(value));
 
-  KrkStopsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
-      : super(channel, options: options);
+  KrkStopsClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
+      : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseFuture<$0.Airly> getAirly($0.Installation request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$getAirly, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getAirly, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Installation> findNearestAirlyInstallation(
       $0.InstallationLocation request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$findNearestAirlyInstallation, $async.Stream.fromIterable([request]),
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$findNearestAirlyInstallation, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.Installation> getAirlyInstallation(
       $0.Installation request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getAirlyInstallation, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getAirlyInstallation, request, options: options);
   }
 
   $grpc.ResponseStream<$0.Departure> getDepartures($0.Stop request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
+      {$grpc.CallOptions? options}) {
+    return $createStreamingCall(
         _$getDepartures, $async.Stream.fromIterable([request]),
         options: options);
-    return $grpc.ResponseStream(call);
   }
 
   $grpc.ResponseStream<$0.Stop> searchStops($0.StopSearch request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
+      {$grpc.CallOptions? options}) {
+    return $createStreamingCall(
         _$searchStops, $async.Stream.fromIterable([request]),
         options: options);
-    return $grpc.ResponseStream(call);
   }
 }
 

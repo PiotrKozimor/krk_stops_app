@@ -7,7 +7,7 @@ import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InstallationView extends StatelessWidget {
-  String airlyError;
+  String airlyError = "";
   var _airlyIdController = TextEditingController();
   Function() showAirlyDialog(BuildContext context) {
     return () {
@@ -17,16 +17,15 @@ class InstallationView extends StatelessWidget {
             var bloc = context.watch<InstallationCubit>();
             _airlyIdController.value =
                 TextEditingValue(text: "${bloc.state.id}");
-            airlyError = null;
+            airlyError = "";
             return StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                 title: Text("Edit installation"),
                 actions: [
-                  OutlineButton(
+                  OutlinedButton(
                       onPressed: () {
                         bloc
-                            .checkId(
-                                int.tryParse(_airlyIdController.value.text))
+                            .checkId(int.parse(_airlyIdController.value.text))
                             .then((value) => Navigator.pop(context),
                                 onError: (Object error) {
                           setState(() {
@@ -61,7 +60,7 @@ class InstallationView extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .subtitle2
-                  .apply(color: Theme.of(context).primaryColorDark),
+                  ?.apply(color: Theme.of(context).primaryColorDark),
             )),
         Row(children: [
           Expanded(

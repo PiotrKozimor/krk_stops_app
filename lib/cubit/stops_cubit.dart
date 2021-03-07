@@ -6,7 +6,7 @@ class StopsCubit extends Cubit<List<Stop>> {
   final KrkStopsRepository krkStopsRepository;
   static final key = 'stops';
   Installation installation = Installation();
-  StopsCubit(this.krkStopsRepository) : super(List<Stop>()) {
+  StopsCubit(this.krkStopsRepository) : super(List<Stop>.empty()) {
     krkStopsRepository.preferencesLoaded.future.then((value) {
       load();
     });
@@ -31,10 +31,8 @@ class StopsCubit extends Cubit<List<Stop>> {
   }
 
   static List<Stop> decode(List<String> encoded) {
-    var stops = List<Stop>();
-    for (final stopRaw in encoded) {
-      stops.add(Stop.fromJson(stopRaw));
-    }
+    var stops = List<Stop>.generate(
+        encoded.length, (index) => Stop.fromJson(encoded[index]));
     return stops;
   }
 

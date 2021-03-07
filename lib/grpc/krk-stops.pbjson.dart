@@ -2,9 +2,13 @@
 //  Generated code. Do not modify.
 //  source: krk-stops.proto
 //
-// @dart = 2.3
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// @dart = 2.12
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
 
+import 'dart:core' as $core;
+import 'dart:convert' as $convert;
+import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use installationDescriptor instead')
 const Installation$json = const {
   '1': 'Installation',
   '2': const [
@@ -14,6 +18,9 @@ const Installation$json = const {
   ],
 };
 
+/// Descriptor for `Installation`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List installationDescriptor = $convert.base64Decode('CgxJbnN0YWxsYXRpb24SDgoCaWQYASABKAVSAmlkEhoKCGxhdGl0dWRlGAIgASgCUghsYXRpdHVkZRIcCglsb25naXR1ZGUYAyABKAJSCWxvbmdpdHVkZQ==');
+@$core.Deprecated('Use airlyDescriptor instead')
 const Airly$json = const {
   '1': 'Airly',
   '2': const [
@@ -24,6 +31,9 @@ const Airly$json = const {
   ],
 };
 
+/// Descriptor for `Airly`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List airlyDescriptor = $convert.base64Decode('CgVBaXJseRISCgRjYXFpGAEgASgFUgRjYXFpEhQKBWNvbG9yGAIgASgJUgVjb2xvchIaCghodW1pZGl0eRgDIAEoBVIIaHVtaWRpdHkSIAoLdGVtcGVyYXR1cmUYBCABKAJSC3RlbXBlcmF0dXJl');
+@$core.Deprecated('Use installationLocationDescriptor instead')
 const InstallationLocation$json = const {
   '1': 'InstallationLocation',
   '2': const [
@@ -32,6 +42,9 @@ const InstallationLocation$json = const {
   ],
 };
 
+/// Descriptor for `InstallationLocation`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List installationLocationDescriptor = $convert.base64Decode('ChRJbnN0YWxsYXRpb25Mb2NhdGlvbhIaCghsYXRpdHVkZRgBIAEoAlIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgASgCUglsb25naXR1ZGU=');
+@$core.Deprecated('Use departureDescriptor instead')
 const Departure$json = const {
   '1': 'Departure',
   '2': const [
@@ -45,6 +58,9 @@ const Departure$json = const {
   ],
 };
 
+/// Descriptor for `Departure`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List departureDescriptor = $convert.base64Decode('CglEZXBhcnR1cmUSIgoMcmVsYXRpdmVUaW1lGAEgASgFUgxyZWxhdGl2ZVRpbWUSIAoLcGxhbm5lZFRpbWUYAiABKAlSC3BsYW5uZWRUaW1lEhwKCWRpcmVjdGlvbhgDIAEoCVIJZGlyZWN0aW9uEiAKC3BhdHRlcm5UZXh0GAQgASgJUgtwYXR0ZXJuVGV4dBIUCgVjb2xvchgFIAEoDVIFY29sb3ISLgoScmVsYXRpdmVUaW1lUGFyc2VkGAYgASgJUhJyZWxhdGl2ZVRpbWVQYXJzZWQSHAoJcHJlZGljdGVkGAcgASgIUglwcmVkaWN0ZWQ=');
+@$core.Deprecated('Use stopDescriptor instead')
 const Stop$json = const {
   '1': 'Stop',
   '2': const [
@@ -53,6 +69,9 @@ const Stop$json = const {
   ],
 };
 
+/// Descriptor for `Stop`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWU=');
+@$core.Deprecated('Use stopSearchDescriptor instead')
 const StopSearch$json = const {
   '1': 'StopSearch',
   '2': const [
@@ -60,3 +79,5 @@ const StopSearch$json = const {
   ],
 };
 
+/// Descriptor for `StopSearch`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List stopSearchDescriptor = $convert.base64Decode('CgpTdG9wU2VhcmNoEhQKBXF1ZXJ5GAEgASgJUgVxdWVyeQ==');

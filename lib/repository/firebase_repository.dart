@@ -5,9 +5,9 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 
 class FirebaseRepository {
-  FirebaseAuth auth;
-  FirebaseFirestore firestore;
-  CollectionReference users;
+  late FirebaseAuth auth;
+  late FirebaseFirestore firestore;
+  late CollectionReference users;
   FirebaseRepository() {
     Firebase.initializeApp().then((value) {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);

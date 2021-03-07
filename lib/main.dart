@@ -29,10 +29,10 @@ class KrkStopsApp extends StatelessWidget {
   final KrkStopsRepository krkStopsRepository;
   final FirebaseRepository firebaseRepository;
   const KrkStopsApp({
-    Key key,
-    @required this.krkStopsRepository,
-    @required this.firebaseRepository,
-  })  : assert(krkStopsRepository != null),
+    Key? key,
+    required this.krkStopsRepository,
+    required this.firebaseRepository,
+  })   : assert(krkStopsRepository != null),
         assert(firebaseRepository != null),
         super(key: key);
 
@@ -71,7 +71,7 @@ class KrkStopsApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key? key, this.title = "KrkStops"}) : super(key: key);
 
   final String title;
   @override

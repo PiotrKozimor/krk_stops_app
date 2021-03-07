@@ -8,7 +8,7 @@ import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 
 class DeparturesCubit extends Cubit<List<Departure>> {
   final KrkStopsRepository krkStopsRepository;
-  List<Departure> coloredDepartures;
+  var coloredDepartures = List<Departure>.empty();
   static final key = 'departures';
   DeparturesCubit(this.krkStopsRepository)
       : super([
@@ -55,10 +55,8 @@ class DeparturesCubit extends Cubit<List<Departure>> {
   }
 
   static List<Departure> decode(List<String> encoded) {
-    var departures = List<Departure>();
-    for (final stopRaw in encoded) {
-      departures.add(Departure.fromJson(stopRaw));
-    }
+    var departures = List<Departure>.generate(
+        encoded.length, (index) => Departure.fromJson(encoded[index]));
     return departures;
   }
 
