@@ -8,7 +8,8 @@ class KrkStopsRepository {
   late SharedPreferences preferences;
   late KrkStopsClient stub;
   final preferencesLoaded = Completer<void>();
-  final channel = ClientChannel('krk-stops.pl',
+  final channel = ClientChannel(
+      'krkstops.germanywestcentral.cloudapp.azure.com',
       port: 8080,
       // port: 10475,
       options: const ChannelOptions(
