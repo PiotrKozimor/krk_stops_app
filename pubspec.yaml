@@ -14,7 +14,6 @@ dependencies:
   protobuf: ^2.0.0
   grpc: ^3.0.0
   shared_preferences: ^2.0.3
-  flutter_material_color_picker: ^1.0.5
   geolocator: ^7.0.1
   url_launcher: ^6.0.2
   google_sign_in: ^5.0.0
