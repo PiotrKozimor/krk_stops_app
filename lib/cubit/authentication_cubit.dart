@@ -9,13 +9,14 @@ import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
 
-class AuthenticationCubit extends Cubit<User> {
+class AuthenticationCubit extends Cubit<String> {
   final FirebaseRepository firebaseRepository;
   final key = 'airly';
   Installation installation = Installation();
-  AuthenticationCubit(this.firebaseRepository) : super(null) {
+  AuthenticationCubit(this.firebaseRepository) : super("") {
     firebaseRepository.auth.authStateChanges().listen((User? user) {
-      emit(user);
+      var email = user?.email;
+      emit(email!);
     });
   }
 
@@ -34,7 +35,7 @@ class AuthenticationCubit extends Cubit<User> {
 
   logOut() {
     firebaseRepository.auth.signOut();
-    emit(null);
+    emit("");
   }
 
   Future<void> removeBackup() {

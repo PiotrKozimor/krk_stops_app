@@ -25,7 +25,7 @@ class DeparturesPage extends StatelessWidget {
                   icon: Icon(Icons.favorite),
                   tooltip: 'Remove from saved',
                   onPressed: () {
-                    bloc.remove(stop);
+                    bloc.removeFav(stop);
                   },
                 );
               } else {
@@ -33,7 +33,7 @@ class DeparturesPage extends StatelessWidget {
                   icon: Icon(Icons.favorite_outline),
                   tooltip: 'Add to saved',
                   onPressed: () {
-                    bloc.add(stop);
+                    bloc.addFav(stop);
                   },
                 );
               }

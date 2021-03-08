@@ -6,7 +6,6 @@ import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
 
 import 'cubit/last_stops_cubit.dart';
-import 'cubit/stops_cubit.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
 class SearchStops extends SearchDelegate<Stop> {

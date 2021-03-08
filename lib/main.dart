@@ -32,9 +32,7 @@ class KrkStopsApp extends StatelessWidget {
     Key? key,
     required this.krkStopsRepository,
     required this.firebaseRepository,
-  })   : assert(krkStopsRepository != null),
-        assert(firebaseRepository != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ class EditStopsPage extends StatelessWidget {
           title: Text("KrkStops"),
         ),
         body: BlocBuilder<StopsCubit, List<Stop>>(
-            cubit: context.watch<StopsCubit>(),
+            bloc: context.watch<StopsCubit>(),
             builder: (context, state) {
               return ReorderableListView(
                   children: state

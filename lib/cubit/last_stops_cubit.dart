@@ -36,7 +36,7 @@ class LastStopsCubit extends Cubit<List<Stop>> {
     return encoded;
   }
 
-  add(Stop stop) {
+  addLast(Stop stop) {
     if (searching) {
       var stops = this.state;
       final indexOfExisting =

@@ -23,7 +23,7 @@ class StopsView extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                     )),
                 onTap: () {
-                  context.read<LastStopsCubit>().add(e);
+                  context.read<LastStopsCubit>().addLast(e);
                   context.read<DeparturesCubit>().clean();
                   context.read<DeparturesCubit>().fetch(e);
                   Navigator.push(

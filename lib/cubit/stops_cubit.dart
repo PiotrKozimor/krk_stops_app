@@ -64,14 +64,14 @@ class StopsCubit extends Cubit<List<Stop>> {
     save(decode(encoded));
   }
 
-  void remove(Stop stop) {
+  void removeFav(Stop stop) {
     var toRemove = findIndex(stop);
     var newState = List<Stop>.from(state);
     newState.removeAt(toRemove);
     save(newState);
   }
 
-  void add(Stop stop) {
+  void addFav(Stop stop) {
     var newState = List<Stop>.from(state);
     newState.add(stop);
     save(newState);

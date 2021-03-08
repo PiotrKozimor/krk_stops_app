@@ -1,9 +1,9 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
+
+import '../circle_color.dart';
 
 class DeparturesEditView extends StatelessWidget {
   final Stop stop;

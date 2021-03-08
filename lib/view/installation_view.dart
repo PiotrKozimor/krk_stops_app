@@ -95,12 +95,12 @@ class InstallationView extends StatelessWidget {
                   bloc.findNearest(location).then((value) {
                     final snackBar =
                         SnackBar(content: Text('Found nearest installation'));
-                    Scaffold.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, onError: (Object error) {
                     final snackBar = SnackBar(
                         content: Text(
                             'Error occured when finding nearest installation'));
-                    Scaffold.of(context).showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
                 });
               });

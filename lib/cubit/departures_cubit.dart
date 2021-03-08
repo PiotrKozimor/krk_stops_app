@@ -37,7 +37,7 @@ class DeparturesCubit extends Cubit<List<Departure>> {
   }
 
   clean() {
-    emit(null);
+    emit(List<Departure>.empty());
   }
 
   Future<void> fetch(Stop request) {
@@ -48,6 +48,9 @@ class DeparturesCubit extends Cubit<List<Departure>> {
     }, onError: (error) {
       fetched.completeError("Could not fetch departures: ${error.message}");
     }, onDone: () {
+      if (tmp.isEmpty) {
+        tmp.add(Departure(direction: "No departures in 20 minutes."));
+      }
       emit(applyColor(tmp));
       fetched.complete();
     });

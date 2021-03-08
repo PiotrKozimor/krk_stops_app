@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/authentication_cubit.dart';
@@ -21,8 +20,8 @@ class BackupView extends StatelessWidget {
                   .subtitle2
                   ?.apply(color: Theme.of(context).primaryColorDark),
             )),
-        BlocBuilder<AuthenticationCubit, User>(builder: (context, state) {
-          if (state == null) {
+        BlocBuilder<AuthenticationCubit, String>(builder: (context, state) {
+          if (state == "") {
             return Column(children: [
               Container(
                   padding: EdgeInsets.all(12),
@@ -31,7 +30,7 @@ class BackupView extends StatelessWidget {
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       "LOG IN",
                     ),
@@ -49,11 +48,11 @@ class BackupView extends StatelessWidget {
               Container(
                   padding: EdgeInsets.all(12),
                   child: Text(
-                    "Logged as ${state.email}",
+                    "Logged as $state",
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       "LOG OUT",
                     ),
@@ -63,7 +62,7 @@ class BackupView extends StatelessWidget {
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                       child: Text(
                         "BACKUP SETTINGS",
                       ),
@@ -78,16 +77,16 @@ class BackupView extends StatelessWidget {
                         backed.then((value) {
                           final snackBar = SnackBar(
                               content: Text('Backup finished successfully'));
-                          Scaffold.of(context).showSnackBar(snackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }).catchError((Object error) {
                           final snackBar = SnackBar(
                               content: Text('Error occured during backup'));
-                          Scaffold.of(context).showSnackBar(snackBar);
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
                       })),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       "RESTORE SETTINGS",
                     ),
@@ -100,18 +99,18 @@ class BackupView extends StatelessWidget {
                             .restore(backup.departures);
                         final snackBar = SnackBar(
                             content: Text('Restored settings successfully'));
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
                             content:
                                 Text('Error occured when restoring backup'));
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       "REMOVE BACKUP",
                     ),
@@ -119,12 +118,12 @@ class BackupView extends StatelessWidget {
                       bloc.removeBackup().then((value) {
                         final snackBar = SnackBar(
                             content: Text('Backup removed successfully'));
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
                             content:
                                 Text('Error occured when removing backup'));
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },
                   )),
