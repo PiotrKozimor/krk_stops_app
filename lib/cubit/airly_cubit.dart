@@ -8,7 +8,7 @@ class AirlyCubit extends Cubit<Airly> {
   Installation installation = Installation();
   AirlyCubit(this.krkStopsRepository)
       : super(Airly()
-          ..color = "#AAAAAA"
+          ..color = 0xAAAAAA
           ..humidity = 0
           ..temperature = 0
           ..caqi = 0);

@@ -16,9 +16,7 @@ class AirlyView extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Icon(
             Icons.brightness_1,
-            color: Color(int.parse(_airly.color.substring(1, 7), radix: 16) +
-                0xFF000000),
-            // color: Color(0xFF999999),
+            color: Color(_airly.color + 0xFF000000),
           ),
         ),
         Padding(
@@ -47,9 +45,9 @@ class AirlyView extends StatelessWidget {
         IconButton(
             icon: Icon(Icons.refresh),
             tooltip: 'Search stops',
-            onPressed: () => context.read<AirlyCubit>().fetchAirly(
-              context.read<InstallationCubit>().state
-            )),
+            onPressed: () => context
+                .read<AirlyCubit>()
+                .fetchAirly(context.read<InstallationCubit>().state)),
       ],
     );
   }
