@@ -25,14 +25,15 @@ const Airly$json = const {
   '1': 'Airly',
   '2': const [
     const {'1': 'caqi', '3': 1, '4': 1, '5': 5, '10': 'caqi'},
-    const {'1': 'color', '3': 2, '4': 1, '5': 9, '10': 'color'},
+    const {'1': 'colorStr', '3': 2, '4': 1, '5': 9, '10': 'colorStr'},
     const {'1': 'humidity', '3': 3, '4': 1, '5': 5, '10': 'humidity'},
     const {'1': 'temperature', '3': 4, '4': 1, '5': 2, '10': 'temperature'},
+    const {'1': 'color', '3': 5, '4': 1, '5': 13, '10': 'color'},
   ],
 };
 
 /// Descriptor for `Airly`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List airlyDescriptor = $convert.base64Decode('CgVBaXJseRISCgRjYXFpGAEgASgFUgRjYXFpEhQKBWNvbG9yGAIgASgJUgVjb2xvchIaCghodW1pZGl0eRgDIAEoBVIIaHVtaWRpdHkSIAoLdGVtcGVyYXR1cmUYBCABKAJSC3RlbXBlcmF0dXJl');
+final $typed_data.Uint8List airlyDescriptor = $convert.base64Decode('CgVBaXJseRISCgRjYXFpGAEgASgFUgRjYXFpEhoKCGNvbG9yU3RyGAIgASgJUghjb2xvclN0chIaCghodW1pZGl0eRgDIAEoBVIIaHVtaWRpdHkSIAoLdGVtcGVyYXR1cmUYBCABKAJSC3RlbXBlcmF0dXJlEhQKBWNvbG9yGAUgASgNUgVjb2xvcg==');
 @$core.Deprecated('Use installationLocationDescriptor instead')
 const InstallationLocation$json = const {
   '1': 'InstallationLocation',
@@ -66,11 +67,12 @@ const Stop$json = const {
   '2': const [
     const {'1': 'shortName', '3': 1, '4': 1, '5': 9, '10': 'shortName'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'id', '3': 3, '4': 1, '5': 13, '10': 'id'},
   ],
 };
 
 /// Descriptor for `Stop`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWU=');
+final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWUSDgoCaWQYAyABKA1SAmlk');
 @$core.Deprecated('Use stopSearchDescriptor instead')
 const StopSearch$json = const {
   '1': 'StopSearch',

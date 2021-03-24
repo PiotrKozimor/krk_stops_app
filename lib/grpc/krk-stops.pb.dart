@@ -87,31 +87,36 @@ class Installation extends $pb.GeneratedMessage {
 class Airly extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Airly', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'caqi', $pb.PbFieldType.O3)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'color')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'colorStr', protoName: 'colorStr')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'humidity', $pb.PbFieldType.O3)
     ..a<$core.double>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'temperature', $pb.PbFieldType.OF)
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'color', $pb.PbFieldType.OU3)
     ..hasRequiredFields = false
   ;
 
   Airly._() : super();
   factory Airly({
     $core.int? caqi,
-    $core.String? color,
+    $core.String? colorStr,
     $core.int? humidity,
     $core.double? temperature,
+    $core.int? color,
   }) {
     final _result = create();
     if (caqi != null) {
       _result.caqi = caqi;
     }
-    if (color != null) {
-      _result.color = color;
+    if (colorStr != null) {
+      _result.colorStr = colorStr;
     }
     if (humidity != null) {
       _result.humidity = humidity;
     }
     if (temperature != null) {
       _result.temperature = temperature;
+    }
+    if (color != null) {
+      _result.color = color;
     }
     return _result;
   }
@@ -146,13 +151,13 @@ class Airly extends $pb.GeneratedMessage {
   void clearCaqi() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get color => $_getSZ(1);
+  $core.String get colorStr => $_getSZ(1);
   @$pb.TagNumber(2)
-  set color($core.String v) { $_setString(1, v); }
+  set colorStr($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasColor() => $_has(1);
+  $core.bool hasColorStr() => $_has(1);
   @$pb.TagNumber(2)
-  void clearColor() => clearField(2);
+  void clearColorStr() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.int get humidity => $_getIZ(2);
@@ -171,6 +176,15 @@ class Airly extends $pb.GeneratedMessage {
   $core.bool hasTemperature() => $_has(3);
   @$pb.TagNumber(4)
   void clearTemperature() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get color => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set color($core.int v) { $_setUnsignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasColor() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearColor() => clearField(5);
 }
 
 class InstallationLocation extends $pb.GeneratedMessage {
@@ -369,6 +383,7 @@ class Stop extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Stop', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'shortName', protoName: 'shortName')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.OU3)
     ..hasRequiredFields = false
   ;
 
@@ -376,6 +391,7 @@ class Stop extends $pb.GeneratedMessage {
   factory Stop({
     $core.String? shortName,
     $core.String? name,
+    $core.int? id,
   }) {
     final _result = create();
     if (shortName != null) {
@@ -383,6 +399,9 @@ class Stop extends $pb.GeneratedMessage {
     }
     if (name != null) {
       _result.name = name;
+    }
+    if (id != null) {
+      _result.id = id;
     }
     return _result;
   }
@@ -424,6 +443,15 @@ class Stop extends $pb.GeneratedMessage {
   $core.bool hasName() => $_has(1);
   @$pb.TagNumber(2)
   void clearName() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get id => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set id($core.int v) { $_setUnsignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearId() => clearField(3);
 }
 
 class StopSearch extends $pb.GeneratedMessage {
