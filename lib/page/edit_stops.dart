@@ -16,7 +16,7 @@ class EditStopsPage extends StatelessWidget {
               return ReorderableListView(
                   children: state
                       .map((e) => ListTile(
-                            key: Key("${e.shortName}"),
+                            key: Key("${e.id}"),
                             title: Text("${e.name}"),
                             trailing: Icon(Icons.menu),
                           ))

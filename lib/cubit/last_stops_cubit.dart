@@ -40,7 +40,7 @@ class LastStopsCubit extends Cubit<List<Stop>> {
     if (searching) {
       var stops = this.state;
       final indexOfExisting =
-          stops.indexWhere((element) => element.shortName == stop.shortName);
+          stops.indexWhere((element) => element.id == stop.id);
       if (indexOfExisting != -1) {
         stops.removeAt(indexOfExisting);
       } else if (stops.length >= 10) {
@@ -59,42 +59,9 @@ class LastStopsCubit extends Cubit<List<Stop>> {
     searching = false;
   }
 
-  // void reorder(int oldIndex, int newIndex) {
-  //   if (oldIndex < newIndex) {
-  //     newIndex -= 1;
-  //   }
-  //   var stops = List<Stop>.from(state);
-  //   final Stop removed = stops.removeAt(oldIndex);
-  //   stops.insert(newIndex, removed);
-  //   save(stops);
-  // }
-
   save(List<Stop> stops) {
     var encodedStops = encode(stops);
     this.krkStopsRepository.preferences.setStringList(key, encodedStops);
     emit(stops);
   }
-
-  // restore(List<String> encoded) {
-  //   emit(decode(encoded));
-  // }
-
-  // void remove(Stop stop) {
-  //   var toRemove = findIndex(stop);
-  //   var newState = List<Stop>.from(state);
-  //   newState.removeAt(toRemove);
-  //   save(newState);
-  // }
-
-  // void add(Stop stop) {
-  //   var newState = List<Stop>.from(state);
-  //   newState.add(stop);
-  //   save(newState);
-  // }
-
-  // int findIndex(Stop stop) {
-  //   return this.state.lastIndexWhere((element) {
-  //     return element.shortName == stop.shortName;
-  //   });
-  // }
 }

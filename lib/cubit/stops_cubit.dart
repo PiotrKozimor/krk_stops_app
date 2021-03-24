@@ -18,10 +18,10 @@ class StopsCubit extends Cubit<List<Stop>> {
       var stops = [
         Stop()
           ..name = 'Rondo Mogilskie'
-          ..shortName = '125',
+          ..id = 125,
         Stop()
           ..name = 'Rondo Matecznego'
-          ..shortName = '610'
+          ..id = 610
       ];
       save(stops);
     } else {
@@ -79,7 +79,7 @@ class StopsCubit extends Cubit<List<Stop>> {
 
   int findIndex(Stop stop) {
     return this.state.lastIndexWhere((element) {
-      return element.shortName == stop.shortName;
+      return element.id == stop.id;
     });
   }
 }

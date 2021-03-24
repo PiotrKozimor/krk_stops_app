@@ -11,7 +11,6 @@ class KrkStopsRepository {
   final channel = ClientChannel(
       'krkstops.germanywestcentral.cloudapp.azure.com',
       port: 8080,
-      // port: 10475,
       options: const ChannelOptions(
           credentials: ChannelCredentials.insecure(),
           connectionTimeout: Duration(seconds: 2)));
