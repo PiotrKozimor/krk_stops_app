@@ -51,6 +51,7 @@ class DeparturesCubit extends Cubit<List<Departure>> {
       if (tmp.isEmpty) {
         tmp.add(Departure(direction: "No departures in 20 minutes."));
       }
+      tmp.sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
       emit(applyColor(tmp));
       fetched.complete();
     });
