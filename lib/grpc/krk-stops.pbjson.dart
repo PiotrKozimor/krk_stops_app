@@ -8,6 +8,17 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use endpointDescriptor instead')
+const Endpoint$json = const {
+  '1': 'Endpoint',
+  '2': const [
+    const {'1': 'BUS', '2': 0},
+    const {'1': 'TRAM', '2': 1},
+  ],
+};
+
+/// Descriptor for `Endpoint`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List endpointDescriptor = $convert.base64Decode('CghFbmRwb2ludBIHCgNCVVMQABIICgRUUkFNEAE=');
 @$core.Deprecated('Use installationDescriptor instead')
 const Installation$json = const {
   '1': 'Installation',
@@ -56,11 +67,12 @@ const Departure$json = const {
     const {'1': 'color', '3': 5, '4': 1, '5': 13, '10': 'color'},
     const {'1': 'relativeTimeParsed', '3': 6, '4': 1, '5': 9, '10': 'relativeTimeParsed'},
     const {'1': 'predicted', '3': 7, '4': 1, '5': 8, '10': 'predicted'},
+    const {'1': 'type', '3': 8, '4': 1, '5': 14, '6': '.Endpoint', '10': 'type'},
   ],
 };
 
 /// Descriptor for `Departure`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List departureDescriptor = $convert.base64Decode('CglEZXBhcnR1cmUSIgoMcmVsYXRpdmVUaW1lGAEgASgFUgxyZWxhdGl2ZVRpbWUSIAoLcGxhbm5lZFRpbWUYAiABKAlSC3BsYW5uZWRUaW1lEhwKCWRpcmVjdGlvbhgDIAEoCVIJZGlyZWN0aW9uEiAKC3BhdHRlcm5UZXh0GAQgASgJUgtwYXR0ZXJuVGV4dBIUCgVjb2xvchgFIAEoDVIFY29sb3ISLgoScmVsYXRpdmVUaW1lUGFyc2VkGAYgASgJUhJyZWxhdGl2ZVRpbWVQYXJzZWQSHAoJcHJlZGljdGVkGAcgASgIUglwcmVkaWN0ZWQ=');
+final $typed_data.Uint8List departureDescriptor = $convert.base64Decode('CglEZXBhcnR1cmUSIgoMcmVsYXRpdmVUaW1lGAEgASgFUgxyZWxhdGl2ZVRpbWUSIAoLcGxhbm5lZFRpbWUYAiABKAlSC3BsYW5uZWRUaW1lEhwKCWRpcmVjdGlvbhgDIAEoCVIJZGlyZWN0aW9uEiAKC3BhdHRlcm5UZXh0GAQgASgJUgtwYXR0ZXJuVGV4dBIUCgVjb2xvchgFIAEoDVIFY29sb3ISLgoScmVsYXRpdmVUaW1lUGFyc2VkGAYgASgJUhJyZWxhdGl2ZVRpbWVQYXJzZWQSHAoJcHJlZGljdGVkGAcgASgIUglwcmVkaWN0ZWQSHQoEdHlwZRgIIAEoDjIJLkVuZHBvaW50UgR0eXBl');
 @$core.Deprecated('Use stopDescriptor instead')
 const Stop$json = const {
   '1': 'Stop',
@@ -68,11 +80,12 @@ const Stop$json = const {
     const {'1': 'shortName', '3': 1, '4': 1, '5': 9, '10': 'shortName'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'id', '3': 3, '4': 1, '5': 13, '10': 'id'},
+    const {'1': 'type', '3': 4, '4': 1, '5': 14, '6': '.Endpoint', '10': 'type'},
   ],
 };
 
 /// Descriptor for `Stop`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWUSDgoCaWQYAyABKA1SAmlk');
+final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWUSDgoCaWQYAyABKA1SAmlkEh0KBHR5cGUYBCABKA4yCS5FbmRwb2ludFIEdHlwZQ==');
 @$core.Deprecated('Use stopSearchDescriptor instead')
 const StopSearch$json = const {
   '1': 'StopSearch',

@@ -9,6 +9,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'krk-stops.pbenum.dart';
+
+export 'krk-stops.pbenum.dart';
+
 class Installation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Installation', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
@@ -257,6 +261,7 @@ class Departure extends $pb.GeneratedMessage {
     ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'color', $pb.PbFieldType.OU3)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'relativeTimeParsed', protoName: 'relativeTimeParsed')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'predicted')
+    ..e<Endpoint>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Endpoint.BUS, valueOf: Endpoint.valueOf, enumValues: Endpoint.values)
     ..hasRequiredFields = false
   ;
 
@@ -269,6 +274,7 @@ class Departure extends $pb.GeneratedMessage {
     $core.int? color,
     $core.String? relativeTimeParsed,
     $core.bool? predicted,
+    Endpoint? type,
   }) {
     final _result = create();
     if (relativeTime != null) {
@@ -291,6 +297,9 @@ class Departure extends $pb.GeneratedMessage {
     }
     if (predicted != null) {
       _result.predicted = predicted;
+    }
+    if (type != null) {
+      _result.type = type;
     }
     return _result;
   }
@@ -377,6 +386,15 @@ class Departure extends $pb.GeneratedMessage {
   $core.bool hasPredicted() => $_has(6);
   @$pb.TagNumber(7)
   void clearPredicted() => clearField(7);
+
+  @$pb.TagNumber(8)
+  Endpoint get type => $_getN(7);
+  @$pb.TagNumber(8)
+  set type(Endpoint v) { setField(8, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasType() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearType() => clearField(8);
 }
 
 class Stop extends $pb.GeneratedMessage {
@@ -384,6 +402,7 @@ class Stop extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'shortName', protoName: 'shortName')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.OU3)
+    ..e<Endpoint>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Endpoint.BUS, valueOf: Endpoint.valueOf, enumValues: Endpoint.values)
     ..hasRequiredFields = false
   ;
 
@@ -392,6 +411,7 @@ class Stop extends $pb.GeneratedMessage {
     $core.String? shortName,
     $core.String? name,
     $core.int? id,
+    Endpoint? type,
   }) {
     final _result = create();
     if (shortName != null) {
@@ -402,6 +422,9 @@ class Stop extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id = id;
+    }
+    if (type != null) {
+      _result.type = type;
     }
     return _result;
   }
@@ -452,6 +475,15 @@ class Stop extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(2);
   @$pb.TagNumber(3)
   void clearId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  Endpoint get type => $_getN(3);
+  @$pb.TagNumber(4)
+  set type(Endpoint v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasType() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearType() => clearField(4);
 }
 
 class StopSearch extends $pb.GeneratedMessage {
