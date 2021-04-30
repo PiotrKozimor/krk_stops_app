@@ -1,1 +1,1 @@
-keytool -list -v -keystore ~/keys/krkstops1.jks -alias upload
+keytool -list -v -keystore ~/keys/krkstops.jks
