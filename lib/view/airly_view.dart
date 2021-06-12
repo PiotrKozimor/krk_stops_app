@@ -44,7 +44,6 @@ class AirlyView extends StatelessWidget {
         ),
         IconButton(
             icon: Icon(Icons.refresh),
-            tooltip: 'Search stops',
             onPressed: () => context
                 .read<AirlyCubit>()
                 .fetchAirly(context.read<InstallationCubit>().state)),

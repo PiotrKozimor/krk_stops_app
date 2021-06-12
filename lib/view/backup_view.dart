@@ -4,6 +4,7 @@ import 'package:krk_stops_app/cubit/authentication_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BackupView extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class BackupView extends StatelessWidget {
         Container(
             padding: EdgeInsets.all(12),
             child: Text(
-              "Cloud Backup",
+              AppLocalizations.of(context)!.backup,
               style: Theme.of(context)
                   .textTheme
                   .subtitle2
@@ -26,13 +27,13 @@ class BackupView extends StatelessWidget {
               Container(
                   padding: EdgeInsets.all(12),
                   child: Text(
-                    "Please log in to backup settings",
+                    AppLocalizations.of(context)!.loginPlease,
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                   child: ElevatedButton(
                     child: Text(
-                      "LOG IN",
+                      AppLocalizations.of(context)!.login,
                     ),
                     onPressed: () async {
                       bloc.logIn();
@@ -48,13 +49,13 @@ class BackupView extends StatelessWidget {
               Container(
                   padding: EdgeInsets.all(12),
                   child: Text(
-                    "Logged as $state",
+                    AppLocalizations.of(context)!.loginLoggedAs + " " + state,
                   )),
               Container(
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                   child: ElevatedButton(
                     child: Text(
-                      "LOG OUT",
+                      AppLocalizations.of(context)!.loginOut,
                     ),
                     onPressed: () async {
                       bloc.logOut();
@@ -64,7 +65,7 @@ class BackupView extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                   child: ElevatedButton(
                       child: Text(
-                        "BACKUP SETTINGS",
+                        AppLocalizations.of(context)!.backupSettings,
                       ),
                       onPressed: () async {
                         var backup = Backup()
@@ -76,11 +77,13 @@ class BackupView extends StatelessWidget {
                         var backed = bloc.backupSettings(backup);
                         backed.then((value) {
                           final snackBar = SnackBar(
-                              content: Text('Backup finished successfully'));
+                              content: Text(AppLocalizations.of(context)!
+                                  .backupSettingsOk));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }).catchError((Object error) {
                           final snackBar = SnackBar(
-                              content: Text('Error occured during backup'));
+                              content: Text(AppLocalizations.of(context)!
+                                  .backupSettingsError));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
                       })),
@@ -88,7 +91,7 @@ class BackupView extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                   child: ElevatedButton(
                     child: Text(
-                      "RESTORE SETTINGS",
+                      AppLocalizations.of(context)!.backupRestore,
                     ),
                     onPressed: () async {
                       bloc.restoreSettings().then((backup) {
@@ -98,12 +101,13 @@ class BackupView extends StatelessWidget {
                             .read<DeparturesCubit>()
                             .restore(backup.departures);
                         final snackBar = SnackBar(
-                            content: Text('Restored settings successfully'));
+                            content: Text(
+                                AppLocalizations.of(context)!.backupRestoreOk));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
-                            content:
-                                Text('Error occured when restoring backup'));
+                            content: Text(AppLocalizations.of(context)!
+                                .backupRestoreError));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },
@@ -112,17 +116,18 @@ class BackupView extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
                   child: ElevatedButton(
                     child: Text(
-                      "REMOVE BACKUP",
+                      AppLocalizations.of(context)!.backupRemove,
                     ),
                     onPressed: () async {
                       bloc.removeBackup().then((value) {
                         final snackBar = SnackBar(
-                            content: Text('Backup removed successfully'));
+                            content: Text(
+                                AppLocalizations.of(context)!.backupRemoveOk));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }).catchError((Object error) {
                         final snackBar = SnackBar(
-                            content:
-                                Text('Error occured when removing backup'));
+                            content: Text(AppLocalizations.of(context)!
+                                .backupRemoveError));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },

@@ -16,6 +16,8 @@ import 'package:krk_stops_app/view/stops_view.dart';
 import 'cubit/last_stops_cubit.dart';
 import 'grpc/krk-stops.pb.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +58,16 @@ class KrkStopsApp extends StatelessWidget {
               },
               child: MaterialApp(
                 title: 'KrkStops',
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', ''),
+                  const Locale('pl', ''),
+                ],
                 theme: ThemeData(
                     primarySwatch: Colors.indigo,
                     primaryColor: Colors.indigo[200],

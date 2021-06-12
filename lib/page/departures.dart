@@ -4,6 +4,7 @@ import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_filter_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../cubit/departures_cubit.dart';
 import 'edit_departures.dart';
@@ -32,6 +33,8 @@ class DeparturesPage extends StatelessWidget {
                   builder: (context, state) {
                     return IconButton(
                       icon: Icon(iconFromFilter[state]),
+                      tooltip:
+                          AppLocalizations.of(context)!.departureFilterbyType,
                       onPressed: () {
                         context.read<DeparturesFilterCubit>().toggle();
                       },
@@ -43,7 +46,7 @@ class DeparturesPage extends StatelessWidget {
                   if (bloc.findIndex(stop) > -1) {
                     return IconButton(
                       icon: Icon(Icons.favorite),
-                      tooltip: 'Remove from saved',
+                      tooltip: AppLocalizations.of(context)!.savedStopsRemove,
                       onPressed: () {
                         bloc.removeFav(stop);
                       },
@@ -51,7 +54,7 @@ class DeparturesPage extends StatelessWidget {
                   } else {
                     return IconButton(
                       icon: Icon(Icons.favorite_outline),
-                      tooltip: 'Add to saved',
+                      tooltip: AppLocalizations.of(context)!.savedStopsAdd,
                       onPressed: () {
                         bloc.addFav(stop);
                       },
