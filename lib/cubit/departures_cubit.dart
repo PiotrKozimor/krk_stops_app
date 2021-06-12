@@ -103,13 +103,19 @@ class DeparturesCubit extends Cubit<List<Departure>> {
 
   setColor(Departure dep, Color color) {
     var departureIndex = find(dep);
-    if (departureIndex == -1) {
-      coloredDepartures.add(Departure()
-        ..patternText = dep.patternText
-        ..direction = dep.direction
-        ..color = color.value);
+    if (color == Colors.white) {
+      if (departureIndex != -1) {
+        coloredDepartures.removeAt(departureIndex);
+      }
     } else {
-      coloredDepartures[departureIndex].color = color.value;
+      if (departureIndex == -1) {
+        coloredDepartures.add(Departure()
+          ..patternText = dep.patternText
+          ..direction = dep.direction
+          ..color = color.value);
+      } else {
+        coloredDepartures[departureIndex].color = color.value;
+      }
     }
     save(coloredDepartures);
     emit(applyColor(state));
