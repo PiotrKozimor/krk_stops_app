@@ -3,7 +3,7 @@ description: KrkStops application
 
 publish_to: 'none'
 
-version: 1.6.0+9
+version: 1.6.1+10
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -20,8 +20,8 @@ dependencies:
   url_launcher: ^6.0.2
   google_sign_in: ^5.0.0
   firebase_core: ^1.0.0
-  firebase_auth: ^1.0.0
-  cloud_firestore: ^2.2.2
+  firebase_auth: ^3.0.0
+  cloud_firestore: ^2.2.0
   bloc: ^7.0.0
   flutter_bloc: ^7.0.0
   firebase_crashlytics: ^2.0.0
