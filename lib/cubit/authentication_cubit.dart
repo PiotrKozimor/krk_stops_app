@@ -14,9 +14,11 @@ class AuthenticationCubit extends Cubit<String> {
   final key = 'airly';
   Installation installation = Installation();
   AuthenticationCubit(this.firebaseRepository) : super("") {
-    firebaseRepository.auth.authStateChanges().listen((User? user) {
-      var email = user?.email;
-      emit(email!);
+    firebaseRepository.initialized.future.then((_) {
+      firebaseRepository.auth.authStateChanges().listen((User? user) {
+        var email = user?.email;
+        emit(email!);
+      });
     });
   }
 

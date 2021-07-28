@@ -23,17 +23,14 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(KrkStopsApp(
     krkStopsRepository: KrkStopsRepository(),
-    firebaseRepository: FirebaseRepository(),
   ));
 }
 
 class KrkStopsApp extends StatelessWidget {
   final KrkStopsRepository krkStopsRepository;
-  final FirebaseRepository firebaseRepository;
   const KrkStopsApp({
     Key? key,
     required this.krkStopsRepository,
-    required this.firebaseRepository,
   }) : super(key: key);
 
   @override
@@ -49,8 +46,6 @@ class KrkStopsApp extends StatelessWidget {
             BlocProvider(create: (_) => InstallationCubit(krkStopsRepository)),
             BlocProvider(create: (_) => LastStopsCubit(krkStopsRepository)),
             BlocProvider(create: (_) => DeparturesCubit(krkStopsRepository)),
-            BlocProvider(
-                create: (_) => AuthenticationCubit(firebaseRepository)),
           ],
           child: BlocListener<InstallationCubit, Installation>(
               listener: (context, state) {
@@ -108,7 +103,11 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.settings),
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => SettingsPage()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => RepositoryProvider<FirebaseRepository>(
+                            create: (context) => FirebaseRepository(),
+                            child: SettingsPage())));
               },
             )
           ],
