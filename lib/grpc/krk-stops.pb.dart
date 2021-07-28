@@ -486,6 +486,88 @@ class Stop extends $pb.GeneratedMessage {
   void clearType() => clearField(4);
 }
 
+class Stops extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Stops', createEmptyInstance: create)
+    ..pc<Stop>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Stop.create)
+    ..hasRequiredFields = false
+  ;
+
+  Stops._() : super();
+  factory Stops({
+    $core.Iterable<Stop>? stops,
+  }) {
+    final _result = create();
+    if (stops != null) {
+      _result.stops.addAll(stops);
+    }
+    return _result;
+  }
+  factory Stops.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Stops.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Stops clone() => Stops()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Stops copyWith(void Function(Stops) updates) => super.copyWith((message) => updates(message as Stops)) as Stops; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Stops create() => Stops._();
+  Stops createEmptyInstance() => create();
+  static $pb.PbList<Stops> createRepeated() => $pb.PbList<Stops>();
+  @$core.pragma('dart2js:noInline')
+  static Stops getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Stops>(create);
+  static Stops? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Stop> get stops => $_getList(0);
+}
+
+class Departures extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Departures', createEmptyInstance: create)
+    ..pc<Departure>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'departures', $pb.PbFieldType.PM, subBuilder: Departure.create)
+    ..hasRequiredFields = false
+  ;
+
+  Departures._() : super();
+  factory Departures({
+    $core.Iterable<Departure>? departures,
+  }) {
+    final _result = create();
+    if (departures != null) {
+      _result.departures.addAll(departures);
+    }
+    return _result;
+  }
+  factory Departures.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Departures.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  Departures clone() => Departures()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  Departures copyWith(void Function(Departures) updates) => super.copyWith((message) => updates(message as Departures)) as Departures; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Departures create() => Departures._();
+  Departures createEmptyInstance() => create();
+  static $pb.PbList<Departures> createRepeated() => $pb.PbList<Departures>();
+  @$core.pragma('dart2js:noInline')
+  static Departures getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Departures>(create);
+  static Departures? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Departure> get departures => $_getList(0);
+}
+
 class StopSearch extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StopSearch', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'query')

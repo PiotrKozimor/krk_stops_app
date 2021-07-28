@@ -42,17 +42,8 @@ class DeparturesCubit extends Cubit<List<Departure>> {
 
   Future<void> fetch(Stop request) {
     var fetched = Completer<void>();
-    List<Departure> tmp = [];
-    krkStopsRepository.stub.getDepartures(request).listen((stop) {
-      tmp.add(stop);
-    }, onError: (error) {
-      fetched.completeError("Could not fetch departures: ${error.message}");
-    }, onDone: () {
-      if (tmp.isEmpty) {
-        tmp.add(Departure(direction: "No departures in 20 minutes."));
-      }
-      tmp.sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
-      emit(applyColor(tmp));
+    krkStopsRepository.stub.getDepartures2(request).then((response) {
+      emit(applyColor(response.departures));
       fetched.complete();
     });
     return fetched.future;

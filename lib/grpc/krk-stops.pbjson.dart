@@ -86,6 +86,26 @@ const Stop$json = const {
 
 /// Descriptor for `Stop`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List stopDescriptor = $convert.base64Decode('CgRTdG9wEhwKCXNob3J0TmFtZRgBIAEoCVIJc2hvcnROYW1lEhIKBG5hbWUYAiABKAlSBG5hbWUSDgoCaWQYAyABKA1SAmlkEh0KBHR5cGUYBCABKA4yCS5FbmRwb2ludFIEdHlwZQ==');
+@$core.Deprecated('Use stopsDescriptor instead')
+const Stops$json = const {
+  '1': 'Stops',
+  '2': const [
+    const {'1': 'stops', '3': 1, '4': 3, '5': 11, '6': '.Stop', '10': 'stops'},
+  ],
+};
+
+/// Descriptor for `Stops`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List stopsDescriptor = $convert.base64Decode('CgVTdG9wcxIbCgVzdG9wcxgBIAMoCzIFLlN0b3BSBXN0b3Bz');
+@$core.Deprecated('Use departuresDescriptor instead')
+const Departures$json = const {
+  '1': 'Departures',
+  '2': const [
+    const {'1': 'departures', '3': 1, '4': 3, '5': 11, '6': '.Departure', '10': 'departures'},
+  ],
+};
+
+/// Descriptor for `Departures`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List departuresDescriptor = $convert.base64Decode('CgpEZXBhcnR1cmVzEioKCmRlcGFydHVyZXMYASADKAsyCi5EZXBhcnR1cmVSCmRlcGFydHVyZXM=');
 @$core.Deprecated('Use stopSearchDescriptor instead')
 const StopSearch$json = const {
   '1': 'StopSearch',
