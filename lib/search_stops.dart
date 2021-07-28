@@ -41,13 +41,13 @@ class SearchStops extends SearchDelegate<Stop> {
       var _stops = new Completer<List<Stop>>();
       RepositoryProvider.of<KrkStopsRepository>(context)
           .stub
-          .searchStops(StopSearch()..query = this.query)
-          .listen((value) => stops.add(value), onError: (Object error) {
+          .searchStops2(StopSearch()..query = this.query)
+          .then((response) {
+        _stops.complete(response.stops);
+      }).catchError((Object error) {
         final snackBar =
             SnackBar(content: Text('Could not find stops: $error'));
         Scaffold.of(context).showSnackBar(snackBar);
-      }, onDone: () {
-        _stops.complete(stops);
       });
       return ListView(
         children: [
