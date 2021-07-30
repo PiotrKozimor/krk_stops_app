@@ -28,18 +28,10 @@ class KrkStopsClient extends $grpc.Client {
           '/KrkStops/GetAirlyInstallation',
           ($0.Installation value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Installation.fromBuffer(value));
-  static final _$getDepartures = $grpc.ClientMethod<$0.Stop, $0.Departure>(
-      '/KrkStops/GetDepartures',
-      ($0.Stop value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Departure.fromBuffer(value));
   static final _$getDepartures2 = $grpc.ClientMethod<$0.Stop, $0.Departures>(
       '/KrkStops/GetDepartures2',
       ($0.Stop value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Departures.fromBuffer(value));
-  static final _$searchStops = $grpc.ClientMethod<$0.StopSearch, $0.Stop>(
-      '/KrkStops/SearchStops',
-      ($0.StopSearch value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Stop.fromBuffer(value));
   static final _$searchStops2 = $grpc.ClientMethod<$0.StopSearch, $0.Stops>(
       '/KrkStops/SearchStops2',
       ($0.StopSearch value) => value.writeToBuffer(),
@@ -68,23 +60,9 @@ class KrkStopsClient extends $grpc.Client {
     return $createUnaryCall(_$getAirlyInstallation, request, options: options);
   }
 
-  $grpc.ResponseStream<$0.Departure> getDepartures($0.Stop request,
-      {$grpc.CallOptions? options}) {
-    return $createStreamingCall(
-        _$getDepartures, $async.Stream.fromIterable([request]),
-        options: options);
-  }
-
   $grpc.ResponseFuture<$0.Departures> getDepartures2($0.Stop request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getDepartures2, request, options: options);
-  }
-
-  $grpc.ResponseStream<$0.Stop> searchStops($0.StopSearch request,
-      {$grpc.CallOptions? options}) {
-    return $createStreamingCall(
-        _$searchStops, $async.Stream.fromIterable([request]),
-        options: options);
   }
 
   $grpc.ResponseFuture<$0.Stops> searchStops2($0.StopSearch request,
@@ -119,13 +97,6 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Installation.fromBuffer(value),
         ($0.Installation value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.Stop, $0.Departure>(
-        'GetDepartures',
-        getDepartures_Pre,
-        false,
-        true,
-        ($core.List<$core.int> value) => $0.Stop.fromBuffer(value),
-        ($0.Departure value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.Stop, $0.Departures>(
         'GetDepartures2',
         getDepartures2_Pre,
@@ -133,13 +104,6 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Stop.fromBuffer(value),
         ($0.Departures value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.StopSearch, $0.Stop>(
-        'SearchStops',
-        searchStops_Pre,
-        false,
-        true,
-        ($core.List<$core.int> value) => $0.StopSearch.fromBuffer(value),
-        ($0.Stop value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.StopSearch, $0.Stops>(
         'SearchStops2',
         searchStops2_Pre,
@@ -165,19 +129,9 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
     return getAirlyInstallation(call, await request);
   }
 
-  $async.Stream<$0.Departure> getDepartures_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.Stop> request) async* {
-    yield* getDepartures(call, await request);
-  }
-
   $async.Future<$0.Departures> getDepartures2_Pre(
       $grpc.ServiceCall call, $async.Future<$0.Stop> request) async {
     return getDepartures2(call, await request);
-  }
-
-  $async.Stream<$0.Stop> searchStops_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.StopSearch> request) async* {
-    yield* searchStops(call, await request);
   }
 
   $async.Future<$0.Stops> searchStops2_Pre(
@@ -191,12 +145,8 @@ abstract class KrkStopsServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.InstallationLocation request);
   $async.Future<$0.Installation> getAirlyInstallation(
       $grpc.ServiceCall call, $0.Installation request);
-  $async.Stream<$0.Departure> getDepartures(
-      $grpc.ServiceCall call, $0.Stop request);
   $async.Future<$0.Departures> getDepartures2(
       $grpc.ServiceCall call, $0.Stop request);
-  $async.Stream<$0.Stop> searchStops(
-      $grpc.ServiceCall call, $0.StopSearch request);
   $async.Future<$0.Stops> searchStops2(
       $grpc.ServiceCall call, $0.StopSearch request);
 }
