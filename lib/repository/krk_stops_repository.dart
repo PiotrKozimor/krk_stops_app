@@ -8,19 +8,18 @@ class KrkStopsRepository {
   late SharedPreferences preferences;
   late KrkStopsClient stub;
   final preferencesLoaded = Completer<void>();
-  final channel = ClientChannel(
-      'krkstops.germanywestcentral.cloudapp.azure.com',
-      port: 8080,
-      options: const ChannelOptions(
-          credentials: ChannelCredentials.insecure(),
-          connectionTimeout: Duration(seconds: 2)));
+  final channel =
+      ClientChannel('krkstops.germanywestcentral.cloudapp.azure.com',
+          port: 8080,
+          options: const ChannelOptions(
+            credentials: ChannelCredentials.insecure(),
+          ));
 
   KrkStopsRepository() {
     SharedPreferences.getInstance().then((value) {
       this.preferences = value;
       this.preferencesLoaded.complete();
     });
-    this.stub = KrkStopsClient(this.channel,
-        options: CallOptions(timeout: Duration(seconds: 2)));
+    this.stub = KrkStopsClient(this.channel);
   }
 }
