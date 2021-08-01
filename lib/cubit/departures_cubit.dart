@@ -47,6 +47,8 @@ class DeparturesCubit extends Cubit<List<Departure>> {
         response.departures
             .add(Departure(direction: "No departures in 20 minutes."));
       }
+      response.departures
+          .sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
       emit(applyColor(response.departures));
       fetched.complete();
     }).catchError((Object error) {
