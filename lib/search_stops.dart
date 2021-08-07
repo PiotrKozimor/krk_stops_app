@@ -36,7 +36,6 @@ class SearchStops extends SearchDelegate<Stop> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Stop> stops = [];
     if (this.query.length > 1) {
       var _stops = new Completer<List<Stop>>();
       RepositoryProvider.of<KrkStopsRepository>(context)

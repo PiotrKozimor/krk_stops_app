@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
-import 'package:krk_stops_app/cubit/authentication_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
