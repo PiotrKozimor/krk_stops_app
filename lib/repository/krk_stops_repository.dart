@@ -9,7 +9,7 @@ class KrkStopsRepository {
   late KrkStopsClient stub;
   final preferencesLoaded = Completer<void>();
   final channel = ClientChannel(
-    'krkstops.germanywestcentral.cloudapp.azure.com',
+    'krkstops-1.germanywestcentral.cloudapp.azure.com',
     port: 9090,
   );
 
