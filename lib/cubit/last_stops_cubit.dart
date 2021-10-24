@@ -1,21 +1,21 @@
 import 'package:bloc/bloc.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
-import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/local_repository.dart';
 
 class LastStopsCubit extends Cubit<List<Stop>> {
-  final KrkStopsRepository krkStopsRepository;
+  final LocalRepository local;
   static final key = 'last_stops';
   Installation installation = Installation();
   bool searching = false;
-  LastStopsCubit(this.krkStopsRepository) : super(List<Stop>.empty()) {
-    krkStopsRepository.preferencesLoaded.future.then((value) {
+  LastStopsCubit(this.local) : super(List<Stop>.empty()) {
+    local.preferencesLoaded.future.then((value) {
       load();
     });
   }
 
   void load() {
     List<Stop> stops = [];
-    var encoded = krkStopsRepository.preferences.getStringList(key);
+    var encoded = local.preferences.getStringList(key);
     if (encoded != null) {
       stops = decode(encoded);
     }
@@ -38,7 +38,7 @@ class LastStopsCubit extends Cubit<List<Stop>> {
 
   addLast(Stop stop) {
     if (searching) {
-      var stops = this.state;
+      var stops = state;
       final indexOfExisting =
           stops.indexWhere((element) => element.id == stop.id);
       if (indexOfExisting != -1) {
@@ -61,7 +61,7 @@ class LastStopsCubit extends Cubit<List<Stop>> {
 
   save(List<Stop> stops) {
     var encodedStops = encode(stops);
-    this.krkStopsRepository.preferences.setStringList(key, encodedStops);
+    local.preferences.setStringList(key, encodedStops);
     emit(stops);
   }
 }

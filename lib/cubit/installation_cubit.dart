@@ -2,23 +2,25 @@ import 'package:bloc/bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/local_repository.dart';
 
 class InstallationCubit extends Cubit<Installation> {
   final KrkStopsRepository krkStopsRepository;
+  final LocalRepository local;
   final installationKey = 'airly';
   Installation installation = Installation();
-  InstallationCubit(this.krkStopsRepository)
+  InstallationCubit(this.krkStopsRepository, this.local)
       : super(Installation()
           ..id = 8077
           ..latitude = 50.062006
           ..longitude = 19.940984) {
-    krkStopsRepository.preferencesLoaded.future.then((value) {
+    local.preferencesLoaded.future.then((value) {
       load();
     });
   }
 
   void load() {
-    var encoded = krkStopsRepository.preferences.getString(installationKey);
+    var encoded = local.preferences.getString(installationKey);
     if (encoded == null) {
       save(state);
     } else {
@@ -28,7 +30,7 @@ class InstallationCubit extends Cubit<Installation> {
 
   save(Installation obj) {
     var encoded = encode(obj);
-    krkStopsRepository.preferences.setString(installationKey, encoded);
+    local.preferences.setString(installationKey, encoded);
     emit(obj);
   }
 

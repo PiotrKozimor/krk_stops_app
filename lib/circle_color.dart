@@ -18,10 +18,7 @@ class CircleColor extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // final brightness = ThemeData.estimateBrightnessForColor(color);
-    // final icon = brightness == Brightness.light ? Colors.black : Colors.white;
-
+  Widget build(BuildContext _) {
     return GestureDetector(
       onTap: onColorChoose,
       child: Material(

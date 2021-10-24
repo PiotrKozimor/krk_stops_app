@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
+import 'package:krk_stops_app/cubit/departure_color_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
@@ -8,6 +9,7 @@ import 'package:krk_stops_app/page/departures.dart';
 import 'package:krk_stops_app/page/edit_stops.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/local_repository.dart';
 import 'package:krk_stops_app/search_stops.dart';
 import 'package:krk_stops_app/page/settings.dart';
 import 'package:krk_stops_app/view/airly_view.dart';
@@ -22,55 +24,68 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(KrkStopsApp(
     krkStopsRepository: KrkStopsRepository(),
+    localRepository: LocalRepository(),
   ));
 }
 
 class KrkStopsApp extends StatelessWidget {
   final KrkStopsRepository krkStopsRepository;
+  final LocalRepository localRepository;
   const KrkStopsApp({
     Key? key,
     required this.krkStopsRepository,
+    required this.localRepository,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
+    var colors = DepartureColorCubit(localRepository);
     return RepositoryProvider.value(
         value: krkStopsRepository,
         child: MultiBlocProvider(
-          providers: [
-            BlocProvider<AirlyCubit>(
-                create: (_) => AirlyCubit(krkStopsRepository)),
-            BlocProvider<StopsCubit>(
-                create: (_) => StopsCubit(krkStopsRepository)),
-            BlocProvider(create: (_) => InstallationCubit(krkStopsRepository)),
-            BlocProvider(create: (_) => LastStopsCubit(krkStopsRepository)),
-            BlocProvider(create: (_) => DeparturesCubit(krkStopsRepository)),
-          ],
-          child: BlocListener<InstallationCubit, Installation>(
+            providers: [
+              BlocProvider<AirlyCubit>(
+                  create: (_) => AirlyCubit(krkStopsRepository)),
+              BlocProvider<StopsCubit>(
+                  create: (_) => StopsCubit(localRepository)),
+              BlocProvider(
+                  create: (_) =>
+                      InstallationCubit(krkStopsRepository, localRepository)),
+              BlocProvider(create: (_) => LastStopsCubit(localRepository)),
+              BlocProvider(create: (_) => colors),
+              BlocProvider(
+                  create: (_) =>
+                      DeparturesCubit(krkStopsRepository, colors.state))
+            ],
+            child: BlocListener<InstallationCubit, Installation>(
               listener: (context, state) {
                 context.read<AirlyCubit>().fetchAirly(state);
               },
-              child: MaterialApp(
-                title: 'KrkStops',
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: [
-                  const Locale('en', ''),
-                  const Locale('pl', ''),
-                ],
-                theme: ThemeData(
-                    primarySwatch: Colors.indigo,
-                    primaryColor: Colors.indigo[200],
-                    primaryColorBrightness: Brightness.light,
-                    brightness: Brightness.light,
-                    typography: Typography.material2018()),
-                home: HomePage(title: 'KrkStops'),
-              )),
-        ));
+              child: BlocListener<DepartureColorCubit, List<Departure>>(
+                  listener: (context, state) {
+                    context.read<DeparturesCubit>().applyColors(state);
+                  },
+                  child: MaterialApp(
+                    title: 'KrkStops',
+                    localizationsDelegates: [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: [
+                      const Locale('en', ''),
+                      const Locale('pl', ''),
+                    ],
+                    theme: ThemeData(
+                        primarySwatch: Colors.indigo,
+                        primaryColor: Colors.indigo[200],
+                        primaryColorBrightness: Brightness.light,
+                        brightness: Brightness.light,
+                        typography: Typography.material2018()),
+                    home: HomePage(title: 'KrkStops'),
+                  )),
+            )));
   }
 }
 
@@ -105,7 +120,7 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (_) => RepositoryProvider<FirebaseRepository>(
-                            create: (context) => FirebaseRepository(),
+                            create: (_) => FirebaseRepository(),
                             child: SettingsPage())));
               },
             )
@@ -115,20 +130,20 @@ class HomePage extends StatelessWidget {
           child: Icon(Icons.edit),
           tooltip: 'Edit',
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EditStopsPage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => EditStopsPage()));
           },
         ),
         body: ListView(
           children: [
             BlocBuilder<AirlyCubit, Airly>(
-                builder: (context, airly) => AirlyView(airly)),
+                builder: (_, airly) => AirlyView(airly)),
             Divider(
               height: 7,
               thickness: 1,
             ),
             BlocBuilder<StopsCubit, List<Stop>>(
-                builder: (context, stops) => StopsView(stops))
+                builder: (_, stops) => StopsView(stops))
           ],
         ));
     return scaf;

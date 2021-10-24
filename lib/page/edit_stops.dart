@@ -10,20 +10,18 @@ class EditStopsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("KrkStops"),
         ),
-        body: BlocBuilder<StopsCubit, List<Stop>>(
-            bloc: context.watch<StopsCubit>(),
-            builder: (context, state) {
-              return ReorderableListView(
-                  children: state
-                      .map((e) => ListTile(
-                            key: Key("${e.id}"),
-                            title: Text("${e.name}"),
-                            trailing: Icon(Icons.menu),
-                          ))
-                      .toList(),
-                  onReorder: (int oldIndex, int newIndex) {
-                    context.read<StopsCubit>().reorder(oldIndex, newIndex);
-                  });
-            }));
+        body: BlocBuilder<StopsCubit, List<Stop>>(builder: (context, state) {
+          return ReorderableListView(
+              children: state
+                  .map((e) => ListTile(
+                        key: Key("${e.id}"),
+                        title: Text("${e.name}"),
+                        trailing: Icon(Icons.menu),
+                      ))
+                  .toList(),
+              onReorder: (int oldIndex, int newIndex) {
+                context.read<StopsCubit>().reorder(oldIndex, newIndex);
+              });
+        }));
   }
 }

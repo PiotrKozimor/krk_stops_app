@@ -24,12 +24,11 @@ class StopsView extends StatelessWidget {
                     )),
                 onTap: () {
                   context.read<LastStopsCubit>().addLast(e);
-                  context.read<DeparturesCubit>().clean();
-                  context.read<DeparturesCubit>().fetch(e);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DeparturesPage(e)));
+                  var departuresC = context.read<DeparturesCubit>();
+                  departuresC.clear();
+                  departuresC.fetch(e);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => DeparturesPage(e)));
                 },
               ))
           .toList(),

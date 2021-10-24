@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
-import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/local_repository.dart';
 
 class StopsCubit extends Cubit<List<Stop>> {
-  final KrkStopsRepository krkStopsRepository;
+  final LocalRepository local;
   static final key = 'stops';
   Installation installation = Installation();
-  StopsCubit(this.krkStopsRepository) : super(List<Stop>.empty()) {
-    krkStopsRepository.preferencesLoaded.future.then((value) {
+  StopsCubit(this.local) : super(List<Stop>.empty()) {
+    local.preferencesLoaded.future.then((value) {
       load();
     });
   }
 
   void load() {
-    var encoded = krkStopsRepository.preferences.getStringList(key);
+    var encoded = local.preferences.getStringList(key);
     if (encoded == null) {
       var stops = [
         Stop()
@@ -56,7 +56,7 @@ class StopsCubit extends Cubit<List<Stop>> {
 
   save(List<Stop> stops) {
     var encodedStops = encode(stops);
-    this.krkStopsRepository.preferences.setStringList(key, encodedStops);
+    this.local.preferences.setStringList(key, encodedStops);
     emit(stops);
   }
 
@@ -65,7 +65,7 @@ class StopsCubit extends Cubit<List<Stop>> {
   }
 
   void removeFav(Stop stop) {
-    var toRemove = findIndex(stop);
+    var toRemove = findIndex(state, stop);
     var newState = List<Stop>.from(state);
     newState.removeAt(toRemove);
     save(newState);
@@ -77,8 +77,8 @@ class StopsCubit extends Cubit<List<Stop>> {
     save(newState);
   }
 
-  int findIndex(Stop stop) {
-    return this.state.lastIndexWhere((element) {
+  static int findIndex(List<Stop> stops, Stop stop) {
+    return stops.lastIndexWhere((element) {
       return element.id == stop.id;
     });
   }
