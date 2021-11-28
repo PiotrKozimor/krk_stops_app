@@ -12,25 +12,19 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text("KrkStops"),
         ),
-        body:
-            // RepositoryProvider<FirebaseRepository>(
-            //     create: (context) => FirebaseRepository(),
-            // child:
-            BlocProvider<AuthenticationCubit>(
-                create: (_) => AuthenticationCubit(
-                    RepositoryProvider.of<FirebaseRepository>(context)),
-                child: ListView(
-                  children: [
-                    InstallationView(),
-                    Divider(
-                      height: 7,
-                      thickness: 1,
-                    ),
-                    BackupView()
-                  ],
-                ))
-        // )
-        );
+        body: BlocProvider<AuthenticationCubit>(
+            create: (_) => AuthenticationCubit(
+                RepositoryProvider.of<FirebaseRepository>(context)),
+            child: ListView(
+              children: [
+                InstallationView(),
+                Divider(
+                  height: 7,
+                  thickness: 1,
+                ),
+                BackupView()
+              ],
+            )));
     return scaf;
   }
 }

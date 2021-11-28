@@ -28,8 +28,10 @@ class InstallationView extends StatelessWidget {
                       onPressed: () {
                         bloc
                             .checkId(int.parse(_airlyIdController.value.text))
-                            .then((value) => Navigator.pop(context),
-                                onError: (Object error) {
+                            .then((value) {
+                          Navigator.pop(context);
+                          context.read<InstallationCubit>().save(value);
+                        }, onError: (Object error) {
                           setState(() {
                             airlyError = AppLocalizations.of(context)!
                                 .airlyEditInstallationBadId;
