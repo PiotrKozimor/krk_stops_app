@@ -15,8 +15,7 @@ class AuthenticationCubit extends Cubit<String> {
   AuthenticationCubit(this.firebaseRepository) : super("") {
     firebaseRepository.initialized.future.then((_) {
       firebaseRepository.auth.authStateChanges().listen((User? user) {
-        var email = user?.email;
-        emit(email!);
+        emit(user?.email ?? "");
       });
     });
   }

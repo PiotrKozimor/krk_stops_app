@@ -15,11 +15,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "763828584294-tsc8gd33rahfn4h2l5g139ic9gtbp1nc.apps.googleusercontent.com",
+          "client_id": "763828584294-h751md097ekor268p8ke5hhh0t269in7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "krkstops.app",
-            "certificate_hash": "357e782d3e0af5ec65069ce91d92c22497b57085"
+            "certificate_hash": "ea30a8d824a135db6759cf14278f66fe91c4e6ab"
+          }
+        },
+        {
+          "client_id": "763828584294-impfic7vdonco0dp576pa9339stjm33m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "krkstops.app",
+            "certificate_hash": "4f1761ff2b25fa1397a64a4795dbcced207d0dd2"
+          }
+        },
+        {
+          "client_id": "763828584294-jop16cflh8ohafd46sgoroc6jrsu33sn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "krkstops.app",
+            "certificate_hash": "37000ca95539dee7133135e9768b10b5412ef516"
           }
         },
         {
