@@ -12,10 +12,12 @@ import 'package:protobuf/protobuf.dart' as $pb;
 class Endpoint extends $pb.ProtobufEnum {
   static const Endpoint BUS = Endpoint._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'BUS');
   static const Endpoint TRAM = Endpoint._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'TRAM');
+  static const Endpoint ALL = Endpoint._(2, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'ALL');
 
   static const $core.List<Endpoint> values = <Endpoint> [
     BUS,
     TRAM,
+    ALL,
   ];
 
   static final $core.Map<$core.int, Endpoint> _byValue = $pb.ProtobufEnum.initByValue(values);

@@ -14,11 +14,12 @@ const Endpoint$json = const {
   '2': const [
     const {'1': 'BUS', '2': 0},
     const {'1': 'TRAM', '2': 1},
+    const {'1': 'ALL', '2': 2},
   ],
 };
 
 /// Descriptor for `Endpoint`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List endpointDescriptor = $convert.base64Decode('CghFbmRwb2ludBIHCgNCVVMQABIICgRUUkFNEAE=');
+final $typed_data.Uint8List endpointDescriptor = $convert.base64Decode('CghFbmRwb2ludBIHCgNCVVMQABIICgRUUkFNEAESBwoDQUxMEAI=');
 @$core.Deprecated('Use installationDescriptor instead')
 const Installation$json = const {
   '1': 'Installation',
