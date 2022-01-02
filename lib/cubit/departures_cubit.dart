@@ -4,15 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 
-enum Filter {
-  ALL,
-  TRAM,
-  BUS,
-}
-
 class FilteredDepartures {
   List<Departure> departures;
-  Filter filter;
+  Endpoint filter;
   FilteredDepartures(this.departures, this.filter);
 }
 
@@ -21,7 +15,7 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
   List<Departure> colors;
   var allDepartures = List<Departure>.empty();
   DeparturesCubit(this.krkStopsRepository, this.colors)
-      : super(FilteredDepartures(List<Departure>.empty(), Filter.ALL));
+      : super(FilteredDepartures(List<Departure>.empty(), Endpoint.ALL));
 
   Future<void> fetch(Stop stop) {
     var fetched = Completer<void>();
@@ -33,7 +27,7 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
       response.departures
           .sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
       allDepartures = response.departures;
-      emitWithColors(response.departures, colors);
+      emitWithColors(filter(state.filter), colors);
       fetched.complete();
     }).catchError((Object error) {
       fetched.completeError("Could not fetch departures: $error");
@@ -67,25 +61,26 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
 
   clear() {
     allDepartures = List<Departure>.empty();
-    emit(FilteredDepartures(allDepartures, Filter.ALL));
+    emit(FilteredDepartures(allDepartures, Endpoint.ALL));
   }
 
   void toggle() {
     switch (state.filter) {
-      case Filter.ALL:
-        var departuresFiltered = allDepartures
-            .where((element) => element.type == Endpoint.TRAM)
-            .toList();
-        emit(FilteredDepartures(departuresFiltered, Filter.TRAM));
+      case Endpoint.ALL:
+        emit(FilteredDepartures(filter(Endpoint.TRAM), Endpoint.TRAM));
         break;
-      case Filter.TRAM:
-        var departuresFiltered = allDepartures
-            .where((element) => element.type == Endpoint.BUS)
-            .toList();
-        emit(FilteredDepartures(departuresFiltered, Filter.BUS));
+      case Endpoint.TRAM:
+        emit(FilteredDepartures(filter(Endpoint.BUS), Endpoint.BUS));
         break;
-      case Filter.BUS:
-        emit(FilteredDepartures(allDepartures, Filter.ALL));
+      case Endpoint.BUS:
+        emit(FilteredDepartures(allDepartures, Endpoint.ALL));
     }
+  }
+
+  List<Departure> filter(Endpoint e) {
+    if (e == Endpoint.ALL) {
+      return allDepartures;
+    }
+    return allDepartures.where((element) => element.type == e).toList();
   }
 }

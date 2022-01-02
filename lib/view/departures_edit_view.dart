@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/departure_color_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
-import 'package:provider/provider.dart';
 
 import '../circle_color.dart';
 

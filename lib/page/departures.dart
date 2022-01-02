@@ -11,9 +11,9 @@ import '../grpc/krk-stops.pbgrpc.dart';
 import 'edit_departures.dart';
 
 var iconFromFilter = {
-  Filter.ALL: Icons.filter_alt,
-  Filter.TRAM: Icons.tram,
-  Filter.BUS: Icons.directions_bus,
+  Endpoint.ALL: Icons.filter_alt,
+  Endpoint.TRAM: Icons.tram,
+  Endpoint.BUS: Icons.directions_bus,
 };
 
 class DeparturesPage extends StatelessWidget {
