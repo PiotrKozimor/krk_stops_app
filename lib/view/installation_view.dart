@@ -8,17 +8,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InstallationView extends StatelessWidget {
-  String airlyError = "";
-  var _airlyIdController = TextEditingController();
   Function() showAirlyDialog(BuildContext context) {
     return () {
       showDialog(
           context: context,
           builder: (context) {
+            String airlyError = "";
+            var _airlyIdController = TextEditingController();
             var bloc = context.watch<InstallationCubit>();
             _airlyIdController.value =
                 TextEditingValue(text: "${bloc.state.id}");
-            airlyError = "";
             return StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                 title:
@@ -45,8 +44,12 @@ class InstallationView extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   controller: _airlyIdController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                      errorStyle: TextStyle(), errorText: airlyError),
+                  decoration: airlyError == ""
+                      ? InputDecoration(border: OutlineInputBorder())
+                      : InputDecoration(
+                          errorStyle: TextStyle(),
+                          errorText: airlyError,
+                          border: OutlineInputBorder()),
                 ),
               );
             });

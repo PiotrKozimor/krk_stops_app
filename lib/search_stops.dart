@@ -46,7 +46,7 @@ class SearchStops extends SearchDelegate<Stop> {
       }).catchError((Object error) {
         final snackBar =
             SnackBar(content: Text('Could not find stops: $error'));
-        Scaffold.of(context).showSnackBar(snackBar);
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
       return ListView(
         children: [
