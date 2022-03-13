@@ -80,7 +80,6 @@ class KrkStopsApp extends StatelessWidget {
                     theme: ThemeData(
                         primarySwatch: Colors.indigo,
                         primaryColor: Colors.indigo[200],
-                        primaryColorBrightness: Brightness.light,
                         brightness: Brightness.light,
                         typography: Typography.material2018()),
                     home: HomePage(title: 'KrkStops'),
