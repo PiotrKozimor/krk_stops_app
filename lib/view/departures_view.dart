@@ -17,36 +17,34 @@ class DeparturesList extends StatelessWidget {
         var minutes = departure.relativeTime ~/ 60;
         relativeTime = "${minutes}m";
       }
-      departuresWidgets.add(ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: 40,
-          ),
-          child: Container(
-            color: Color(departure.color),
-            child: Row(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.all(8),
-                    child: ConstrainedBox(
-                      child: Text(departure.patternText),
-                      constraints: BoxConstraints(minWidth: 24),
-                    )),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text(departure.direction),
-                  ),
-                ),
-                Padding(padding: EdgeInsets.all(8), child: Text(relativeTime)),
-                Padding(
-                    padding: EdgeInsets.all(8),
-                    child: ConstrainedBox(
-                      child: Text(departure.plannedTime),
-                      constraints: BoxConstraints(minWidth: 24),
-                    )),
-              ],
+      departuresWidgets.add(Container(
+        color: Color(departure.color),
+        height: 32,
+        child: Row(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 12, left: 12),
+                child: Container(
+                  child: Text(departure.patternText),
+                  width: 26,
+                )),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 8),
+                child: Text(departure.direction),
+              ),
             ),
-          )));
+            Padding(
+                padding: EdgeInsets.only(right: 8), child: Text(relativeTime)),
+            Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: ConstrainedBox(
+                  child: Text(departure.plannedTime),
+                  constraints: BoxConstraints(minWidth: 24),
+                )),
+          ],
+        ),
+      ));
     }
     return ListView(children: departuresWidgets);
   }

@@ -11,17 +11,16 @@ class StopsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: stops
           .map((e) => InkWell(
                 child: Container(
-                    padding: EdgeInsets.all(12),
-                    child: Align(
-                      child: Text(
-                        e.name,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      alignment: AlignmentDirectional.centerStart,
-                    )),
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    e.name,
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ),
                 onTap: () {
                   context.read<LastStopsCubit>().addLast(e);
                   var departuresC = context.read<DeparturesCubit>();
