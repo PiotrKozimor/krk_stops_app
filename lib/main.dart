@@ -7,6 +7,7 @@ import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/page/departures.dart';
 import 'package:krk_stops_app/page/edit_stops.dart';
+import 'package:krk_stops_app/page/home.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/repository/local_repository.dart';
@@ -85,66 +86,5 @@ class KrkStopsApp extends StatelessWidget {
                     home: HomePage(title: 'KrkStops'),
                   )),
             )));
-  }
-}
-
-class HomePage extends StatelessWidget {
-  HomePage({Key? key, this.title = "KrkStops"}) : super(key: key);
-
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    var scaf = Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () async {
-                  context.read<LastStopsCubit>().enterSearch();
-                  var stopSearched = await showSearch<Stop>(
-                      context: context, delegate: SearchStops());
-                  context.read<LastStopsCubit>().exitSearch()();
-                  if (stopSearched != null) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => DeparturesPage(stopSearched)));
-                  }
-                }),
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => RepositoryProvider<FirebaseRepository>(
-                            create: (_) => FirebaseRepository(),
-                            child: SettingsPage())));
-              },
-            )
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.edit),
-          tooltip: 'Edit',
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => EditStopsPage()));
-          },
-        ),
-        body: ListView(
-          children: [
-            BlocBuilder<AirlyCubit, Airly>(
-                builder: (_, airly) => AirlyView(airly)),
-            Divider(
-              height: 7,
-              thickness: 1,
-            ),
-            BlocBuilder<StopsCubit, List<Stop>>(
-                builder: (_, stops) => StopsView(stops))
-          ],
-        ));
-    return scaf;
   }
 }
