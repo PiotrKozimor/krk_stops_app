@@ -4,7 +4,7 @@ import 'package:krk_stops_app/repository/local_repository.dart';
 class LastStops {
   final LocalRepository local;
   static final key = 'last_stops';
-  var stops = List<Stop>.empty();
+  var stops = List<Stop>.empty(growable: true);
   LastStops(this.local) {
     local.preferencesLoaded.future.then((value) {
       load();

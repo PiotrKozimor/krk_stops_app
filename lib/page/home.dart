@@ -28,14 +28,15 @@ class HomePage extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () async {
-                  var stopSearched = await showSearch<Stop>(
+                  var s = await showSearch<Stop>(
                       context: context, delegate: SearchStops(ls));
-                  if (stopSearched != null) {
-                    ls.addLast(stopSearched);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => DeparturesPage(stopSearched)));
+                  if (s != null) {
+                    ls.addLast(s);
+                    var departuresC = context.read<DeparturesCubit>();
+                    departuresC.clear();
+                    departuresC.fetch(s);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => DeparturesPage(s)));
                   }
                 }),
             IconButton(
