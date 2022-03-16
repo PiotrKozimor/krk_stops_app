@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/authentication_cubit.dart';
-import 'package:krk_stops_app/cubit/departure_color_cubit.dart';
-import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../cubit/airly_cubit.dart';
+import '../cubit/departures_cubit.dart';
 
 class BackupView extends StatelessWidget {
   @override
@@ -66,12 +67,12 @@ class BackupView extends StatelessWidget {
                       ),
                       onPressed: () async {
                         var backup = Backup()
-                          ..airly = InstallationCubit.encode(
-                              context.read<InstallationCubit>().state)
+                          ..airly = AirlyCubit.encode(
+                              context.read<AirlyCubit>().state.inst)
                           ..stops = StopsCubit.encode(
                               context.read<StopsCubit>().state)
-                          ..departures = DepartureColorCubit.encode(
-                              context.read<DepartureColorCubit>().state);
+                          ..departures = DeparturesCubit.encode(
+                              context.read<DeparturesCubit>().colors);
                         var backed = bloc.backupSettings(backup);
                         backed.then((value) {
                           final snackBar = SnackBar(
@@ -93,10 +94,10 @@ class BackupView extends StatelessWidget {
                     ),
                     onPressed: () async {
                       bloc.restoreSettings().then((backup) {
-                        context.read<InstallationCubit>().restore(backup.airly);
+                        context.read<AirlyCubit>().restore(backup.airly);
                         context.read<StopsCubit>().restore(backup.stops);
                         context
-                            .read<DepartureColorCubit>()
+                            .read<DeparturesCubit>()
                             .restore(backup.departures);
                         final snackBar = SnackBar(
                             content: Text(

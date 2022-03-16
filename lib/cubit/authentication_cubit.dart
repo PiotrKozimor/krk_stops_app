@@ -4,10 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
-import 'package:krk_stops_app/cubit/departure_color_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
+
+import 'departures_cubit.dart';
 
 class AuthenticationCubit extends Cubit<String> {
   final FirebaseRepository firebaseRepository;
@@ -50,7 +51,7 @@ class AuthenticationCubit extends Cubit<String> {
         .set({
       AirlyCubit.key: b.airly,
       StopsCubit.key: b.stops,
-      DepartureColorCubit.key: b.departures,
+      DeparturesCubit.key: b.departures,
     });
   }
 
@@ -66,7 +67,7 @@ class AuthenticationCubit extends Cubit<String> {
         stops.add(stop);
       }
       List<String> departures = [];
-      for (final departure in data?[DepartureColorCubit.key]) {
+      for (final departure in data?[DeparturesCubit.key]) {
         departures.add(departure);
       }
       backup.complete(Backup()

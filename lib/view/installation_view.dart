@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:krk_stops_app/cubit/installation_cubit.dart';
-import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
+import 'package:krk_stops_app/cubit/airly_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -15,9 +14,9 @@ class InstallationView extends StatelessWidget {
           builder: (context) {
             String airlyError = "";
             var _airlyIdController = TextEditingController();
-            var bloc = context.watch<InstallationCubit>();
+            var bloc = context.watch<AirlyCubit>();
             _airlyIdController.value =
-                TextEditingValue(text: "${bloc.state.id}");
+                TextEditingValue(text: "${bloc.state.inst.id}");
             return StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                 title:
@@ -29,7 +28,7 @@ class InstallationView extends StatelessWidget {
                             .checkId(int.parse(_airlyIdController.value.text))
                             .then((value) {
                           Navigator.pop(context);
-                          context.read<InstallationCubit>().save(value);
+                          context.read<AirlyCubit>().save(value);
                         }, onError: (Object error) {
                           setState(() {
                             airlyError = AppLocalizations.of(context)!
@@ -59,7 +58,6 @@ class InstallationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var bloc = context.watch<InstallationCubit>();
     return Column(
       children: [
         Container(
@@ -75,12 +73,12 @@ class InstallationView extends StatelessWidget {
           Expanded(
             child: Container(
                 padding: EdgeInsets.all(12),
-                child: BlocBuilder<InstallationCubit, Installation>(
+                child: BlocBuilder<AirlyCubit, AirlyInstallation>(
                     builder: (context, state) {
                   return Text(
                     AppLocalizations.of(context)!.airlyInstallation +
                         ": " +
-                        "${state.id}",
+                        "${state.inst.id}",
                     style: Theme.of(context).textTheme.bodyText1,
                   );
                 })),
@@ -89,8 +87,9 @@ class InstallationView extends StatelessWidget {
               icon: Icon(Icons.launch),
               tooltip: AppLocalizations.of(context)!.airlySeeOnMap,
               onPressed: () async {
+                var bloc = context.read<AirlyCubit>();
                 var url =
-                    "https://airly.eu/map/pl/#${bloc.state.latitude},${bloc.state.longitude},i${bloc.state.id}";
+                    "https://airly.eu/map/pl/#${bloc.state.inst.latitude},${bloc.state.inst.longitude},i${bloc.state.inst.id}";
                 if (await canLaunch(url)) {
                   await launch(url);
                 }
@@ -103,7 +102,8 @@ class InstallationView extends StatelessWidget {
                 Geolocator.getCurrentPosition(
                         desiredAccuracy: LocationAccuracy.medium)
                     .then((location) {
-                  bloc.findNearest(location).then((value) {
+                  context.read<AirlyCubit>().findNearest(location).then(
+                      (value) {
                     final snackBar = SnackBar(
                         content: Text(AppLocalizations.of(context)!
                             .airlyFindNearestInstallationOk));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
-import 'package:krk_stops_app/cubit/installation_cubit.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,9 +43,7 @@ class AirlyView extends StatelessWidget {
         ),
         IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: () => context
-                .read<AirlyCubit>()
-                .fetchAirly(context.read<InstallationCubit>().state)),
+            onPressed: () => context.read<AirlyCubit>().refetchAirly()),
       ],
     );
   }

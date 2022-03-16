@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+
+import '../repository/local_repository.dart';
 
 class FilteredDepartures {
   List<Departure> departures;
@@ -12,10 +15,22 @@ class FilteredDepartures {
 
 class DeparturesCubit extends Cubit<FilteredDepartures> {
   final KrkStopsRepository krkStopsRepository;
-  List<Departure> colors;
+  final LocalRepository local;
+  var colors = List<Departure>.empty();
   var allDepartures = List<Departure>.empty();
-  DeparturesCubit(this.krkStopsRepository, this.colors)
-      : super(FilteredDepartures(List<Departure>.empty(), Endpoint.ALL));
+  static final key = 'departures';
+  DeparturesCubit(this.krkStopsRepository, this.local)
+      : super(FilteredDepartures(List<Departure>.empty(), Endpoint.ALL)) {
+    local.preferencesLoaded.future.then((value) {
+      load();
+    });
+    colors = [
+      Departure()
+        ..color = 4292998654
+        ..direction = "Czerwone Maki P+R"
+        ..patternText = "52"
+    ];
+  }
 
   Future<void> fetch(Stop stop) {
     var fetched = Completer<void>();
@@ -40,10 +55,6 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
       return departure.direction == dep.direction &&
           departure.patternText == dep.patternText;
     });
-  }
-
-  applyColors(List<Departure> c) {
-    emitWithColors(state.departures, c);
   }
 
   emitWithColors(List<Departure> departures, List<Departure> c) {
@@ -82,5 +93,58 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
       return allDepartures;
     }
     return allDepartures.where((element) => element.type == e).toList();
+  }
+
+  setColor(Departure dep, Color color) {
+    var departureIndex = find(dep);
+    var departureColors = List<Departure>.from(colors);
+    if (color == Colors.white) {
+      if (departureIndex != -1) {
+        departureColors.removeAt(departureIndex);
+      }
+    } else {
+      if (departureIndex == -1) {
+        departureColors.add(Departure()
+          ..patternText = dep.patternText
+          ..direction = dep.direction
+          ..color = color.value);
+      } else {
+        departureColors[departureIndex].color = color.value;
+      }
+    }
+    save(departureColors);
+  }
+
+  restore(List<String> encoded) {
+    save(decode(encoded));
+  }
+
+  save(List<Departure> colors) {
+    var encoded = encode(colors);
+    local.preferences.setStringList(key, encoded);
+    emitWithColors(state.departures, colors);
+  }
+
+  load() {
+    var encoded = local.preferences.getStringList(key);
+    if (encoded == null) {
+      save(colors);
+    } else {
+      emitWithColors(state.departures, decode(encoded));
+    }
+  }
+
+  static List<Departure> decode(List<String> encoded) {
+    var departures = List<Departure>.generate(
+        encoded.length, (index) => Departure.fromJson(encoded[index]));
+    return departures;
+  }
+
+  static List<String> encode(List<Departure> departures) {
+    List<String> encoded = [];
+    for (final stop in departures) {
+      encoded.add(stop.writeToJson());
+    }
+    return encoded;
   }
 }
