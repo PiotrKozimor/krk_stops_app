@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/settings.dart';
 
 import '../cubit/airly_cubit.dart';
-import '../cubit/last_stops_cubit.dart';
+import '../cubit/departures_cubit.dart';
 import '../cubit/stops_cubit.dart';
 import '../grpc/krk-stops.pb.dart';
 import '../repository/firebase_repository.dart';
@@ -14,9 +15,10 @@ import 'departures.dart';
 import 'edit_stops.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key, this.title = "KrkStops"}) : super(key: key);
-
+  final LastStops ls;
   final String title;
+  HomePage(this.ls, {Key? key, this.title = "KrkStops"}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var scaf = Scaffold(
@@ -26,11 +28,10 @@ class HomePage extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () async {
-                  context.read<LastStopsCubit>().enterSearch();
                   var stopSearched = await showSearch<Stop>(
-                      context: context, delegate: SearchStops());
-                  context.read<LastStopsCubit>().exitSearch()();
+                      context: context, delegate: SearchStops(ls));
                   if (stopSearched != null) {
+                    ls.addLast(stopSearched);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -67,7 +68,18 @@ class HomePage extends StatelessWidget {
               thickness: 1,
             ),
             BlocBuilder<StopsCubit, List<Stop>>(
-                builder: (_, stops) => StopsView(stops))
+                builder: (_, stops) => StopsView(
+                      stops,
+                      (Stop s, BuildContext ctx) {
+                        var departuresC = ctx.read<DeparturesCubit>();
+                        departuresC.clear();
+                        departuresC.fetch(s);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => DeparturesPage(s)));
+                      },
+                    ))
           ],
         ));
     return scaf;

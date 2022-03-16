@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
 
-import 'cubit/last_stops_cubit.dart';
 import 'grpc/krk-stops.pbgrpc.dart';
 
 class SearchStops extends SearchDelegate<Stop> {
+  final LastStops ls;
+  SearchStops(this.ls);
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
@@ -66,7 +68,10 @@ class SearchStops extends SearchDelegate<Stop> {
                           alignment: AlignmentDirectional.centerStart,
                         ));
                   } else {
-                    return StopsView(snapshot.data!);
+                    return StopsView(
+                      snapshot.data!,
+                      (s, ctx) => close(context, s),
+                    );
                   }
                 }
                 return Column();
@@ -74,7 +79,7 @@ class SearchStops extends SearchDelegate<Stop> {
         ],
       );
     } else {
-      return StopsView(context.watch<LastStopsCubit>().state);
+      return StopsView(ls.stops, (s, ctx) => close(context, s));
     }
   }
 }

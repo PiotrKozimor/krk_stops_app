@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
+import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/home.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/repository/local_repository.dart';
-import 'cubit/last_stops_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,7 +36,6 @@ class KrkStopsApp extends StatelessWidget {
             BlocProvider(
                 create: (_) => AirlyCubit(krkStopsRepository, localRepository)),
             BlocProvider(create: (_) => StopsCubit(localRepository)),
-            BlocProvider(create: (_) => LastStopsCubit(localRepository)),
             BlocProvider(
                 create: (_) =>
                     DeparturesCubit(krkStopsRepository, localRepository))
@@ -58,7 +57,7 @@ class KrkStopsApp extends StatelessWidget {
                 primaryColor: Colors.indigo[200],
                 brightness: Brightness.light,
                 typography: Typography.material2018()),
-            home: HomePage(title: 'KrkStops'),
+            home: HomePage(LastStops(localRepository), title: "KrkStops"),
           )),
     );
   }
