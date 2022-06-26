@@ -88,10 +88,14 @@ class InstallationView extends StatelessWidget {
               tooltip: AppLocalizations.of(context)!.airlySeeOnMap,
               onPressed: () async {
                 var bloc = context.read<AirlyCubit>();
-                var url =
-                    "https://airly.eu/map/pl/#${bloc.state.inst.latitude},${bloc.state.inst.longitude},i${bloc.state.inst.id}";
-                if (await canLaunch(url)) {
-                  await launch(url);
+                var url = Uri(
+                    scheme: "https",
+                    host: "airly.eu",
+                    path: "map/pl",
+                    fragment:
+                        "${bloc.state.inst.latitude},${bloc.state.inst.longitude},i${bloc.state.inst.id}");
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
                 }
               }),
           IconButton(
@@ -135,9 +139,9 @@ class InstallationView extends StatelessWidget {
             padding: EdgeInsets.all(12),
           ),
           onTap: () async {
-            var url = "https://airly.eu";
-            if (await canLaunch(url)) {
-              await launch(url);
+            var url = Uri(scheme: "https", host: "airly.eu");
+            if (await canLaunchUrl(url)) {
+              await launchUrl(url, mode: LaunchMode.externalApplication);
             }
           },
         ),

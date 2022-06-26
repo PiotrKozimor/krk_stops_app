@@ -4,4 +4,4 @@ then
     echo "apk appbundle"
     exit 0
 fi
-flutter build $1 --bundle-sksl-path flutter_02.sksl.json
+flutter build $1 --bundle-sksl-path flutter_03.sksl.json

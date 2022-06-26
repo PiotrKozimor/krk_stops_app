@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
-import 'package:krk_stops_app/page/departures.dart';
 
 class StopsView extends StatelessWidget {
   final List<Stop> stops;
