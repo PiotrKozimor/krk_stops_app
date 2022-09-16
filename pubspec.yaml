@@ -30,6 +30,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   protoc_plugin: ^20.0.0
+  flutter_launcher_icons: "^0.10.0"
 
 flutter:
 
@@ -40,3 +41,9 @@ flutter:
 
   generate: true
 
+flutter_icons:
+  android: trues
+  image_path: "images/icon.png"
+  adaptive_icon_background: "#CBCBCB"
+  adaptive_icon_foreground: "images/icon.png"
+  min_sdk_android: 21
