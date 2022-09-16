@@ -8,12 +8,12 @@ import '../circle_color.dart';
 class DeparturesEditView extends StatelessWidget {
   DeparturesEditView({Key? key}) : super(key: key);
   final List<Color> possibleColors = [
-    Colors.red.shade50,
-    Colors.deepPurple.shade50,
-    Colors.lightBlue.shade50,
-    Colors.green.shade50,
-    Colors.yellow.shade50,
-    Colors.white,
+    Colors.red.withOpacity(0.2),
+    Colors.deepPurple.withOpacity(0.2),
+    Colors.lightBlue.withOpacity(0.2),
+    Colors.green.withOpacity(0.2),
+    Colors.yellow.withOpacity(0.2),
+    Colors.white.withOpacity(0.2),
   ];
   Widget Function(BuildContext) showColorDialogBuilder(Departure departure) {
     return (context) {
