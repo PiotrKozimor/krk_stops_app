@@ -56,7 +56,14 @@ class KrkStopsApp extends StatelessWidget {
                 primarySwatch: Colors.indigo,
                 primaryColor: Colors.indigo[200],
                 brightness: Brightness.light,
-                typography: Typography.material2018()),
+                typography: Typography.material2021()),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              primarySwatch: Colors.indigo,
+              primaryColor: Colors.indigo[200],
+              typography: Typography.material2021(),
+            ),
+            themeMode: ThemeMode.system,
             home: HomePage(LastStops(localRepository), title: "KrkStops"),
           )),
     );
