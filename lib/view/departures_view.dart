@@ -17,8 +17,12 @@ class DeparturesList extends StatelessWidget {
         var minutes = departure.relativeTime ~/ 60;
         relativeTime = "${minutes}m";
       }
+      Color? color;
+      if (departure.color != 0) {
+        color = Color(departure.color);
+      }
       departuresWidgets.add(Container(
-        color: Color(departure.color),
+        color: color,
         height: 32,
         child: Row(
           children: <Widget>[

@@ -64,10 +64,7 @@ class InstallationView extends StatelessWidget {
             padding: EdgeInsets.all(12),
             child: Text(
               "Airly",
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2
-                  ?.apply(color: Theme.of(context).primaryColorDark),
+              style: Theme.of(context).textTheme.headline6,
             )),
         Row(children: [
           Expanded(

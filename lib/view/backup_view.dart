@@ -17,10 +17,7 @@ class BackupView extends StatelessWidget {
             padding: EdgeInsets.all(12),
             child: Text(
               AppLocalizations.of(context)!.backup,
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2
-                  ?.apply(color: Theme.of(context).primaryColorDark),
+              style: Theme.of(context).textTheme.headline6,
             )),
         BlocBuilder<AuthenticationCubit, String>(builder: (context, state) {
           if (state == "") {
