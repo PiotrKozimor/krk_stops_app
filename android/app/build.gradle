@@ -40,9 +40,6 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    lintOptions {
-        disable 'InvalidPackage'
-    }
 
     defaultConfig {
         applicationId "krkstops.app"
@@ -70,6 +67,10 @@ android {
             }
         }
     }
+    lint {
+        disable 'InvalidPackage'
+    }
+    namespace 'com.example.krk_stops_app'
 }
 
 flutter {

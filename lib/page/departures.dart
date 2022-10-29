@@ -5,7 +5,6 @@ import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../cubit/departures_cubit.dart';
 import '../grpc/krk-stops.pb.dart';
 import '../grpc/krk-stops.pbgrpc.dart';
 import 'edit_departures.dart';
