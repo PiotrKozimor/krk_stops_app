@@ -3,7 +3,7 @@ description: KrkStops application
 
 publish_to: 'none'
 
-version: 1.14.2+29
+version: 1.14.3+30
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
