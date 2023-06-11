@@ -3,7 +3,7 @@
 //  source: krk-stops.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -12,6 +12,276 @@ import 'package:protobuf/protobuf.dart' as $pb;
 import 'krk-stops.pbenum.dart';
 
 export 'krk-stops.pbenum.dart';
+
+class GetMeasurementRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetMeasurementRequest', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  GetMeasurementRequest._() : super();
+  factory GetMeasurementRequest({
+    $core.int? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetMeasurementRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetMeasurementRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetMeasurementRequest clone() => GetMeasurementRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetMeasurementRequest copyWith(void Function(GetMeasurementRequest) updates) => super.copyWith((message) => updates(message as GetMeasurementRequest)) as GetMeasurementRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetMeasurementRequest create() => GetMeasurementRequest._();
+  GetMeasurementRequest createEmptyInstance() => create();
+  static $pb.PbList<GetMeasurementRequest> createRepeated() => $pb.PbList<GetMeasurementRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetMeasurementRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetMeasurementRequest>(create);
+  static GetMeasurementRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get id => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set id($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetAirlyInstallationRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetAirlyInstallationRequest', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  GetAirlyInstallationRequest._() : super();
+  factory GetAirlyInstallationRequest({
+    $core.int? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetAirlyInstallationRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetAirlyInstallationRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetAirlyInstallationRequest clone() => GetAirlyInstallationRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetAirlyInstallationRequest copyWith(void Function(GetAirlyInstallationRequest) updates) => super.copyWith((message) => updates(message as GetAirlyInstallationRequest)) as GetAirlyInstallationRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetAirlyInstallationRequest create() => GetAirlyInstallationRequest._();
+  GetAirlyInstallationRequest createEmptyInstance() => create();
+  static $pb.PbList<GetAirlyInstallationRequest> createRepeated() => $pb.PbList<GetAirlyInstallationRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetAirlyInstallationRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetAirlyInstallationRequest>(create);
+  static GetAirlyInstallationRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get id => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set id($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetDepartures2Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetDepartures2Request', createEmptyInstance: create)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false
+  ;
+
+  GetDepartures2Request._() : super();
+  factory GetDepartures2Request({
+    $core.int? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetDepartures2Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetDepartures2Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetDepartures2Request clone() => GetDepartures2Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetDepartures2Request copyWith(void Function(GetDepartures2Request) updates) => super.copyWith((message) => updates(message as GetDepartures2Request)) as GetDepartures2Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetDepartures2Request create() => GetDepartures2Request._();
+  GetDepartures2Request createEmptyInstance() => create();
+  static $pb.PbList<GetDepartures2Request> createRepeated() => $pb.PbList<GetDepartures2Request>();
+  @$core.pragma('dart2js:noInline')
+  static GetDepartures2Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetDepartures2Request>(create);
+  static GetDepartures2Request? _defaultInstance;
+
+  @$pb.TagNumber(3)
+  $core.int get id => $_getIZ(0);
+  @$pb.TagNumber(3)
+  set id($core.int v) { $_setUnsignedInt32(0, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(3)
+  void clearId() => clearField(3);
+}
+
+class GetDepartures2Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetDepartures2Response', createEmptyInstance: create)
+    ..pc<Departure>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'departures', $pb.PbFieldType.PM, subBuilder: Departure.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetDepartures2Response._() : super();
+  factory GetDepartures2Response({
+    $core.Iterable<Departure>? departures,
+  }) {
+    final _result = create();
+    if (departures != null) {
+      _result.departures.addAll(departures);
+    }
+    return _result;
+  }
+  factory GetDepartures2Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetDepartures2Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetDepartures2Response clone() => GetDepartures2Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetDepartures2Response copyWith(void Function(GetDepartures2Response) updates) => super.copyWith((message) => updates(message as GetDepartures2Response)) as GetDepartures2Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetDepartures2Response create() => GetDepartures2Response._();
+  GetDepartures2Response createEmptyInstance() => create();
+  static $pb.PbList<GetDepartures2Response> createRepeated() => $pb.PbList<GetDepartures2Response>();
+  @$core.pragma('dart2js:noInline')
+  static GetDepartures2Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetDepartures2Response>(create);
+  static GetDepartures2Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Departure> get departures => $_getList(0);
+}
+
+class SearchStops2Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchStops2Request', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'query')
+    ..hasRequiredFields = false
+  ;
+
+  SearchStops2Request._() : super();
+  factory SearchStops2Request({
+    $core.String? query,
+  }) {
+    final _result = create();
+    if (query != null) {
+      _result.query = query;
+    }
+    return _result;
+  }
+  factory SearchStops2Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SearchStops2Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SearchStops2Request clone() => SearchStops2Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SearchStops2Request copyWith(void Function(SearchStops2Request) updates) => super.copyWith((message) => updates(message as SearchStops2Request)) as SearchStops2Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SearchStops2Request create() => SearchStops2Request._();
+  SearchStops2Request createEmptyInstance() => create();
+  static $pb.PbList<SearchStops2Request> createRepeated() => $pb.PbList<SearchStops2Request>();
+  @$core.pragma('dart2js:noInline')
+  static SearchStops2Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SearchStops2Request>(create);
+  static SearchStops2Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get query => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set query($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasQuery() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearQuery() => clearField(1);
+}
+
+class SearchStops2Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchStops2Response', createEmptyInstance: create)
+    ..pc<Stop>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Stop.create)
+    ..hasRequiredFields = false
+  ;
+
+  SearchStops2Response._() : super();
+  factory SearchStops2Response({
+    $core.Iterable<Stop>? stops,
+  }) {
+    final _result = create();
+    if (stops != null) {
+      _result.stops.addAll(stops);
+    }
+    return _result;
+  }
+  factory SearchStops2Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SearchStops2Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SearchStops2Response clone() => SearchStops2Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SearchStops2Response copyWith(void Function(SearchStops2Response) updates) => super.copyWith((message) => updates(message as SearchStops2Response)) as SearchStops2Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SearchStops2Response create() => SearchStops2Response._();
+  SearchStops2Response createEmptyInstance() => create();
+  static $pb.PbList<SearchStops2Response> createRepeated() => $pb.PbList<SearchStops2Response>();
+  @$core.pragma('dart2js:noInline')
+  static SearchStops2Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SearchStops2Response>(create);
+  static SearchStops2Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Stop> get stops => $_getList(0);
+}
 
 class Installation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Installation', createEmptyInstance: create)
@@ -88,8 +358,8 @@ class Installation extends $pb.GeneratedMessage {
   void clearLongitude() => clearField(3);
 }
 
-class Airly extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Airly', createEmptyInstance: create)
+class Measurement extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Measurement', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'caqi', $pb.PbFieldType.O3)
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'colorStr', protoName: 'colorStr')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'humidity', $pb.PbFieldType.O3)
@@ -98,8 +368,8 @@ class Airly extends $pb.GeneratedMessage {
     ..hasRequiredFields = false
   ;
 
-  Airly._() : super();
-  factory Airly({
+  Measurement._() : super();
+  factory Measurement({
     $core.int? caqi,
     $core.String? colorStr,
     $core.int? humidity,
@@ -124,26 +394,26 @@ class Airly extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory Airly.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Airly.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Measurement.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Measurement.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  Airly clone() => Airly()..mergeFromMessage(this);
+  Measurement clone() => Measurement()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Airly copyWith(void Function(Airly) updates) => super.copyWith((message) => updates(message as Airly)) as Airly; // ignore: deprecated_member_use
+  Measurement copyWith(void Function(Measurement) updates) => super.copyWith((message) => updates(message as Measurement)) as Measurement; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static Airly create() => Airly._();
-  Airly createEmptyInstance() => create();
-  static $pb.PbList<Airly> createRepeated() => $pb.PbList<Airly>();
+  static Measurement create() => Measurement._();
+  Measurement createEmptyInstance() => create();
+  static $pb.PbList<Measurement> createRepeated() => $pb.PbList<Measurement>();
   @$core.pragma('dart2js:noInline')
-  static Airly getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Airly>(create);
-  static Airly? _defaultInstance;
+  static Measurement getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Measurement>(create);
+  static Measurement? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get caqi => $_getIZ(0);
@@ -191,15 +461,15 @@ class Airly extends $pb.GeneratedMessage {
   void clearColor() => clearField(5);
 }
 
-class InstallationLocation extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InstallationLocation', createEmptyInstance: create)
+class Location extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Location', createEmptyInstance: create)
     ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'latitude', $pb.PbFieldType.OF)
     ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'longitude', $pb.PbFieldType.OF)
     ..hasRequiredFields = false
   ;
 
-  InstallationLocation._() : super();
-  factory InstallationLocation({
+  Location._() : super();
+  factory Location({
     $core.double? latitude,
     $core.double? longitude,
   }) {
@@ -212,26 +482,26 @@ class InstallationLocation extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory InstallationLocation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory InstallationLocation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory Location.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Location.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  InstallationLocation clone() => InstallationLocation()..mergeFromMessage(this);
+  Location clone() => Location()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  InstallationLocation copyWith(void Function(InstallationLocation) updates) => super.copyWith((message) => updates(message as InstallationLocation)) as InstallationLocation; // ignore: deprecated_member_use
+  Location copyWith(void Function(Location) updates) => super.copyWith((message) => updates(message as Location)) as Location; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static InstallationLocation create() => InstallationLocation._();
-  InstallationLocation createEmptyInstance() => create();
-  static $pb.PbList<InstallationLocation> createRepeated() => $pb.PbList<InstallationLocation>();
+  static Location create() => Location._();
+  Location createEmptyInstance() => create();
+  static $pb.PbList<Location> createRepeated() => $pb.PbList<Location>();
   @$core.pragma('dart2js:noInline')
-  static InstallationLocation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InstallationLocation>(create);
-  static InstallationLocation? _defaultInstance;
+  static Location getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Location>(create);
+  static Location? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.double get latitude => $_getN(0);
@@ -261,7 +531,7 @@ class Departure extends $pb.GeneratedMessage {
     ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'color', $pb.PbFieldType.OU3)
     ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'relativeTimeParsed', protoName: 'relativeTimeParsed')
     ..aOB(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'predicted')
-    ..e<Endpoint>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Endpoint.BUS, valueOf: Endpoint.valueOf, enumValues: Endpoint.values)
+    ..e<Transit>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Transit.BUS, valueOf: Transit.valueOf, enumValues: Transit.values)
     ..hasRequiredFields = false
   ;
 
@@ -274,7 +544,7 @@ class Departure extends $pb.GeneratedMessage {
     $core.int? color,
     $core.String? relativeTimeParsed,
     $core.bool? predicted,
-    Endpoint? type,
+    Transit? type,
   }) {
     final _result = create();
     if (relativeTime != null) {
@@ -388,9 +658,9 @@ class Departure extends $pb.GeneratedMessage {
   void clearPredicted() => clearField(7);
 
   @$pb.TagNumber(8)
-  Endpoint get type => $_getN(7);
+  Transit get type => $_getN(7);
   @$pb.TagNumber(8)
-  set type(Endpoint v) { setField(8, v); }
+  set type(Transit v) { setField(8, v); }
   @$pb.TagNumber(8)
   $core.bool hasType() => $_has(7);
   @$pb.TagNumber(8)
@@ -399,24 +669,19 @@ class Departure extends $pb.GeneratedMessage {
 
 class Stop extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Stop', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'shortName', protoName: 'shortName')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.OU3)
-    ..e<Endpoint>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Endpoint.BUS, valueOf: Endpoint.valueOf, enumValues: Endpoint.values)
+    ..e<Transit>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'type', $pb.PbFieldType.OE, defaultOrMaker: Transit.BUS, valueOf: Transit.valueOf, enumValues: Transit.values)
     ..hasRequiredFields = false
   ;
 
   Stop._() : super();
   factory Stop({
-    $core.String? shortName,
     $core.String? name,
     $core.int? id,
-    Endpoint? type,
+    Transit? type,
   }) {
     final _result = create();
-    if (shortName != null) {
-      _result.shortName = shortName;
-    }
     if (name != null) {
       _result.name = name;
     }
@@ -449,169 +714,31 @@ class Stop extends $pb.GeneratedMessage {
   static Stop getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Stop>(create);
   static Stop? _defaultInstance;
 
-  @$pb.TagNumber(1)
-  $core.String get shortName => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set shortName($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasShortName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearShortName() => clearField(1);
-
   @$pb.TagNumber(2)
-  $core.String get name => $_getSZ(1);
+  $core.String get name => $_getSZ(0);
   @$pb.TagNumber(2)
-  set name($core.String v) { $_setString(1, v); }
+  set name($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(2)
-  $core.bool hasName() => $_has(1);
+  $core.bool hasName() => $_has(0);
   @$pb.TagNumber(2)
   void clearName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.int get id => $_getIZ(2);
+  $core.int get id => $_getIZ(1);
   @$pb.TagNumber(3)
-  set id($core.int v) { $_setUnsignedInt32(2, v); }
+  set id($core.int v) { $_setUnsignedInt32(1, v); }
   @$pb.TagNumber(3)
-  $core.bool hasId() => $_has(2);
+  $core.bool hasId() => $_has(1);
   @$pb.TagNumber(3)
   void clearId() => clearField(3);
 
   @$pb.TagNumber(4)
-  Endpoint get type => $_getN(3);
+  Transit get type => $_getN(2);
   @$pb.TagNumber(4)
-  set type(Endpoint v) { setField(4, v); }
+  set type(Transit v) { setField(4, v); }
   @$pb.TagNumber(4)
-  $core.bool hasType() => $_has(3);
+  $core.bool hasType() => $_has(2);
   @$pb.TagNumber(4)
   void clearType() => clearField(4);
-}
-
-class Stops extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Stops', createEmptyInstance: create)
-    ..pc<Stop>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stops', $pb.PbFieldType.PM, subBuilder: Stop.create)
-    ..hasRequiredFields = false
-  ;
-
-  Stops._() : super();
-  factory Stops({
-    $core.Iterable<Stop>? stops,
-  }) {
-    final _result = create();
-    if (stops != null) {
-      _result.stops.addAll(stops);
-    }
-    return _result;
-  }
-  factory Stops.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Stops.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Stops clone() => Stops()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Stops copyWith(void Function(Stops) updates) => super.copyWith((message) => updates(message as Stops)) as Stops; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Stops create() => Stops._();
-  Stops createEmptyInstance() => create();
-  static $pb.PbList<Stops> createRepeated() => $pb.PbList<Stops>();
-  @$core.pragma('dart2js:noInline')
-  static Stops getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Stops>(create);
-  static Stops? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<Stop> get stops => $_getList(0);
-}
-
-class Departures extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Departures', createEmptyInstance: create)
-    ..pc<Departure>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'departures', $pb.PbFieldType.PM, subBuilder: Departure.create)
-    ..hasRequiredFields = false
-  ;
-
-  Departures._() : super();
-  factory Departures({
-    $core.Iterable<Departure>? departures,
-  }) {
-    final _result = create();
-    if (departures != null) {
-      _result.departures.addAll(departures);
-    }
-    return _result;
-  }
-  factory Departures.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory Departures.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  Departures clone() => Departures()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  Departures copyWith(void Function(Departures) updates) => super.copyWith((message) => updates(message as Departures)) as Departures; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static Departures create() => Departures._();
-  Departures createEmptyInstance() => create();
-  static $pb.PbList<Departures> createRepeated() => $pb.PbList<Departures>();
-  @$core.pragma('dart2js:noInline')
-  static Departures getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Departures>(create);
-  static Departures? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<Departure> get departures => $_getList(0);
-}
-
-class StopSearch extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'StopSearch', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'query')
-    ..hasRequiredFields = false
-  ;
-
-  StopSearch._() : super();
-  factory StopSearch({
-    $core.String? query,
-  }) {
-    final _result = create();
-    if (query != null) {
-      _result.query = query;
-    }
-    return _result;
-  }
-  factory StopSearch.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory StopSearch.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  StopSearch clone() => StopSearch()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  StopSearch copyWith(void Function(StopSearch) updates) => super.copyWith((message) => updates(message as StopSearch)) as StopSearch; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static StopSearch create() => StopSearch._();
-  StopSearch createEmptyInstance() => create();
-  static $pb.PbList<StopSearch> createRepeated() => $pb.PbList<StopSearch>();
-  @$core.pragma('dart2js:noInline')
-  static StopSearch getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<StopSearch>(create);
-  static StopSearch? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get query => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set query($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasQuery() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearQuery() => clearField(1);
 }
 
