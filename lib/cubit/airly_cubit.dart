@@ -6,9 +6,9 @@ import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import '../repository/local_repository.dart';
 
 class AirlyInstallation {
-  final Airly airly;
+  final Measurement measurement;
   final Installation inst;
-  AirlyInstallation(this.airly, this.inst);
+  AirlyInstallation(this.measurement, this.inst);
 }
 
 class AirlyCubit extends Cubit<AirlyInstallation> {
@@ -17,7 +17,7 @@ class AirlyCubit extends Cubit<AirlyInstallation> {
   final LocalRepository local;
   AirlyCubit(this.krkStopsRepository, this.local)
       : super(AirlyInstallation(
-            Airly()
+            Measurement()
               ..color = 0xAAAAAA
               ..humidity = 0
               ..temperature = 0
@@ -32,13 +32,17 @@ class AirlyCubit extends Cubit<AirlyInstallation> {
   }
 
   refetchAirly() {
-    krkStopsRepository.stub.getAirly(state.inst).then((response) {
+    krkStopsRepository.stub
+        .getAirly(GetMeasurementRequest(id: state.inst.id))
+        .then((response) {
       emit(AirlyInstallation(response, state.inst));
     });
   }
 
   fetchAirly(Installation i) {
-    krkStopsRepository.stub.getAirly(i).then((response) {
+    krkStopsRepository.stub
+        .getAirly(GetMeasurementRequest(id: i.id))
+        .then((response) {
       emit(AirlyInstallation(response, i));
     });
   }
@@ -59,12 +63,12 @@ class AirlyCubit extends Cubit<AirlyInstallation> {
   }
 
   Future<Installation> checkId(int id) {
-    var request = Installation()..id = id;
+    var request = GetAirlyInstallationRequest()..id = id;
     return krkStopsRepository.stub.getAirlyInstallation(request);
   }
 
   Future<Installation> findNearest(Position pos) {
-    var request = InstallationLocation()
+    var request = Location()
       ..latitude = pos.latitude
       ..longitude = pos.longitude;
     return krkStopsRepository.stub.findNearestAirlyInstallation(request);

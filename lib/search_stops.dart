@@ -42,7 +42,7 @@ class SearchStops extends SearchDelegate<Stop> {
       var _stops = new Completer<List<Stop>>();
       RepositoryProvider.of<KrkStopsRepository>(context)
           .stub
-          .searchStops2(StopSearch()..query = this.query)
+          .searchStops2(SearchStops2Request()..query = this.query)
           .then((response) {
         _stops.complete(response.stops);
       }).catchError((Object error) {

@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
         body: ListView(
           children: [
             BlocBuilder<AirlyCubit, AirlyInstallation>(
-                builder: (_, airly) => AirlyView(airly.airly)),
+                builder: (_, airly) => AirlyView(airly.measurement)),
             Divider(
               height: 7,
               thickness: 1,

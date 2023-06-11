@@ -9,7 +9,7 @@ import '../repository/local_repository.dart';
 
 class FilteredDepartures {
   List<Departure> departures;
-  Endpoint filter;
+  Transit filter;
   FilteredDepartures(this.departures, this.filter);
 }
 
@@ -20,7 +20,7 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
   var allDepartures = List<Departure>.empty();
   static final key = 'departures';
   DeparturesCubit(this.krkStopsRepository, this.local)
-      : super(FilteredDepartures(List<Departure>.empty(), Endpoint.ALL)) {
+      : super(FilteredDepartures(List<Departure>.empty(), Transit.ALL)) {
     local.preferencesLoaded.future.then((value) {
       load();
     });
@@ -34,7 +34,9 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
 
   Future<void> fetch(Stop stop) {
     var fetched = Completer<void>();
-    krkStopsRepository.stub.getDepartures2(stop).then((response) {
+    krkStopsRepository.stub
+        .getDepartures2(GetDepartures2Request(id: stop.id))
+        .then((response) {
       if (response.departures.isEmpty) {
         response.departures
             .add(Departure(direction: "No departures in 20 minutes."));
@@ -72,24 +74,24 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
 
   clear() {
     allDepartures = List<Departure>.empty();
-    emit(FilteredDepartures(allDepartures, Endpoint.ALL));
+    emit(FilteredDepartures(allDepartures, Transit.ALL));
   }
 
   void toggle() {
     switch (state.filter) {
-      case Endpoint.ALL:
-        emit(FilteredDepartures(filter(Endpoint.TRAM), Endpoint.TRAM));
+      case Transit.ALL:
+        emit(FilteredDepartures(filter(Transit.TRAM), Transit.TRAM));
         break;
-      case Endpoint.TRAM:
-        emit(FilteredDepartures(filter(Endpoint.BUS), Endpoint.BUS));
+      case Transit.TRAM:
+        emit(FilteredDepartures(filter(Transit.BUS), Transit.BUS));
         break;
-      case Endpoint.BUS:
-        emit(FilteredDepartures(allDepartures, Endpoint.ALL));
+      case Transit.BUS:
+        emit(FilteredDepartures(allDepartures, Transit.ALL));
     }
   }
 
-  List<Departure> filter(Endpoint e) {
-    if (e == Endpoint.ALL) {
+  List<Departure> filter(Transit e) {
+    if (e == Transit.ALL) {
       return allDepartures;
     }
     return allDepartures.where((element) => element.type == e).toList();
