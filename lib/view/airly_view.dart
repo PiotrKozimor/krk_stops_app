@@ -22,14 +22,14 @@ class AirlyView extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Text(
             "CAQI: ${_airly.caqi}",
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
         Padding(
           padding: EdgeInsets.all(8),
           child: Text(
             '${_airly.humidity}%',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
         Expanded(
@@ -37,7 +37,7 @@ class AirlyView extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Text(
               '${_airly.temperature.toStringAsFixed(1)}°C',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
         ),

@@ -63,7 +63,7 @@ class SearchStops extends SearchDelegate<Stop> {
                         child: Align(
                           child: Text(
                             "No stops found",
-                            style: Theme.of(context).textTheme.bodyText1,
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           alignment: AlignmentDirectional.centerStart,
                         ));

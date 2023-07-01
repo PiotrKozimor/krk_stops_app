@@ -15,7 +15,7 @@ class StopsView extends StatelessWidget {
                 padding: EdgeInsets.all(12),
                 child: Text(
                   e.name,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ),
               onTap: () => tap(e, context)))

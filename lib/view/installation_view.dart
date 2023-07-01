@@ -64,7 +64,7 @@ class InstallationView extends StatelessWidget {
             padding: EdgeInsets.all(12),
             child: Text(
               "Airly",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             )),
         Row(children: [
           Expanded(
@@ -76,7 +76,7 @@ class InstallationView extends StatelessWidget {
                     AppLocalizations.of(context)!.airlyInstallation +
                         ": " +
                         "${state.inst.id}",
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   );
                 })),
           ),

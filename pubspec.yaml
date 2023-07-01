@@ -3,7 +3,7 @@ description: KrkStops application
 
 publish_to: 'none'
 
-version: 1.15.0+32
+version: 1.15.1+33
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  protobuf: ^2.0.0
+  protobuf: ^3.0.0
   grpc: ^3.0.0
   shared_preferences: ^2.0.3
   geolocator: ^9.0.0
@@ -29,7 +29,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  protoc_plugin: ^20.0.0
+  protoc_plugin: ^21.0.0
   flutter_launcher_icons: ^0.13.0
 
 flutter:
