@@ -13,6 +13,7 @@
     "backupRemove": "Remove Backup",
     "backupRemoveOk": "Backup removed successfully",
     "backupRemoveError": "Error occured when removing backup",
+    "departuresError": "Failed to fetch departures",
     "airlyInstallation": "Installation",
     "airlySeeOnMap": "See on map",
     "airlyFindNearestInstallation": "Find nearest installation",

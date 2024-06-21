@@ -71,8 +71,15 @@ class DeparturesPage extends StatelessWidget {
           onRefresh: () {
             return context.read<DeparturesCubit>().fetch(stop);
           },
-          child: BlocBuilder<DeparturesCubit, FilteredDepartures>(
-              builder: (context, state) => DeparturesList(state.departures)),
+          child: BlocConsumer<DeparturesCubit, FilteredDepartures>(
+              builder: (context, state) => DeparturesList(state.departures),
+              listener: (context, state) {
+                if (state.error != null) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content:
+                          Text(AppLocalizations.of(context)!.departuresError)));
+                }
+              }),
         ));
   }
 }

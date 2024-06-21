@@ -13,6 +13,7 @@
   "backupRemove": "Usuń kopię zapasową",
   "backupRemoveOk": "Pomyślnie usunięto kopię zapasową",
   "backupRemoveError": "Błąd podczas usuwania kopii zapasoweja",
+  "departuresError": "Błąd podczas pobierania odjazdów",
   "airlyInstallation": "Instalacja",
   "airlySeeOnMap": "Zobacz na mapie",
   "airlyFindNearestInstallation": "Znajdź najbliszy czujnik",

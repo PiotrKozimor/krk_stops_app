@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:core';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,8 @@ import '../repository/local_repository.dart';
 class FilteredDepartures {
   List<Departure> departures;
   Transit filter;
-  FilteredDepartures(this.departures, this.filter);
+  String? error;
+  FilteredDepartures(this.departures, this.filter, [this.error]);
 }
 
 class DeparturesCubit extends Cubit<FilteredDepartures> {
@@ -46,7 +48,9 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
       allDepartures = response.departures;
       emitWithColors(filter(state.filter), colors);
       fetched.complete();
-    }).catchError((Object error) {
+    }, onError: (Object error) {
+      emit(FilteredDepartures(
+          List<Departure>.empty(), Transit.ALL, error.toString()));
       fetched.completeError("Could not fetch departures: $error");
     });
     return fetched.future;
