@@ -4,16 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:krk_stops_app/cubit/airly_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
-import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/firebase_repository.dart';
 
 import 'departures_cubit.dart';
 
 class AuthenticationCubit extends Cubit<String> {
   final FirebaseRepository firebaseRepository;
-  Installation installation = Installation();
   AuthenticationCubit(this.firebaseRepository) : super("") {
     firebaseRepository.initialized.future.then((_) {
       firebaseRepository.auth.authStateChanges().listen((User? user) {
@@ -52,7 +49,6 @@ class AuthenticationCubit extends Cubit<String> {
     return firebaseRepository.users
         .doc(firebaseRepository.auth.currentUser?.uid)
         .set({
-      AirlyCubit.key: b.airly,
       StopsCubit.key: b.stops,
       DeparturesCubit.key: b.departures,
     });
@@ -74,7 +70,6 @@ class AuthenticationCubit extends Cubit<String> {
         departures.add(departure);
       }
       backup.complete(Backup()
-        ..airly = data?[AirlyCubit.key]
         ..stops = stops
         ..departures = departures);
     }).catchError((Object error) {
@@ -85,7 +80,6 @@ class AuthenticationCubit extends Cubit<String> {
 }
 
 class Backup {
-  String airly = '';
   var stops = List<String>.empty();
   var departures = List<String>.empty();
 }

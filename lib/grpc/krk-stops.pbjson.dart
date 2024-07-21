@@ -20,26 +20,6 @@ const Transit$json = const {
 
 /// Descriptor for `Transit`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List transitDescriptor = $convert.base64Decode('CgdUcmFuc2l0EgcKA0JVUxAAEggKBFRSQU0QARIHCgNBTEwQAg==');
-@$core.Deprecated('Use getMeasurementRequestDescriptor instead')
-const GetMeasurementRequest$json = const {
-  '1': 'GetMeasurementRequest',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
-  ],
-};
-
-/// Descriptor for `GetMeasurementRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getMeasurementRequestDescriptor = $convert.base64Decode('ChVHZXRNZWFzdXJlbWVudFJlcXVlc3QSDgoCaWQYASABKAVSAmlk');
-@$core.Deprecated('Use getAirlyInstallationRequestDescriptor instead')
-const GetAirlyInstallationRequest$json = const {
-  '1': 'GetAirlyInstallationRequest',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
-  ],
-};
-
-/// Descriptor for `GetAirlyInstallationRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getAirlyInstallationRequestDescriptor = $convert.base64Decode('ChtHZXRBaXJseUluc3RhbGxhdGlvblJlcXVlc3QSDgoCaWQYASABKAVSAmlk');
 @$core.Deprecated('Use getDepartures2RequestDescriptor instead')
 const GetDepartures2Request$json = const {
   '1': 'GetDepartures2Request',
@@ -80,43 +60,6 @@ const SearchStops2Response$json = const {
 
 /// Descriptor for `SearchStops2Response`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List searchStops2ResponseDescriptor = $convert.base64Decode('ChRTZWFyY2hTdG9wczJSZXNwb25zZRIbCgVzdG9wcxgBIAMoCzIFLlN0b3BSBXN0b3Bz');
-@$core.Deprecated('Use installationDescriptor instead')
-const Installation$json = const {
-  '1': 'Installation',
-  '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 5, '10': 'id'},
-    const {'1': 'latitude', '3': 2, '4': 1, '5': 2, '10': 'latitude'},
-    const {'1': 'longitude', '3': 3, '4': 1, '5': 2, '10': 'longitude'},
-  ],
-};
-
-/// Descriptor for `Installation`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List installationDescriptor = $convert.base64Decode('CgxJbnN0YWxsYXRpb24SDgoCaWQYASABKAVSAmlkEhoKCGxhdGl0dWRlGAIgASgCUghsYXRpdHVkZRIcCglsb25naXR1ZGUYAyABKAJSCWxvbmdpdHVkZQ==');
-@$core.Deprecated('Use measurementDescriptor instead')
-const Measurement$json = const {
-  '1': 'Measurement',
-  '2': const [
-    const {'1': 'caqi', '3': 1, '4': 1, '5': 5, '10': 'caqi'},
-    const {'1': 'colorStr', '3': 2, '4': 1, '5': 9, '10': 'colorStr'},
-    const {'1': 'humidity', '3': 3, '4': 1, '5': 5, '10': 'humidity'},
-    const {'1': 'temperature', '3': 4, '4': 1, '5': 2, '10': 'temperature'},
-    const {'1': 'color', '3': 5, '4': 1, '5': 13, '10': 'color'},
-  ],
-};
-
-/// Descriptor for `Measurement`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List measurementDescriptor = $convert.base64Decode('CgtNZWFzdXJlbWVudBISCgRjYXFpGAEgASgFUgRjYXFpEhoKCGNvbG9yU3RyGAIgASgJUghjb2xvclN0chIaCghodW1pZGl0eRgDIAEoBVIIaHVtaWRpdHkSIAoLdGVtcGVyYXR1cmUYBCABKAJSC3RlbXBlcmF0dXJlEhQKBWNvbG9yGAUgASgNUgVjb2xvcg==');
-@$core.Deprecated('Use locationDescriptor instead')
-const Location$json = const {
-  '1': 'Location',
-  '2': const [
-    const {'1': 'latitude', '3': 1, '4': 1, '5': 2, '10': 'latitude'},
-    const {'1': 'longitude', '3': 2, '4': 1, '5': 2, '10': 'longitude'},
-  ],
-};
-
-/// Descriptor for `Location`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List locationDescriptor = $convert.base64Decode('CghMb2NhdGlvbhIaCghsYXRpdHVkZRgBIAEoAlIIbGF0aXR1ZGUSHAoJbG9uZ2l0dWRlGAIgASgCUglsb25naXR1ZGU=');
 @$core.Deprecated('Use departureDescriptor instead')
 const Departure$json = const {
   '1': 'Departure',

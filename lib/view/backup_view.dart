@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/authentication_cubit.dart';
-import 'package:krk_stops_app/cubit/feature_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:krk_stops_app/repository/firebase_repository.dart';
 
-import '../cubit/airly_cubit.dart';
 import '../cubit/departures_cubit.dart';
 
 class BackupView extends StatelessWidget {
@@ -36,10 +33,7 @@ class BackupView extends StatelessWidget {
                       AppLocalizations.of(context)!.login,
                     ),
                     onPressed: () async {
-                      await bloc.logIn();
-                      context
-                          .read<FeatureCubit>()
-                          .update(context.read<FirebaseRepository>());
+                      bloc.logIn();
                     },
                   )),
             ]);
@@ -69,8 +63,6 @@ class BackupView extends StatelessWidget {
                       ),
                       onPressed: () async {
                         var backup = Backup()
-                          ..airly = AirlyCubit.encode(
-                              context.read<AirlyCubit>().state.inst)
                           ..stops = StopsCubit.encode(
                               context.read<StopsCubit>().state)
                           ..departures = DeparturesCubit.encode(
@@ -96,7 +88,6 @@ class BackupView extends StatelessWidget {
                     ),
                     onPressed: () async {
                       bloc.restoreSettings().then((backup) {
-                        context.read<AirlyCubit>().restore(backup.airly);
                         context.read<StopsCubit>().restore(backup.stops);
                         context
                             .read<DeparturesCubit>()

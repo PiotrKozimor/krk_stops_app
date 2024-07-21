@@ -15,10 +15,6 @@
   "backupRemoveOk": "Pomyślnie usunięto kopię zapasową",
   "backupRemoveError": "Błąd podczas usuwania kopii zapasoweja",
   "departuresError": "Błąd podczas pobierania odjazdów",
-  "airlyInstallation": "Instalacja",
-  "airlyEditInstallation": "Wybierz czujnik",
-  "airlyEditInstallationBadId": "Zły identyfikator czujnika",
-  "airlyEditInstallationAccept": "Zapisz",
   "savedStopsAdd": "Zapisz",
   "savedStopsRemove": "Usuń z zapisanych",
   "departureFilterbyType": "Filtruj odjazdy autobusów lub tramwajów"

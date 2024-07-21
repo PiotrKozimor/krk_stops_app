@@ -15,10 +15,6 @@
     "backupRemoveOk": "Backup removed successfully",
     "backupRemoveError": "Error occured when removing backup",
     "departuresError": "Failed to fetch departures",
-    "airlyInstallation": "Installation",
-    "airlyEditInstallation": "Choose installation",
-    "airlyEditInstallationBadId": "Bad installation id",
-    "airlyEditInstallationAccept": "Save",
     "savedStopsAdd": "Add to saved",
     "savedStopsRemove": "Remove from saved",
     "departureFilterbyType": "Filter bus or tram departures"

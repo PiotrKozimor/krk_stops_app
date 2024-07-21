@@ -5,7 +5,6 @@ import 'package:krk_stops_app/repository/local_repository.dart';
 class StopsCubit extends Cubit<List<Stop>> {
   final LocalRepository local;
   static final key = 'stops';
-  Installation installation = Installation();
   StopsCubit(this.local) : super(List<Stop>.empty()) {
     local.preferencesLoaded.future.then((value) {
       load();

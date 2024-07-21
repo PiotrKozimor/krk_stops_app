@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:krk_stops_app/cubit/feature_cubit.dart';
 import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/settings.dart';
 
-import '../cubit/airly_cubit.dart';
 import '../cubit/departures_cubit.dart';
 import '../cubit/stops_cubit.dart';
 import '../grpc/krk-stops.pb.dart';
 import '../repository/firebase_repository.dart';
 import '../search_stops.dart';
-import '../view/airly_view.dart';
 import '../view/stops_view.dart';
 import 'departures.dart';
 import 'edit_stops.dart';
@@ -61,38 +58,17 @@ class HomePage extends StatelessWidget {
                 context, MaterialPageRoute(builder: (_) => EditStopsPage()));
           },
         ),
-        body: BlocBuilder<FeatureCubit, Features>(builder: (_, features) {
-          var children = <Widget>[
-            BlocBuilder<StopsCubit, List<Stop>>(
-                builder: (_, stops) => StopsView(
-                      stops,
-                      (Stop s, BuildContext ctx) {
-                        var departuresC = ctx.read<DeparturesCubit>();
-                        departuresC.clear();
-                        departuresC.fetch(s);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => DeparturesPage(s)));
-                      },
-                    ))
-          ];
-          if (features.airQuality) {
-            children.insert(
-                0,
-                Divider(
-                  height: 7,
-                  thickness: 1,
-                ));
-            children.insert(
-                0,
-                BlocBuilder<AirlyCubit, AirlyInstallation>(
-                  builder: (_, airly) => AirlyView(airly.measurement),
-                ));
-          }
-          ;
-          return ListView(children: children);
-        }));
+        body: BlocBuilder<StopsCubit, List<Stop>>(
+            builder: (_, stops) => StopsView(
+                  stops,
+                  (Stop s, BuildContext ctx) {
+                    var departuresC = ctx.read<DeparturesCubit>();
+                    departuresC.clear();
+                    departuresC.fetch(s);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => DeparturesPage(s)));
+                  },
+                )));
     return scaf;
   }
 }
