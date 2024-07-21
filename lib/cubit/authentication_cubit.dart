@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
@@ -16,7 +17,9 @@ class AuthenticationCubit extends Cubit<String> {
   AuthenticationCubit(this.firebaseRepository) : super("") {
     firebaseRepository.initialized.future.then((_) {
       firebaseRepository.auth.authStateChanges().listen((User? user) {
-        emit(user?.email ?? "");
+        if (!isClosed) {
+          emit(user?.email ?? "");
+        }
       });
     });
   }

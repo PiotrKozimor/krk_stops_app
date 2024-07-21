@@ -14,9 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   protobuf: ^3.0.0
-  grpc: ^3.0.0
+  grpc: ^4.0.0
   shared_preferences: ^2.0.3
-  geolocator: ^12.0.0
   url_launcher: ^6.0.2
   google_sign_in: ^6.1.0
   firebase_core: ^3.1.0
@@ -33,12 +32,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.13.0
 
 flutter:
-
   uses-material-design: true
-
-  assets:
-    - images/airly.png
-
   generate: true
 
 flutter_icons:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/cubit/feature_cubit.dart';
 import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/settings.dart';
 
@@ -60,14 +61,8 @@ class HomePage extends StatelessWidget {
                 context, MaterialPageRoute(builder: (_) => EditStopsPage()));
           },
         ),
-        body: ListView(
-          children: [
-            BlocBuilder<AirlyCubit, AirlyInstallation>(
-                builder: (_, airly) => AirlyView(airly.measurement)),
-            Divider(
-              height: 7,
-              thickness: 1,
-            ),
+        body: BlocBuilder<FeatureCubit, Features>(builder: (_, features) {
+          var children = <Widget>[
             BlocBuilder<StopsCubit, List<Stop>>(
                 builder: (_, stops) => StopsView(
                       stops,
@@ -81,8 +76,23 @@ class HomePage extends StatelessWidget {
                                 builder: (_) => DeparturesPage(s)));
                       },
                     ))
-          ],
-        ));
+          ];
+          if (features.airQuality) {
+            children.insert(
+                0,
+                Divider(
+                  height: 7,
+                  thickness: 1,
+                ));
+            children.insert(
+                0,
+                BlocBuilder<AirlyCubit, AirlyInstallation>(
+                  builder: (_, airly) => AirlyView(airly.measurement),
+                ));
+          }
+          ;
+          return ListView(children: children);
+        }));
     return scaf;
   }
 }

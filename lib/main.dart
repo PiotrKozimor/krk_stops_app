@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
+import 'package:krk_stops_app/cubit/feature_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/home.dart';
@@ -38,7 +39,10 @@ class KrkStopsApp extends StatelessWidget {
             BlocProvider(create: (_) => StopsCubit(localRepository)),
             BlocProvider(
                 create: (_) =>
-                    DeparturesCubit(krkStopsRepository, localRepository))
+                    DeparturesCubit(krkStopsRepository, localRepository)),
+            BlocProvider(
+              create: (context) => FeatureCubit(localRepository),
+            )
           ],
           child: MaterialApp(
             title: 'KrkStops',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:krk_stops_app/cubit/airly_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -81,67 +80,10 @@ class InstallationView extends StatelessWidget {
                 })),
           ),
           IconButton(
-              icon: Icon(Icons.launch),
-              tooltip: AppLocalizations.of(context)!.airlySeeOnMap,
-              onPressed: () async {
-                var bloc = context.read<AirlyCubit>();
-                var url = Uri(
-                    scheme: "https",
-                    host: "airly.eu",
-                    path: "map/pl",
-                    fragment:
-                        "${bloc.state.inst.latitude},${bloc.state.inst.longitude},i${bloc.state.inst.id}");
-                if (await canLaunchUrl(url)) {
-                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                }
-              }),
-          IconButton(
-            icon: Icon(Icons.location_searching),
-            tooltip: AppLocalizations.of(context)!.airlyFindNearestInstallation,
-            onPressed: () {
-              Geolocator.requestPermission().then((permisions) {
-                Geolocator.getCurrentPosition(
-                        desiredAccuracy: LocationAccuracy.medium)
-                    .then((location) {
-                  context.read<AirlyCubit>().findNearest(location).then(
-                      (value) {
-                    final snackBar = SnackBar(
-                        content: Text(AppLocalizations.of(context)!
-                            .airlyFindNearestInstallationOk));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }, onError: (Object error) {
-                    final snackBar = SnackBar(
-                        content: Text(AppLocalizations.of(context)!
-                            .airlyFindNearestInstallationError));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  });
-                });
-              });
-            },
-          ),
-          IconButton(
               icon: Icon(Icons.edit),
               tooltip: AppLocalizations.of(context)!.airlyEditInstallation,
               onPressed: showAirlyDialog(context)),
         ]),
-        InkWell(
-          child: Container(
-            height: 48,
-            child: Row(
-              children: [
-                Image(image: AssetImage('images/airly.png')),
-                Expanded(child: Container())
-              ],
-            ),
-            padding: EdgeInsets.all(12),
-          ),
-          onTap: () async {
-            var url = Uri(scheme: "https", host: "airly.eu");
-            if (await canLaunchUrl(url)) {
-              await launchUrl(url, mode: LaunchMode.externalApplication);
-            }
-          },
-        ),
       ],
     );
   }

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 
@@ -65,13 +64,6 @@ class AirlyCubit extends Cubit<AirlyInstallation> {
   Future<Installation> checkId(int id) {
     var request = GetAirlyInstallationRequest()..id = id;
     return krkStopsRepository.stub.getAirlyInstallation(request);
-  }
-
-  Future<Installation> findNearest(Position pos) {
-    var request = Location()
-      ..latitude = pos.latitude
-      ..longitude = pos.longitude;
-    return krkStopsRepository.stub.findNearestAirlyInstallation(request);
   }
 
   static String encode(Installation obj) {
