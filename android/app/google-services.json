@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:763828584294:android:780ce4ebf1ca4cfae692a7",
+        "android_client_info": {
+          "package_name": "com.example.krkstops"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763828584294-pgbfilb2n73145ii9uaq2lcogngckppk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqICB0ZeL84fZozPbgI66pz3kjmyPAdbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763828584294-pgbfilb2n73145ii9uaq2lcogngckppk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:763828584294:android:acae783b7f717f83e692a7",
         "android_client_info": {
           "package_name": "krkstops.app"
@@ -15,19 +44,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "763828584294-h751md097ekor268p8ke5hhh0t269in7.apps.googleusercontent.com",
+          "client_id": "763828584294-fr6448d48kst3edlrh88r4k0v0sekc3m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "krkstops.app",
             "certificate_hash": "ea30a8d824a135db6759cf14278f66fe91c4e6ab"
-          }
-        },
-        {
-          "client_id": "763828584294-impfic7vdonco0dp576pa9339stjm33m.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "krkstops.app",
-            "certificate_hash": "4f1761ff2b25fa1397a64a4795dbcced207d0dd2"
           }
         },
         {
@@ -36,6 +57,14 @@
           "android_info": {
             "package_name": "krkstops.app",
             "certificate_hash": "37000ca95539dee7133135e9768b10b5412ef516"
+          }
+        },
+        {
+          "client_id": "763828584294-vtntf2fjdofqbp59cjadptkusodbibqe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "krkstops.app",
+            "certificate_hash": "4f1761ff2b25fa1397a64a4795dbcced207d0dd2"
           }
         },
         {
