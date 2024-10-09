@@ -3,7 +3,7 @@ description: KrkStops application
 
 publish_to: 'none'
 
-version: 1.16.1+41
+version: 1.16.2+42
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -29,7 +29,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   protoc_plugin: ^21.0.0
-  flutter_launcher_icons: ^0.13.0
+  flutter_launcher_icons: ^0.14.0
 
 flutter:
   uses-material-design: true
