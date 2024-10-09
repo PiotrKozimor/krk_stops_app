@@ -8,12 +8,12 @@ import '../circle_color.dart';
 class DeparturesEditView extends StatelessWidget {
   DeparturesEditView({Key? key}) : super(key: key);
   final List<Color> possibleColors = [
-    Colors.red.withOpacity(0.2),
-    Colors.deepPurple.withOpacity(0.2),
-    Colors.lightBlue.withOpacity(0.2),
-    Colors.green.withOpacity(0.2),
-    Colors.yellow.withOpacity(0.2),
-    Colors.white.withOpacity(0.2),
+    Colors.red,
+    Colors.deepPurple,
+    Colors.lightBlue,
+    Colors.green,
+    Colors.yellow,
+    Colors.white,
   ];
   Widget Function(BuildContext) showColorDialogBuilder(Departure departure) {
     return (context) {
@@ -32,9 +32,12 @@ class DeparturesEditView extends StatelessWidget {
                             circleSize: 32,
                             color: e,
                             onColorChoose: () {
-                              context
-                                  .read<DeparturesCubit>()
-                                  .setColor(departure, e);
+                              var cubit = context.read<DeparturesCubit>();
+                              if (e == Colors.white) {
+                                cubit.remove(departure);
+                              } else {
+                                cubit.setColor(departure, e);
+                              }
                               Navigator.pop(context);
                             },
                           ));
@@ -50,6 +53,10 @@ class DeparturesEditView extends StatelessWidget {
         itemCount: state.departures.length,
         itemBuilder: (_, index) {
           Departure departure = state.departures[index];
+          Color color = Color(departure.color);
+          if (departure.color == 0) {
+            color = Colors.white;
+          }
           return Container(
             height: 40,
             child: Row(
@@ -69,7 +76,7 @@ class DeparturesEditView extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.all(8),
                     child: CircleColor(
-                      color: Color(departure.color),
+                      color: color,
                       circleSize: 32,
                       onColorChoose: () {
                         showDialog(

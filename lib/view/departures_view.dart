@@ -22,7 +22,7 @@ class DeparturesList extends StatelessWidget {
         color = Color(departure.color);
       }
       departuresWidgets.add(Container(
-        color: color,
+        color: color?.withOpacity(0.3),
         height: 32,
         child: Row(
           children: <Widget>[

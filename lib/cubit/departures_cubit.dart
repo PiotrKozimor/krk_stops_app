@@ -28,7 +28,7 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
     });
     colors = [
       Departure()
-        ..color = 4292998654
+        ..color = Colors.lightBlue.value
         ..direction = "Czerwone Maki P+R"
         ..patternText = "52"
     ];
@@ -104,19 +104,22 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
   setColor(Departure dep, Color color) {
     var departureIndex = find(dep);
     var departureColors = List<Departure>.from(colors);
-    if (color == Colors.white) {
-      if (departureIndex != -1) {
-        departureColors.removeAt(departureIndex);
-      }
+    if (departureIndex == -1) {
+      departureColors.add(Departure()
+        ..patternText = dep.patternText
+        ..direction = dep.direction
+        ..color = color.value);
     } else {
-      if (departureIndex == -1) {
-        departureColors.add(Departure()
-          ..patternText = dep.patternText
-          ..direction = dep.direction
-          ..color = color.value);
-      } else {
-        departureColors[departureIndex].color = color.value;
-      }
+      departureColors[departureIndex].color = color.value;
+    }
+    save(departureColors);
+  }
+
+  remove(Departure dep) {
+    var departureIndex = find(dep);
+    var departureColors = List<Departure>.from(colors);
+    if (departureIndex != -1) {
+      departureColors.removeAt(departureIndex);
     }
     save(departureColors);
   }
