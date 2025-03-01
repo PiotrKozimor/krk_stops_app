@@ -10,8 +10,8 @@ class LegalView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8),
       child: TextButton(
-          onPressed: () =>
-              launchUrl(Uri.parse("https://krkstops.hopto.org/legal_notice")),
+          onPressed: () => launchUrl(
+              Uri.parse("https://krkstops.cozymore.dev/legal_notice")),
           child: Text(AppLocalizations.of(context)!.legalNotice)),
     );
   }

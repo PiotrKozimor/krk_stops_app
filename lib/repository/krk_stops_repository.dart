@@ -4,8 +4,7 @@ import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 class KrkStopsRepository {
   late KrkStopsClient stub;
   final channel = ClientChannel(
-    'krkstops.hopto.org',
-    port: 9090,
+    'apikrkstops.cozymore.dev',
   );
 
   KrkStopsRepository() {
