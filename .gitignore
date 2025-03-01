@@ -52,3 +52,5 @@ icon/logo.png
 
 krkstops-*.json
 .vscode
+
+**/.cxx
