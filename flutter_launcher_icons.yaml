@@ -1,0 +1,14 @@
+flutter_launcher_icons:
+  image_path: "images/icon.png"
+  android: "launcher_icon"
+  min_sdk_android: 21
+  web:
+    generate: false
+  windows:
+    generate: false
+  macos:
+    generate: false
+  adaptive_icon_background: "#CBCBCB"
+  adaptive_icon_foreground: "images/icon.png"
+  adaptive_icon_foreground_inset: 16
+  adaptive_icon_monochrome: "images/icon.png"
