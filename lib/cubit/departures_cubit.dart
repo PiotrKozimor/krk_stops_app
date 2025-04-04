@@ -11,7 +11,7 @@ import '../repository/local_repository.dart';
 class FilteredDepartures {
   List<Departure> departures;
   Transit filter;
-  String? error;
+  Object? error;
   FilteredDepartures(this.departures, this.filter, [this.error]);
 }
 
@@ -49,8 +49,7 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
       emitWithColors(filter(state.filter), colors);
       fetched.complete();
     }, onError: (Object error) {
-      emit(FilteredDepartures(
-          List<Departure>.empty(), Transit.ALL, error.toString()));
+      emit(FilteredDepartures(List<Departure>.empty(), Transit.ALL, error));
       fetched.completeError("Could not fetch departures: $error");
     });
     return fetched.future;

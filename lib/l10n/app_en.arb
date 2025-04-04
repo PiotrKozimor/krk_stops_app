@@ -15,7 +15,9 @@
     "backupRemoveOk": "Backup removed successfully",
     "backupRemoveError": "Error occured when removing backup",
     "departuresError": "Failed to fetch departures",
+    "departuresErrorUpstream": "Failed to fetch departures: upstream server error",
     "savedStopsAdd": "Add to saved",
     "savedStopsRemove": "Remove from saved",
+    "stopsSearchError": "Failed to search stops",
     "departureFilterbyType": "Filter bus or tram departures"
 }

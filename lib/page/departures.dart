@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grpc/grpc.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
@@ -75,6 +76,15 @@ class DeparturesPage extends StatelessWidget {
               builder: (context, state) => DeparturesList(state.departures),
               listener: (context, state) {
                 if (state.error != null) {
+                  if (state.error is GrpcError) {
+                    final grpcError = state.error as GrpcError;
+                    if (grpcError.code == StatusCode.unknown) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(AppLocalizations.of(context)!
+                              .departuresErrorUpstream)));
+                      return;
+                    }
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content:
                           Text(AppLocalizations.of(context)!.departuresError)));

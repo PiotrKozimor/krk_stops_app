@@ -15,7 +15,9 @@
   "backupRemoveOk": "Pomyślnie usunięto kopię zapasową",
   "backupRemoveError": "Błąd podczas usuwania kopii zapasoweja",
   "departuresError": "Błąd podczas pobierania odjazdów",
+  "departuresErrorUpstream": "Błąd zewnętrznego serwera podczas pobierania odjazdów",
   "savedStopsAdd": "Zapisz",
   "savedStopsRemove": "Usuń z zapisanych",
+  "stopsSearchError": "Błąd podczas wyszukiwania przystanków",
   "departureFilterbyType": "Filtruj odjazdy autobusów lub tramwajów"
 }
