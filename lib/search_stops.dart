@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:krk_stops_app/l10n/app_localizations.dart';
 import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/repository/krk_stops_repository.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'grpc/krk-stops.pbgrpc.dart';
 

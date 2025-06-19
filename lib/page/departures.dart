@@ -4,7 +4,7 @@ import 'package:grpc/grpc.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:krk_stops_app/l10n/app_localizations.dart';
 
 import '../grpc/krk-stops.pb.dart';
 import '../grpc/krk-stops.pbgrpc.dart';

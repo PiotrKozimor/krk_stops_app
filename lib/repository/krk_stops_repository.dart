@@ -4,7 +4,7 @@ import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
 class KrkStopsRepository {
   late KrkStopsClient stub;
   final channel = ClientChannel(
-    'apitramsku.cozymore.dev',
+    'apikrkstops.cozymore.dev',
   );
 
   KrkStopsRepository() {

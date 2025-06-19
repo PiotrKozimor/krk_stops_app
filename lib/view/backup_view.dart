@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/cubit/authentication_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:krk_stops_app/l10n/app_localizations.dart';
 
 import '../cubit/departures_cubit.dart';
 

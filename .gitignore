@@ -54,3 +54,5 @@ krkstops-*.json
 .vscode
 
 **/.cxx
+
+ephemeral/
