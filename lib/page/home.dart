@@ -6,7 +6,6 @@ import 'package:krk_stops_app/page/settings.dart';
 import '../cubit/departures_cubit.dart';
 import '../cubit/stops_cubit.dart';
 import '../grpc/krk-stops.pb.dart';
-import '../repository/firebase_repository.dart';
 import '../search_stops.dart';
 import '../view/stops_view.dart';
 import 'departures.dart';
@@ -41,11 +40,7 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.settings),
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => RepositoryProvider<FirebaseRepository>(
-                            create: (_) => FirebaseRepository(),
-                            child: SettingsPage())));
+                    context, MaterialPageRoute(builder: (_) => SettingsPage()));
               },
             )
           ],
