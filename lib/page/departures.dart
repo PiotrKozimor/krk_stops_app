@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grpc/grpc.dart';
 import 'package:krk_stops_app/cubit/departures_cubit.dart';
 import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/view/departures_view.dart';
 import 'package:krk_stops_app/l10n/app_localizations.dart';
+import 'package:krk_stops_app/repository/http_krk_stops_repository.dart';
 
 import '../grpc/krk-stops.pb.dart';
-import '../grpc/krk-stops.pbgrpc.dart';
 import 'edit_departures.dart';
 
 var iconFromFilter = {
@@ -76,9 +75,9 @@ class DeparturesPage extends StatelessWidget {
               builder: (context, state) => DeparturesList(state.departures),
               listener: (context, state) {
                 if (state.error != null) {
-                  if (state.error is GrpcError) {
-                    final grpcError = state.error as GrpcError;
-                    if (grpcError.code == StatusCode.unknown) {
+                  if (state.error is RepositoryError) {
+                    final repositoryError = state.error as RepositoryError;
+                    if (repositoryError == RepositoryError.upstream) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(AppLocalizations.of(context)!
                               .departuresErrorUpstream)));

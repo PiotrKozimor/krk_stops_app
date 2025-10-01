@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:krk_stops_app/l10n/app_localizations.dart';
 import 'package:krk_stops_app/last_stop.dart';
-import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/http_krk_stops_repository.dart';
 import 'package:krk_stops_app/view/stops_view.dart';
 
-import 'grpc/krk-stops.pbgrpc.dart';
+import 'grpc/krk-stops.pb.dart';
 
 class SearchStops extends SearchDelegate<Stop> {
   final LastStops ls;
@@ -41,11 +41,18 @@ class SearchStops extends SearchDelegate<Stop> {
   Widget buildSuggestions(BuildContext context) {
     if (this.query.length > 1) {
       var _stops = new Completer<List<Stop>>();
-      RepositoryProvider.of<KrkStopsRepository>(context)
-          .stub
-          .searchStops2(SearchStops2Request()..query = this.query)
-          .then((response) {
-        _stops.complete(response.stops);
+      RepositoryProvider.of<HttpKrkStopsRepository>(context)
+          .searchStops(this.query)
+          .then((result) {
+        if (result.error != null) {
+          final snackBar = SnackBar(
+              content: Text(
+            AppLocalizations.of(context)!.stopsSearchError,
+          ));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          _stops.complete(result.data);
+        }
       }).catchError((Object error) {
         final snackBar = SnackBar(
             content: Text(

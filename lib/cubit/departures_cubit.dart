@@ -3,8 +3,8 @@ import 'dart:core';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:krk_stops_app/grpc/krk-stops.pbgrpc.dart';
-import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/grpc/krk-stops.pb.dart';
+import 'package:krk_stops_app/repository/http_krk_stops_repository.dart';
 
 import '../repository/local_repository.dart';
 
@@ -16,12 +16,12 @@ class FilteredDepartures {
 }
 
 class DeparturesCubit extends Cubit<FilteredDepartures> {
-  final KrkStopsRepository krkStopsRepository;
+  final HttpKrkStopsRepository httpKrkStopsRepository;
   final LocalRepository local;
   var colors = List<Departure>.empty();
   var allDepartures = List<Departure>.empty();
   static final key = 'departures';
-  DeparturesCubit(this.krkStopsRepository, this.local)
+  DeparturesCubit(this.httpKrkStopsRepository, this.local)
       : super(FilteredDepartures(List<Departure>.empty(), Transit.ALL)) {
     local.preferencesLoaded.future.then((value) {
       load();
@@ -36,19 +36,23 @@ class DeparturesCubit extends Cubit<FilteredDepartures> {
 
   Future<void> fetch(Stop stop) {
     var fetched = Completer<void>();
-    krkStopsRepository.stub
-        .getDepartures2(GetDepartures2Request(id: stop.id))
-        .then((response) {
-      if (response.departures.isEmpty) {
-        response.departures
-            .add(Departure(direction: "No departures in 20 minutes."));
+    httpKrkStopsRepository.fetchDepartures(stop.id).then((result) {
+      if (result.error != null) {
+        emit(FilteredDepartures(
+            List<Departure>.empty(), Transit.ALL, result.error));
+        fetched.completeError("Could not fetch departures: ${result.error}");
+        return;
       }
-      response.departures
-          .sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
-      allDepartures = response.departures;
+
+      var departures = result.data;
+      if (departures.isEmpty) {
+        departures = [Departure(direction: "No departures in 20 minutes.")];
+      }
+      departures.sort((a, b) => a.relativeTime.compareTo(b.relativeTime));
+      allDepartures = departures;
       emitWithColors(filter(state.filter), colors);
       fetched.complete();
-    }, onError: (Object error) {
+    }).catchError((Object error) {
       emit(FilteredDepartures(List<Departure>.empty(), Transit.ALL, error));
       fetched.completeError("Could not fetch departures: $error");
     });

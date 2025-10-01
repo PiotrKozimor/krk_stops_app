@@ -5,37 +5,37 @@ import 'package:krk_stops_app/cubit/stops_cubit.dart';
 import 'package:krk_stops_app/l10n/app_localizations.dart';
 import 'package:krk_stops_app/last_stop.dart';
 import 'package:krk_stops_app/page/home.dart';
-import 'package:krk_stops_app/repository/krk_stops_repository.dart';
+import 'package:krk_stops_app/repository/http_krk_stops_repository.dart';
 import 'package:krk_stops_app/repository/local_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(KrkStopsApp(
-    krkStopsRepository: KrkStopsRepository(),
+    httpKrkStopsRepository: HttpKrkStopsRepository(),
     localRepository: LocalRepository(),
   ));
 }
 
 class KrkStopsApp extends StatelessWidget {
-  final KrkStopsRepository krkStopsRepository;
+  final HttpKrkStopsRepository httpKrkStopsRepository;
   final LocalRepository localRepository;
   const KrkStopsApp({
     Key? key,
-    required this.krkStopsRepository,
+    required this.httpKrkStopsRepository,
     required this.localRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext _) {
     return RepositoryProvider.value(
-      value: krkStopsRepository,
+      value: httpKrkStopsRepository,
       child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => StopsCubit(localRepository)),
             BlocProvider(
                 create: (_) =>
-                    DeparturesCubit(krkStopsRepository, localRepository)),
+                    DeparturesCubit(httpKrkStopsRepository, localRepository)),
           ],
           child: MaterialApp(
             title: 'KrkStops',
